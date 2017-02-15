@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+</head>
+<body>
+<h1><%= title %></h1>
+<p>Welcome to <%= title %></p>
+<div>
+    <form id="upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="logo" multiple id="input-upload">
+        <input type="text" name="text">
+    </form>
+    <button onclick="uploadFile()">上传</button>
+    <div id="showPhoto">
+
+    </div>
+</div>
+<hr>
+<br>
+<input type="button" onclick="throttle(doing, 5000)">
+<script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="/javascripts/logoUp.js"></script>
+<script>
+
+
+</script>
+</body>
+</html>
