@@ -3,28 +3,188 @@
 <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <link rel="stylesheet" href="/stylesheets/swiper.min.css">
+    <link rel="stylesheet" href="/stylesheets/animate.min.css">
 </head>
 <body>
-<h1><%= title %></h1>
-<p>Welcome to <%= title %></p>
-<div>
-    <form id="upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="logo" multiple id="input-upload">
-        <input type="text" name="text">
-    </form>
-    <button onclick="uploadFile()">上传</button>
-    <div id="showPhoto">
+<!--<h1><%= title %></h1>-->
+<!--<p>Welcome to <%= title %></p>-->
+
+<!--<form id="upload" method="post" enctype="multipart/form-data">-->
+<!--<input type="file" name="logo" multiple id="input-upload">-->
+<!--<input type="text" name="text">-->
+<!--</form>-->
+<!--<button onclick="uploadFile()">上传</button>-->
+<!--<div id="showPhoto">-->
+<!--</div>-->
+<header id="menu">
+    <div class="nav">
+        <div class="logo">
+            <a href="#">旅人</a>
+        </div>
+        <ul>
+            <li><a href="#">首页</a></li>
+            <li><a href="#">广场</a></li>
+            <li><a href="#">发布</a></li>
+        </ul>
+    </div>
+</header>
+<div class="carousel">
+    <div class="swiper-container gallery-top" id="carousel">
+        <div class="swiper-wrapper">
+            <div class=" swiper-slide">
+                <img src="/images/slide1.jpg" alt="">
+            <span class="ani" swiper-animate-effect="bounceInRight" swiper-animate-duration="1s"
+                  swiper-animate-delay="0.1s">
+                logo
+            </span>
+            <span class="ani text" swiper-animate-effect="bounceInRight" swiper-animate-duration="2s"
+                  swiper-animate-delay="0.2s">
+                把我租给你，还有我在这个城市的秘密
+                把我租给你，还有我在这个城市的秘密
+                把我租给你，还有我在这个城市的秘密
+                把我租给你，还有我在这个城市的秘密
+            </span>
+            </div>
+            <div class=" swiper-slide ">
+                <img src="/images/slide2.jpg" alt="">
+            <span class="ani" swiper-animate-effect="bounceInLeft" swiper-animate-duration="2s"
+                  swiper-animate-delay="0.1s">
+                22222
+            </span>
+            </div>
+            <div class=" swiper-slide ">
+                <img src="/images/slide3.jpg" alt="">
+            <span class="ani" swiper-animate-effect="bounceInLeft" swiper-animate-duration="2s"
+                  swiper-animate-delay="0.1s">
+                333333
+            </span>
+            </div>
+
+        </div>
+        <!--&lt;!&ndash;&lt;!&ndash; 如果需要导航按钮 &ndash;&gt;&ndash;&gt;-->
+        <div class="swiper-button-prev  swiper-button-white"></div>
+        <div class="swiper-button-next  swiper-button-white"></div>
+    </div>
+    <!--小图控制出错-->
+    <div class="swiper-container gallery-thumbs">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="/images/slide1.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+                <img src="/images/slide2.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+                <img src="/images/slide3.jpg" alt="">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--分类-->
+<div class="type">
+    <div class="type-left">
+        <div class="left-top wow lightSpeedIn" data-wow-duration=".3s" data-wow-delay="0.5s">
+            自然
+        </div>
+        <div class="left-middle wow lightSpeedIn " data-wow-duration=".3s" data-wow-delay="0.7s">
+            人文
+        </div>
+        <div class="left-bottom wow lightSpeedIn " data-wow-duration=".3s" data-wow-delay="0.9s">
+            传统饮食
+        </div>
 
     </div>
+    <div class="type-center">
+        <div>
+            <div>img1</div>
+            <div>img2</div>
+            <div>img3</div>
+        </div>
+    </div>
+    <div class="type-right">
+        <div class="wow lightSpeedIn ">
+            <div class="right-top wow lightSpeedIn" data-wow-duration=".3s" data-wow-delay="1.1s">
+                都市
+            </div>
+            <div class="right-middle wow lightSpeedIn" data-wow-duration=".3s" data-wow-delay="1.3s">
+                田园风光
+            </div>
+            <div class="right-bottom wow lightSpeedIn" data-wow-duration=".3s" data-wow-delay="1.5s">
+                文化与工艺
+            </div>
+        </div>
+    </div>
+
 </div>
-<hr>
-<br>
-<input type="button" onclick="throttle(doing, 5000)">
+<div class="sentence">
+    <img class="sentence-bg" src="/images/big_1.jpg" alt="">
+    <figure>
+        <img src="/images/slide3.jpg" alt="三毛">
+    </figure>
+    <p class=" quote">&ldquo;如果心无处可栖，到哪都是流浪。&rdquo; <cite class="author">&mdash; 三毛</cite></p>
+</div>
+
+<div class="popular">
+    <div class="title">
+        <div class="title-big">最受欢迎旅人</div>
+
+        <div class="title-tip">更多</div>
+    </div>
+    <div class="main">
+        <div class="card">
+            <img src="/images/slide2.jpg" alt="">
+            <p>
+                detail detail
+            </p>
+        </div>
+        <div class="card">
+            <img src="/images/slide2.jpg" alt="">
+            <p>
+                detail detail
+            </p>
+        </div>
+        <div class="card">
+            <img src="/images/slide2.jpg" alt="">
+            <p>
+                detail detail
+            </p>
+        </div>
+        <div class="card">
+            <img src="/images/slide2.jpg" alt="">
+            <p>
+                detail detail
+            </p>
+        </div>
+        <div class="card">
+            <img src="/images/slide2.jpg" alt="">
+            <p>
+                detail detail
+            </p>
+        </div>
+        <div class="card">
+            <img src="/images/slide2.jpg" alt="">
+            <p>
+                detail detail
+            </p>
+
+        </div>
+    </div>
+</div>
+
+<footer>
+    © Lvren 上海旅人有限公司   |
+    沪公网安备 xxxxxxxxxxxxxxx号
+</footer>
+
+<script src="/javascripts/wow.min.js"></script>
 <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="/javascripts/swiper.min.js"></script>
+<script src="/javascripts/swiper.animate1.0.2.min.js"></script>
+<script src="/javascripts/swiper.js"></script>
 <script src="/javascripts/logoUp.js"></script>
-<script>
 
-
-</script>
 </body>
 </html>

@@ -2,6 +2,9 @@ var express = require('express');
 var multipart = require('connect-multiparty');
 var router = express.Router();
 var fileuuid = require('./../util/uuidHelper');
+
+
+
 var qiniu = require("qiniu");
 //需要填写你的 Access Key 和 Secret Key
 qiniu.conf.ACCESS_KEY = 'E0ehWlaL0yjRbRmjlHOdAj5KRMfYl2P86Jy13d2E';
@@ -34,6 +37,7 @@ function uploadFile(uptoken,filename, localFile,res) {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+ 
     res.render('index', {title: '旅人'});
 });
 

@@ -1,8 +1,210 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
+html, body {
+  width: 100%;
+  padding: 0;
+  margin: 0; }
 
-a {
-  color: #00B7FF; }
+body {
+  font-family: Arial,'Microsoft Yahei';
+  font-size: 14px;
+  overflow-x: hidden;
+  background: #EFEEEC; }
+
+header {
+  font-size: 1.2rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  color: lightcoral;
+  background: rgba(255, 255, 255, 0.2);
+  z-index: 100;
+  transition: all 1s;
+  box-shadow: #999 0 1px 2px; }
+  header .nav {
+    width: 80%;
+    margin: 0 auto;
+    padding: 0; }
+    header .nav a {
+      text-decoration: none;
+      color: inherit; }
+    header .nav .logo {
+      display: inline-block; }
+    header .nav ul {
+      display: inline-block; }
+      header .nav ul li {
+        display: inline-block;
+        border-bottom: none;
+        position: relative;
+        margin-right: 2em; }
+        header .nav ul li:after {
+          content: "";
+          position: absolute;
+          bottom: -2px;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background: lightcoral;
+          transform: scaleX(0);
+          transition: all 0.1s; }
+        header .nav ul li:hover:after {
+          transform: scaleX(1); }
+
+.carousel {
+  position: relative;
+  height: 800px;
+  width: 100%; }
+  .carousel .gallery-thumbs {
+    height: 20%;
+    box-sizing: border-box;
+    padding: 10px 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 2em; }
+    .carousel .gallery-thumbs .swiper-slide-active {
+      border: solid 2px lightcoral; }
+    .carousel .gallery-thumbs .swiper-slide {
+      width: 100px;
+      height: 70px; }
+      .carousel .gallery-thumbs .swiper-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; }
+
+.gallery-top {
+  height: 100%;
+  width: 100%; }
+  .gallery-top .swiper-slide {
+    position: relative; }
+    .gallery-top .swiper-slide img {
+      width: 100%;
+      object-fit: cover;
+      object-position: 50% 50%; }
+    .gallery-top .swiper-slide span, .gallery-top .swiper-slide .text {
+      position: absolute;
+      top: 5rem;
+      right: 5rem;
+      font-size: 27px;
+      font-weight: 900;
+      z-index: 200; }
+    .gallery-top .swiper-slide .text {
+      top: 10rem;
+      right: 5rem;
+      z-index: 200;
+      font-size: 1.5rem;
+      font-weight: normal;
+      display: block;
+      width: 20em; }
+
+.swiper-pagination {
+  position: absolute;
+  bottom: 2em; }
+
+.type {
+  width: 100%;
+  height: 420px;
+  background: #fff;
+  padding: 1em;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2em;
+  box-sizing: border-box; }
+  .type [class^='type-'] {
+    height: 100%;
+    margin-left: 1.5em; }
+  .type .type-center {
+    flex: 3;
+    border-right: solid 1px rgba(0, 0, 0, 0.3); }
+  .type .type-left {
+    flex: 1;
+    border-right: solid 1px rgba(0, 0, 0, 0.3); }
+    .type .type-left [class^='left-'] {
+      width: 100%;
+      height: 140px;
+      margin-right: 1em; }
+      .type .type-left [class^='left-']:not(:last-child) {
+        border-bottom: solid 1px rgba(0, 0, 0, 0.3); }
+  .type .type-right {
+    flex: 1; }
+    .type .type-right [class^='right-'] {
+      width: 100%;
+      height: 140px; }
+      .type .type-right [class^='right-']:not(:last-child) {
+        border-bottom: solid 1px rgba(0, 0, 0, 0.3); }
+
+.sentence {
+  height: 320px;
+  width: 100%;
+  position: relative; }
+  .sentence .sentence-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+    position: relative;
+    z-index: -2; }
+  .sentence p {
+    position: absolute;
+    top: 4em;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: #fff;
+    text-align: center;
+    font-size: 32px; }
+    .sentence p .author {
+      display: block; }
+  .sentence figure img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    margin-left: -45px;
+    top: 2em; }
+
+.popular {
+  width: 70%;
+  margin: 6em auto; }
+  .popular .title {
+    width: 100%;
+    height: 10em;
+    background: #fff; }
+    .popular .title .title-big {
+      font-size: 1.5rem;
+      padding: 0.5em;
+      text-align: center; }
+    .popular .title .title-tip {
+      color: #333;
+      text-align: center; }
+      .popular .title .title-tip:hover {
+        color: lightcoral;
+        cursor: pointer; }
+  .popular .main {
+    display: -webkit-flex;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between; }
+    .popular .main .card {
+      width: 320px;
+      height: 420px;
+      padding: 1.5rem;
+      margin-top: 2em;
+      background: #fff; }
+      .popular .main .card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        margin: 2em auto; }
+      .popular .main .card p {
+        padding: 2em; }
+
+footer {
+  margin-top: 4rem;
+  background: #000;
+  text-align: center;
+  height: 2em;
+  line-height: 2em;
+  color: #fff; }
 
 /*# sourceMappingURL=style.css.map */
