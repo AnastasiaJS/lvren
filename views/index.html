@@ -85,39 +85,41 @@
 
 <!--分类-->
 <div class="type">
-    <div class="type-left">
-        <div class="left-top wow lightSpeedIn" data-wow-duration=".3s" data-wow-delay="0.5s">
-            自然
-        </div>
-        <div class="left-middle wow lightSpeedIn " data-wow-duration=".3s" data-wow-delay="0.7s">
-            人文
-        </div>
-        <div class="left-bottom wow lightSpeedIn " data-wow-duration=".3s" data-wow-delay="0.9s">
-            传统饮食
-        </div>
-
+    <div class="title">
+        <div class="title-big">主题精选</div>
+        <p class="small-sentence">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite></p>
+        <div class="title-tip">更多</div>
     </div>
-    <div class="type-center">
-        <div>
-            <div>img1</div>
-            <div>img2</div>
-            <div>img3</div>
+    <div class="main">
+        <div class="part">
+            <img src="/images/ziran.jpg" alt="">
+            <p>自然</p>
+        </div>
+        <div class="part">
+            <img src="/images/renwen.jpg" alt="">
+            <p>人文</p>
+        </div>
+        <div class="part">
+            <img src="/images/yinshi.jpg" alt="">
+            <p>传统饮食</p>
+        </div>
+        <div class="part">
+            <img src="/images/dushi.jpg" alt="">
+            <p>都市</p>
+        </div>
+        <div class="part">
+            <img src="/images/tianyuan.jpg" alt="">
+            <p>田园风光</p>
+        </div>
+        <div class="part">
+            <img src="/images/gongyi.jpg" alt="">
+            <p>文化与工艺</p>
+        </div>
+        <div class="part">
+            <img src="/images/gongyi.jpg" alt="">
+            <p>文化与工艺</p>
         </div>
     </div>
-    <div class="type-right">
-        <div class="wow lightSpeedIn ">
-            <div class="right-top wow lightSpeedIn" data-wow-duration=".3s" data-wow-delay="1.1s">
-                都市
-            </div>
-            <div class="right-middle wow lightSpeedIn" data-wow-duration=".3s" data-wow-delay="1.3s">
-                田园风光
-            </div>
-            <div class="right-bottom wow lightSpeedIn" data-wow-duration=".3s" data-wow-delay="1.5s">
-                文化与工艺
-            </div>
-        </div>
-    </div>
-
 </div>
 <div class="sentence">
     <img class="sentence-bg" src="/images/big_1.jpg" alt="">
@@ -130,7 +132,7 @@
 <div class="popular">
     <div class="title">
         <div class="title-big">最受欢迎旅人</div>
-
+        <p class="small-sentence">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite></p>
         <div class="title-tip">更多</div>
     </div>
     <div class="main">
@@ -174,6 +176,93 @@
     </div>
 </div>
 
+<div class="music">
+    <img class="music-bg" src="/images/skllr.jpg" alt="时空恋旅人">
+    <audio id="aud" autoplay>
+        <source src="/chengdu.mp3" type="audio/mpeg">
+    </audio>
+    <img class="music-control" id="play" src="/images/play.png" onclick="aud_play()" />
+    <img class="music-control" id="pause" src="/images/pause.png" onclick="aud_pause()" />
+    <!--动态播放效果-->
+    <div id="music-ani">
+        <div id="ani1"></div>
+        <div id="ani2"></div>
+        <div id="ani3"></div>
+        <div id="ani4"></div>
+        <div id="ani5"></div>
+        <div id="ani6"></div>
+    </div>
+</div>
+
+
+<div class="articles">
+    <div class="title">
+        <div class="title-big">我的城市故事</div>
+        <p class="small-sentence">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite></p>
+        <div class="title-tip">更多</div>
+    </div>
+    <div class="article-main">
+        <article>
+            <div class="article-left">
+                <img src="/images/gaomi.jpg" alt="高密">
+            </div>
+            <div class="article-right" onclick="location.href='#'">
+                <h1>高密行</h1>
+                <section>
+                    G字头的速度，果然不同凡响，没等回过神，站台已经消失得无影无踪。
+                    呼啸着向前，似一把出鞘的利刃，飞快地割切着堡垒密布的城市。锋芒所向，一簇簇一层层缠绕的楼群被分断、撕裂，然后毫无顾惜地抛向身后，一骑绝尘般杀出雾霾笼罩的包围圈。
+                    凭如此速度我似乎该兴奋，或者乘着如此的气势而燃起激情
+                </section>
+            </div>
+        </article>
+        <article>
+            <div class="article-left">
+                <img src="/images/gaomi.jpg" alt="高密">
+            </div>
+            <div class="article-right">
+                <h1>高密行</h1>
+                <section>
+                    G字头的速度，果然不同凡响，没等回过神，站台已经消失得无影无踪。
+                    呼啸着向前，似一把出鞘的利刃，飞快地割切着堡垒密布的城市。锋芒所向，一簇簇一层层缠绕的楼群被分断、撕裂，然后毫无顾惜地抛向身后，一骑绝尘般杀出雾霾笼罩的包围圈。
+                    凭如此速度我似乎该兴奋，或者乘着如此的气势而燃起激情
+                    G字头的速度，果然不同凡响，没等回过神，站台已经消失得无影无踪。
+                    呼啸着向前，似一把出鞘的利刃，飞快地割切着堡垒密布的城市。锋芒所向，一簇簇一层层缠绕的楼群被分断、撕裂，然后毫无顾惜地抛向身后，一骑绝尘般杀出雾霾笼罩的包围圈。
+                    凭如此速度我似乎该兴奋，或者乘着如此的气势而燃起激情
+                    G字头的速度，果然不同凡响，没等回过神，站台已经消失得无影无踪。
+                    呼啸着向前，似一把出鞘的利刃，飞快地割切着堡垒密布的城市。锋芒所向，一簇簇一层层缠绕的楼群被分断、撕裂，然后毫无顾惜地抛向身后，一骑绝尘般杀出雾霾笼罩的包围圈。
+                    凭如此速度我似乎该兴奋，或者乘着如此的气势而燃起激情
+                </section>
+            </div>
+        </article>
+        <article>
+            <div class="article-left">
+                <img src="/images/gaomi.jpg" alt="高密">
+            </div>
+            <div class="article-right" onclick="location.href='#'">
+                <h1>高密行</h1>
+                <section>
+                    G字头的速度，果然不同凡响，没等回过神，站台已经消失得无影无踪。
+                    呼啸着向前，似一把出鞘的利刃，飞快地割切着堡垒密布的城市。锋芒所向，一簇簇一层层缠绕的楼群被分断、撕裂，然后毫无顾惜地抛向身后，一骑绝尘般杀出雾霾笼罩的包围圈。
+                    凭如此速度我似乎该兴奋，或者乘着如此的气势而燃起激情
+                </section>
+            </div>
+        </article>
+        <article>
+            <div class="article-left">
+                <img src="/images/gaomi.jpg" alt="高密">
+            </div>
+            <div class="article-right" onclick="location.href='#'">
+                <h1>高密行</h1>
+                <section>
+                    G字头的速度，果然不同凡响，没等回过神，站台已经消失得无影无踪。
+                    呼啸着向前，似一把出鞘的利刃，飞快地割切着堡垒密布的城市。锋芒所向，一簇簇一层层缠绕的楼群被分断、撕裂，然后毫无顾惜地抛向身后，一骑绝尘般杀出雾霾笼罩的包围圈。
+                    凭如此速度我似乎该兴奋，或者乘着如此的气势而燃起激情
+                </section>
+            </div>
+        </article>
+    </div>
+</div>
+
 <footer>
     © Lvren 上海旅人有限公司   |
     沪公网安备 xxxxxxxxxxxxxxx号
@@ -184,6 +273,7 @@
 <script src="/javascripts/swiper.min.js"></script>
 <script src="/javascripts/swiper.animate1.0.2.min.js"></script>
 <script src="/javascripts/swiper.js"></script>
+<script src="/javascripts/style.js"></script>
 <script src="/javascripts/logoUp.js"></script>
 
 </body>

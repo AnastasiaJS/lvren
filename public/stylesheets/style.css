@@ -1,13 +1,25 @@
+@keyframes music {
+  0% {
+    height: 40px; }
+  25% {
+    height: 35px; }
+  50% {
+    height: 28px; }
+  75% {
+    height: 22px; }
+  100% {
+    height: 15px; } }
 html, body {
   width: 100%;
   padding: 0;
   margin: 0; }
 
 body {
-  font-family: Arial,'Microsoft Yahei';
+  font-family: Arial, 'Microsoft Yahei';
   font-size: 14px;
   overflow-x: hidden;
-  background: #EFEEEC; }
+  background: #EFEEEC;
+  color: #333; }
 
 header {
   font-size: 1.2rem;
@@ -100,36 +112,71 @@ header {
   bottom: 2em; }
 
 .type {
-  width: 100%;
-  height: 420px;
-  background: #fff;
-  padding: 1em;
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 2em;
-  box-sizing: border-box; }
-  .type [class^='type-'] {
-    height: 100%;
-    margin-left: 1.5em; }
-  .type .type-center {
-    flex: 3;
-    border-right: solid 1px rgba(0, 0, 0, 0.3); }
-  .type .type-left {
-    flex: 1;
-    border-right: solid 1px rgba(0, 0, 0, 0.3); }
-    .type .type-left [class^='left-'] {
+  margin: 2em auto;
+  background-color: #fff;
+  width: 70%;
+  text-align: center; }
+  .type .title {
+    width: 100%;
+    height: 10em;
+    background: #fff; }
+    .type .title .title-big {
+      font-size: 1.5rem;
+      padding: 0.5em; }
+    .type .title .title-tip {
+      color: #333; }
+      .type .title .title-tip:hover {
+        color: lightcoral;
+        cursor: pointer; }
+    .type .title .small-sentence {
+      padding: 0.5em; }
+  .type .main {
+    display: -webkit-flex;
+    display: flex;
+    flex-flow: wrap row;
+    justify-content: flex-start;
+    margin-top: 2em; }
+  .type .part {
+    position: relative;
+    width: 18%;
+    height: 180px;
+    margin: 0.5em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: hidden; }
+    .type .part img {
       width: 100%;
-      height: 140px;
-      margin-right: 1em; }
-      .type .type-left [class^='left-']:not(:last-child) {
-        border-bottom: solid 1px rgba(0, 0, 0, 0.3); }
-  .type .type-right {
-    flex: 1; }
-    .type .type-right [class^='right-'] {
-      width: 100%;
-      height: 140px; }
-      .type .type-right [class^='right-']:not(:last-child) {
-        border-bottom: solid 1px rgba(0, 0, 0, 0.3); }
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.5s; }
+    .type .part p {
+      position: relative;
+      height: 100%;
+      text-align: center;
+      top: -50%;
+      color: #fff;
+      margin-top: -0.1em;
+      font-size: 30px;
+      font-weight: 800;
+      opacity: 0;
+      transition: all 0.5s; }
+    .type .part:hover img {
+      opacity: 0.8;
+      -webkit-transform: scale(1.2);
+      -moz-transform: scale(1.2);
+      -ms-transform: scale(1.2);
+      -o-transform: scale(1.2);
+      transform: scale(1.2);
+      cursor: pointer; }
+    .type .part:hover p {
+      opacity: 1;
+      -webkit-transform: translate(0, -1.5em);
+      -moz-transform: translate(0, -1.5em);
+      -ms-transform: translate(0, -1.5em);
+      -o-transform: translate(0, -1.5em);
+      transform: translate(0, -1.5em);
+      cursor: pointer; }
 
 .sentence {
   height: 320px;
@@ -163,41 +210,132 @@ header {
     margin-left: -45px;
     top: 2em; }
 
-.popular {
+.popular, .articles {
   width: 70%;
-  margin: 6em auto; }
-  .popular .title {
+  margin: 6em auto;
+  text-align: center; }
+  .popular .title, .articles .title {
     width: 100%;
     height: 10em;
     background: #fff; }
-    .popular .title .title-big {
+    .popular .title .title-big, .articles .title .title-big {
       font-size: 1.5rem;
-      padding: 0.5em;
-      text-align: center; }
-    .popular .title .title-tip {
-      color: #333;
-      text-align: center; }
-      .popular .title .title-tip:hover {
+      padding: 0.5em; }
+    .popular .title .title-tip, .articles .title .title-tip {
+      color: #333; }
+      .popular .title .title-tip:hover, .articles .title .title-tip:hover {
         color: lightcoral;
         cursor: pointer; }
-  .popular .main {
+    .popular .title .small-sentence, .articles .title .small-sentence {
+      padding: 0.5em; }
+  .popular .main, .articles .main {
     display: -webkit-flex;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between; }
-    .popular .main .card {
+    .popular .main .card, .articles .main .card {
       width: 320px;
       height: 420px;
       padding: 1.5rem;
       margin-top: 2em;
       background: #fff; }
-      .popular .main .card img {
+      .popular .main .card img, .articles .main .card img {
         width: 100%;
         height: 200px;
         object-fit: cover;
         margin: 2em auto; }
-      .popular .main .card p {
+      .popular .main .card p, .articles .main .card p {
         padding: 2em; }
+
+.music {
+  position: relative;
+  height: 320px;
+  width: 100%; }
+  .music .music-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+    position: relative;
+    z-index: -2; }
+  .music .music-control {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    margin-left: -32px; }
+    .music .music-control:hover {
+      cursor: pointer; }
+
+#play {
+  display: none; }
+
+#pause {
+  display: block; }
+
+#music-ani {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  margin-left: -22px;
+  display: inline-flex;
+  flex-flow: nowrap; }
+
+[id^="ani"] {
+  width: 4px;
+  height: 15px;
+  margin-right: 4px;
+  background: #FFF;
+  transition: all 1s; }
+
+#ani1 {
+  animation: music 1s infinite; }
+
+#ani2 {
+  animation: music 1s 0.2s infinite; }
+
+#ani3 {
+  animation: music 1s 0.4s infinite; }
+
+#ani4 {
+  animation: music 1s 0.6s infinite; }
+
+#ani5 {
+  animation: music 1s 0.8s infinite; }
+
+#ani6 {
+  animation: music 1s 1s infinite; }
+
+.articles .article-main {
+  margin: 6em auto;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start; }
+  .articles .article-main article {
+    display: -webkit-flex;
+    /* Safari */
+    background: #fff;
+    height: 16em;
+    width: 45%;
+    margin: 2em auto;
+    min-width: 200px; }
+    .articles .article-main article .article-left {
+      padding: 1.5em;
+      width: 35%; }
+      .articles .article-main article .article-left img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover; }
+    .articles .article-main article .article-right {
+      padding: 1.5em;
+      width: 65%; }
+      .articles .article-main article .article-right:hover {
+        cursor: pointer; }
+        .articles .article-main article .article-right:hover h1 {
+          color: lightcoral; }
+      .articles .article-main article .article-right section {
+        text-indent: 2em;
+        height: 50%;
+        overflow: hidden; }
 
 footer {
   margin-top: 4rem;
