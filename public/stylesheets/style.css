@@ -32,7 +32,7 @@ header {
   transition: all 1s;
   box-shadow: #999 0 1px 2px; }
   header .nav {
-    width: 80%;
+    width: 70%;
     margin: 0 auto;
     padding: 0; }
     header .nav a {
@@ -62,7 +62,7 @@ header {
 
 .carousel {
   position: relative;
-  height: 800px;
+  height: 700px;
   width: 100%; }
   .carousel .gallery-thumbs {
     height: 20%;

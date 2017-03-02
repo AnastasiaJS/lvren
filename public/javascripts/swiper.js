@@ -5,6 +5,12 @@
 var galleryTop = new Swiper('.gallery-top', {
     loop: true,
     speed: 1000,
+    autoplay: 5000,
+    lazyLoading : true,
+    lazyLoadingInPrevNext : true,
+    mousewheelControl : true,
+    // 如果需要分页器
+    pagination: '.swiper-pagination',
     // 如果需要前进后退按钮
     nextButton: '.swiper-button-next',
     prevButton: '.swiper-button-prev',
@@ -17,17 +23,6 @@ var galleryTop = new Swiper('.gallery-top', {
     },
 
 });
-var galleryThumbs = new Swiper('.gallery-thumbs', {
-    spaceBetween: 16,
-    centeredSlides: true,
-    slidesPerView: 'auto',
-    touchRatio: 0.2,
-    slideToClickedSlide: true
-});
-galleryTop.params.control = galleryThumbs;
-galleryThumbs.params.control = galleryTop;
-
-
 
 /*整体网页滚动，细节动画*/
 var wow = new WOW({

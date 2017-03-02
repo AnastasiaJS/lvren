@@ -17,23 +17,13 @@
 <!--<button onclick="uploadFile()">上传</button>-->
 <!--<div id="showPhoto">-->
 <!--</div>-->
-<header id="menu">
-    <div class="nav">
-        <div class="logo">
-            <a href="#">旅人</a>
-        </div>
-        <ul>
-            <li><a href="#">首页</a></li>
-            <li><a href="#">广场</a></li>
-            <li><a href="#">发布</a></li>
-        </ul>
-    </div>
-</header>
+<%- include nav.html%>
 <div class="carousel">
     <div class="swiper-container gallery-top" id="carousel">
         <div class="swiper-wrapper">
-            <div class=" swiper-slide">
-                <img src="/images/slide1.jpg" alt="">
+            <div class="swiper-slide">
+                <img data-src="/images/slide1.jpg" alt="" class="swiper-lazy">
+                <div class="swiper-lazy-preloader"></div>
             <span class="ani" swiper-animate-effect="bounceInRight" swiper-animate-duration="1s"
                   swiper-animate-delay="0.1s">
                 logo
@@ -46,15 +36,17 @@
                 把我租给你，还有我在这个城市的秘密
             </span>
             </div>
-            <div class=" swiper-slide ">
-                <img src="/images/slide2.jpg" alt="">
+            <div class="swiper-slide ">
+                <img data-src="/images/slide2.jpg" alt="" class="swiper-lazy">
+                <div class="swiper-lazy-preloader"></div>
             <span class="ani" swiper-animate-effect="bounceInLeft" swiper-animate-duration="2s"
                   swiper-animate-delay="0.1s">
                 22222
             </span>
             </div>
-            <div class=" swiper-slide ">
-                <img src="/images/slide3.jpg" alt="">
+            <div class="swiper-slide ">
+                <img data-src="/images/slide3.jpg" alt="" class="swiper-lazy">
+                <div class="swiper-lazy-preloader"></div>
             <span class="ani" swiper-animate-effect="bounceInLeft" swiper-animate-duration="2s"
                   swiper-animate-delay="0.1s">
                 333333
@@ -62,23 +54,11 @@
             </div>
 
         </div>
+        <!-- 如果需要分页器 -->
+        <div class="swiper-pagination"></div>
         <!--&lt;!&ndash;&lt;!&ndash; 如果需要导航按钮 &ndash;&gt;&ndash;&gt;-->
         <div class="swiper-button-prev  swiper-button-white"></div>
         <div class="swiper-button-next  swiper-button-white"></div>
-    </div>
-    <!--小图控制出错-->
-    <div class="swiper-container gallery-thumbs">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <img src="/images/slide1.jpg" alt="">
-            </div>
-            <div class="swiper-slide">
-                <img src="/images/slide2.jpg" alt="">
-            </div>
-            <div class="swiper-slide">
-                <img src="/images/slide3.jpg" alt="">
-            </div>
-        </div>
     </div>
 
 </div>
@@ -88,7 +68,6 @@
     <div class="title">
         <div class="title-big">主题精选</div>
         <p class="small-sentence">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite></p>
-        <div class="title-tip">更多</div>
     </div>
     <div class="main">
         <div class="part">
@@ -178,11 +157,11 @@
 
 <div class="music">
     <img class="music-bg" src="/images/skllr.jpg" alt="时空恋旅人">
-    <audio id="aud" autoplay>
+    <audio id="aud" loop>
         <source src="/chengdu.mp3" type="audio/mpeg">
     </audio>
-    <img class="music-control" id="play" src="/images/play.png" onclick="aud_play()" />
-    <img class="music-control" id="pause" src="/images/pause.png" onclick="aud_pause()" />
+    <img class="music-control" id="play" src="/images/play.png" onclick="aud_play()"/>
+    <img class="music-control" id="pause" src="/images/pause.png" onclick="aud_pause()"/>
     <!--动态播放效果-->
     <div id="music-ani">
         <div id="ani1"></div>
@@ -264,7 +243,7 @@
 </div>
 
 <footer>
-    © Lvren 上海旅人有限公司   |
+    © Lvren 上海旅人有限公司 |
     沪公网安备 xxxxxxxxxxxxxxx号
 </footer>
 

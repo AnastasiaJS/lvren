@@ -34,6 +34,7 @@ $(document).ready(function () {
 
 function uploadFile() {
     var formData = new FormData($("#upload")[0]);
+    console.log(formData)
     $.ajax({
         url: 'upload',
         type: 'POST',
