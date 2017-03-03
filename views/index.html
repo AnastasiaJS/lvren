@@ -111,7 +111,7 @@
     <div class="title">
         <div class="wow bounceInLeft title-big">最受欢迎旅人</div>
         <p class="wow bounce small-sentence">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite></p>
-        <div class="title-tip">更多</div>
+        <div class="title-tip" onclick="location.href='/card/more'">更多</div>
     </div>
     <div class="main">
         <% for(let i=0;i<6;i++){%>
@@ -168,16 +168,6 @@
         <%}%>
     </div>
 </div>
-
-<footer>
-    <div class="wow lightSpeedIn go-top" onclick="goTop()">
-        <img src="/icon/top2.png" alt="回到顶部">
-    </div>
-    <div class="web-info">
-        © Lvren 上海旅人有限公司 |
-        沪公网安备 xxxxxxxxxxxxxxx号
-    </div>
-</footer>
 
 <%-include js.html%>
 <script src="/javascripts/swiper.js"></script>

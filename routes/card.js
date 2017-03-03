@@ -5,5 +5,8 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('cardDetail');
 });
+router.get('/more', function(req, res, next) {
+  res.render('moreCards');
+});
 
 module.exports = router;

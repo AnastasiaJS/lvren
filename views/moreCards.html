@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>moreCards</title>
+    <%- include layoutCss.html%>
+    <link rel="stylesheet" href="/stylesheets/moreCard.css">
+</head>
+<body>
+<%- include nav.html%>
+
+<section class="main">
+    <% for(let i=0;i<20;i++){%>
+    <div class="card" onclick="openCard()">
+        <img src="/images/slide2.jpg" alt="">
+        <p>
+            detail detail
+        </p>
+    </div>
+    <%}%>
+</section>
+
+<%-include js.html%>
+</body>
+</html>

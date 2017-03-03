@@ -1,0 +1,72 @@
+html, body {
+  width: 100%;
+  padding: 0;
+  margin: 0; }
+
+body {
+  font-family: Arial, 'Microsoft Yahei';
+  font-size: 14px;
+  overflow-x: hidden;
+  background: #EFEEEC;
+  color: #333; }
+
+header {
+  font-size: 1.2rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  color: lightcoral;
+  background: rgba(255, 255, 255, 0);
+  z-index: 100;
+  transition: all 1s; }
+  header .nav {
+    width: 70%;
+    margin: 0 auto;
+    padding: 0; }
+    header .nav a {
+      text-decoration: none;
+      color: inherit; }
+    header .nav .logo {
+      display: inline-block; }
+    header .nav ul {
+      height: 2rem;
+      line-height: 2rem;
+      font-size: 24px;
+      font-weight: 500;
+      display: inline-block; }
+      header .nav ul li {
+        display: inline-block;
+        border-bottom: none;
+        position: relative;
+        margin-right: 2em; }
+        header .nav ul li:after {
+          content: "";
+          position: absolute;
+          bottom: -2px;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background: lightcoral;
+          transform: scaleX(0);
+          transition: all 0.1s; }
+        header .nav ul li:hover:after {
+          transform: scaleX(1); }
+
+footer .web-info {
+  background-color: #000;
+  text-align: center;
+  height: 2em;
+  line-height: 2em;
+  color: #fff; }
+footer .go-top {
+  margin-top: 4rem;
+  background: rgba(252, 214, 214, 0.4);
+  text-align: center;
+  overflow: hidden;
+  width: 100%;
+  height: 48px; }
+  footer .go-top:hover {
+    background: rgba(253, 211, 211, 0.5);
+    cursor: pointer; }
+
+/*# sourceMappingURL=nav.css.map */
