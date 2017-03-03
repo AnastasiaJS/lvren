@@ -2,10 +2,173 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><%=card.title%></title>
+    <title>title</title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <link rel='stylesheet' href="/stylesheets/cardDetail.css"/>
+    <%- include layoutCss.html%>
+
+    <style type="text/css">
+        .icon {
+            /* 通过设置 font-size 来改变图标大小 */
+            font-size: 1em;
+            width: 2em; height: 2em;
+            /* 图标和文字相邻时，垂直对齐 */
+            vertical-align: -0.15em;
+            /* 通过设置 color 来改变 SVG 的颜色/fill */
+            fill: currentColor;
+            /* path 和 stroke 溢出 viewBox 部分在 IE 下会显示
+               normalize.css 中也包含这行 */
+            overflow: hidden;
+        }
+
+    </style>
 </head>
 <body>
 <%-include nav.html%>
+<div class="main" id="card">
+    <article>
+        <div id="card-header">
+            <h1>朱仔穿街过巷带你游广州</h1>
+            <div class="tip">
+                <div class="place">广州</div>
+                <div class="price">￥ <big>100</big> 元/次</div>
+                <div class="rented">2人租过</div>
+                <div class="remark">3条留言</div>
+                <div class="save">
+                    <button onclick="save()">
+                        <img src="/icon/save.png" alt="" id="save-img">
+                        喜欢3</button>
+                </div>
+                <div class="rent">
+                    <button>
+                        租ta
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide ">
+                    <img src="/images/slide2.jpg" alt="" class="swiper-lazy">
+                    <div class="swiper-lazy-preloader"></div>
+                </div>
+                <div class="swiper-slide ">
+                    <img src="/images/slide1.jpg" alt="" class="swiper-lazy">
+                    <div class="swiper-lazy-preloader"></div>
+                </div>
+                <div class="swiper-slide ">
+                    <img src="/images/slide3.jpg" alt="" class="swiper-lazy">
+                    <div class="swiper-lazy-preloader"></div>
+                </div>
+            </div>
 
+            <!-- 如果需要滚动条 -->
+            <div class="swiper-scrollbar"></div>
+        </div>
+        <section id="card-detail">
+            <div class="card-nav">
+               <ul>
+                   <li>关于项目</li>
+                   <li>关于时间</li>
+                   <li>项目包含</li>
+                   <li>其他</li>
+               </ul>
+            </div>
+            <p class="project">
+                【关于项目】
+                如果热爱绘画，或是对传统绘画感兴趣
+                不管是爱好者，还是初学者，我想我们都能交流交流
+
+                你可以告诉我你喜欢的绘画类型
+                我可以手把手教你画几张小画（油画、素描或者速写都可以）
+
+                若是你也没有明确的绘画类型喜好，只是想尝试着了解绘画
+                没关系，我可以给你分享关于各种绘画类型的小知识，希望能对你的热爱有些许帮助.
+            </p>
+            <img src="/images/gongyi.jpg" alt="">
+            <p class="project">
+                【关于时间】
+                如果热爱绘画，或是对传统绘画感兴趣
+                不管是爱好者，还是初学者，我想我们都能交流交流
+
+                你可以告诉我你喜欢的绘画类型
+                我可以手把手教你画几张小画（油画、素描或者速写都可以）
+
+                若是你也没有明确的绘画类型喜好，只是想尝试着了解绘画
+                没关系，我可以给你分享关于各种绘画类型的小知识，希望能对你的热爱有些许帮助.
+            </p>
+            <img src="/images/renwen.jpg" alt="">
+            <p class="project">
+                【费用包含】
+                如果热爱绘画，或是对传统绘画感兴趣
+                不管是爱好者，还是初学者，我想我们都能交流交流
+
+                你可以告诉我你喜欢的绘画类型
+                我可以手把手教你画几张小画（油画、素描或者速写都可以）
+
+                若是你也没有明确的绘画类型喜好，只是想尝试着了解绘画
+                没关系，我可以给你分享关于各种绘画类型的小知识，希望能对你的热爱有些许帮助.
+            </p>
+            <img src="/images/dushi.jpg" alt="">
+            <p>
+                其他
+            </p>
+        </section>
+    </article>
+    <aside>
+        <div class="header">
+            <img src="/images/renwen.jpg" alt="">
+            <div class="name">十安</div>
+            <p class=" wow  pulse">
+                <cite>&ldquo;如果心无处可栖，到哪都是流浪。&rdquo;</cite>
+            </p>
+            <div class="resume">
+                <span>程序员</span>
+                <span>射手座</span><br>
+                <span>18岁</span>
+                <span>180cm</span>
+            </div>
+            <ul class="rent-info">
+                <li>可否砍价或者倒贴：否</li>
+                <li>微信认证暗号：来自旅人</li>
+                <li>卫星号：租ta，通过认证后可见</li>
+            </ul>
+        </div>
+        <div class="card-list">
+            <ul>
+                <%
+                    let icons=['keche','xiaoqiche','tianxiandaba','huoche','zihangche','xiaomotuochexiaodianche','gaotie','xiaoche','dabaxiaoba','fanchuan','feiji','xiaohuoche','bashi','reqiqiu','watuji','lunchuanyoulun','zhishengji','chanhuoji','huolun','bashidaba'];
+                    icons.map((item)=>{
+                %>
+                <li>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-<%=item%>"></use>
+                    </svg>
+                </li>
+                <%
+                })
+                %>
+
+            </ul>
+        </div>
+    </aside>
+</div>
 </body>
+<%-include js.html%>
+<script>
+    var mySwiper = new Swiper ('.swiper-container', {
+        direction: 'vertical',
+        loop: true,
+        autoplay: 5000,
+        mousewheelControl : true,
+        lazyLoading : true,
+        lazyLoadingInPrevNext : true,
+        // 如果需要滚动条
+        scrollbar: '.swiper-scrollbar',
+    })
+</script>
+<script src="/javascripts/card.js"></script>
+<!--多彩图标-->
+<script src="/javascripts/iconfont.js"></script>
+
 </html>

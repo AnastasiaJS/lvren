@@ -1,0 +1,17 @@
+<script src="/javascripts/wow.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="/javascripts/swiper.min.js"></script>
+<script src="/javascripts/swiper.animate1.0.2.min.js"></script>
+<script src="/javascripts/style.js"></script>
+<script>
+    function goTop() {
+        $('html,body').animate({
+            scrollTop:0
+        },800)
+    }
+
+    let pathname=location.pathname;
+    if(pathname=='/' || pathname=='/index'){
+        $("#nav-index").css("borderBottom","solid 2px lightcoral")
+    }
+</script>

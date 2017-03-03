@@ -10,7 +10,7 @@ window.onscroll = function () {
         scrollTop=null;
         return ;
     } else {
-        $("header").css("background", "rgba(255,255,255,0.2)")
+        $("header").css("background", "rgba(255,255,255,0)")
     }
 };
 
@@ -29,4 +29,8 @@ function aud_pause() {
     $("#pause").css("display","none");
     $("[id^='ani']").css("animation-iteration-count","0");
 
+}
+
+function openCard() {
+    location.href='/card'
 }

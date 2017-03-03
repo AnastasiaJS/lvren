@@ -3,8 +3,7 @@
 <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css'/>
-    <link rel="stylesheet" href="/stylesheets/swiper.min.css">
-    <link rel="stylesheet" href="/stylesheets/animate.min.css">
+    <%- include layoutCss.html%>
 </head>
 <body>
 <!--<h1><%= title %></h1>-->
@@ -66,8 +65,8 @@
 <!--分类-->
 <div class="type">
     <div class="title">
-        <div class="title-big">主题精选</div>
-        <p class="small-sentence">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite></p>
+        <div class="wow bounceInLeft title-big">主题精选</div>
+        <p class="wow bounce small-sentence">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite></p>
     </div>
     <div class="main">
         <div class="part">
@@ -103,55 +102,26 @@
 <div class="sentence">
     <img class="sentence-bg" src="/images/big_1.jpg" alt="">
     <figure>
-        <img src="/images/slide3.jpg" alt="三毛">
+        <img class="wow flipInX" src="/images/slide3.jpg" alt="三毛">
     </figure>
-    <p class=" quote">&ldquo;如果心无处可栖，到哪都是流浪。&rdquo; <cite class="author">&mdash; 三毛</cite></p>
+    <p class="wow swing quote">&ldquo;如果心无处可栖，到哪都是流浪。&rdquo; <cite class="author">&mdash; 三毛</cite></p>
 </div>
 
 <div class="popular">
     <div class="title">
-        <div class="title-big">最受欢迎旅人</div>
-        <p class="small-sentence">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite></p>
+        <div class="wow bounceInLeft title-big">最受欢迎旅人</div>
+        <p class="wow bounce small-sentence">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite></p>
         <div class="title-tip">更多</div>
     </div>
     <div class="main">
-        <div class="card">
+        <% for(let i=0;i<6;i++){%>
+        <div class="card" onclick="openCard()">
             <img src="/images/slide2.jpg" alt="">
             <p>
                 detail detail
             </p>
         </div>
-        <div class="card">
-            <img src="/images/slide2.jpg" alt="">
-            <p>
-                detail detail
-            </p>
-        </div>
-        <div class="card">
-            <img src="/images/slide2.jpg" alt="">
-            <p>
-                detail detail
-            </p>
-        </div>
-        <div class="card">
-            <img src="/images/slide2.jpg" alt="">
-            <p>
-                detail detail
-            </p>
-        </div>
-        <div class="card">
-            <img src="/images/slide2.jpg" alt="">
-            <p>
-                detail detail
-            </p>
-        </div>
-        <div class="card">
-            <img src="/images/slide2.jpg" alt="">
-            <p>
-                detail detail
-            </p>
-
-        </div>
+        <%}%>
     </div>
 </div>
 
@@ -160,8 +130,8 @@
     <audio id="aud" loop>
         <source src="/chengdu.mp3" type="audio/mpeg">
     </audio>
-    <img class="music-control" id="play" src="/images/play.png" onclick="aud_play()"/>
-    <img class="music-control" id="pause" src="/images/pause.png" onclick="aud_pause()"/>
+    <img class="wow bounce music-control" id="play" src="/images/play.png" onclick="aud_play()"/>
+    <img class="wow bounce music-control" id="pause" src="/images/pause.png" onclick="aud_pause()"/>
     <!--动态播放效果-->
     <div id="music-ani">
         <div id="ani1"></div>
@@ -176,11 +146,12 @@
 
 <div class="articles">
     <div class="title">
-        <div class="title-big">我的城市故事</div>
-        <p class="small-sentence">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite></p>
+        <div class="wow bounceInLeft title-big">我的城市故事</div>
+        <p class="wow bounce small-sentence">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite></p>
         <div class="title-tip">更多</div>
     </div>
     <div class="article-main">
+        <% for(let i=0;i<4;i++){%>
         <article>
             <div class="article-left">
                 <img src="/images/gaomi.jpg" alt="高密">
@@ -194,66 +165,23 @@
                 </section>
             </div>
         </article>
-        <article>
-            <div class="article-left">
-                <img src="/images/gaomi.jpg" alt="高密">
-            </div>
-            <div class="article-right">
-                <h1>高密行</h1>
-                <section>
-                    G字头的速度，果然不同凡响，没等回过神，站台已经消失得无影无踪。
-                    呼啸着向前，似一把出鞘的利刃，飞快地割切着堡垒密布的城市。锋芒所向，一簇簇一层层缠绕的楼群被分断、撕裂，然后毫无顾惜地抛向身后，一骑绝尘般杀出雾霾笼罩的包围圈。
-                    凭如此速度我似乎该兴奋，或者乘着如此的气势而燃起激情
-                    G字头的速度，果然不同凡响，没等回过神，站台已经消失得无影无踪。
-                    呼啸着向前，似一把出鞘的利刃，飞快地割切着堡垒密布的城市。锋芒所向，一簇簇一层层缠绕的楼群被分断、撕裂，然后毫无顾惜地抛向身后，一骑绝尘般杀出雾霾笼罩的包围圈。
-                    凭如此速度我似乎该兴奋，或者乘着如此的气势而燃起激情
-                    G字头的速度，果然不同凡响，没等回过神，站台已经消失得无影无踪。
-                    呼啸着向前，似一把出鞘的利刃，飞快地割切着堡垒密布的城市。锋芒所向，一簇簇一层层缠绕的楼群被分断、撕裂，然后毫无顾惜地抛向身后，一骑绝尘般杀出雾霾笼罩的包围圈。
-                    凭如此速度我似乎该兴奋，或者乘着如此的气势而燃起激情
-                </section>
-            </div>
-        </article>
-        <article>
-            <div class="article-left">
-                <img src="/images/gaomi.jpg" alt="高密">
-            </div>
-            <div class="article-right" onclick="location.href='#'">
-                <h1>高密行</h1>
-                <section>
-                    G字头的速度，果然不同凡响，没等回过神，站台已经消失得无影无踪。
-                    呼啸着向前，似一把出鞘的利刃，飞快地割切着堡垒密布的城市。锋芒所向，一簇簇一层层缠绕的楼群被分断、撕裂，然后毫无顾惜地抛向身后，一骑绝尘般杀出雾霾笼罩的包围圈。
-                    凭如此速度我似乎该兴奋，或者乘着如此的气势而燃起激情
-                </section>
-            </div>
-        </article>
-        <article>
-            <div class="article-left">
-                <img src="/images/gaomi.jpg" alt="高密">
-            </div>
-            <div class="article-right" onclick="location.href='#'">
-                <h1>高密行</h1>
-                <section>
-                    G字头的速度，果然不同凡响，没等回过神，站台已经消失得无影无踪。
-                    呼啸着向前，似一把出鞘的利刃，飞快地割切着堡垒密布的城市。锋芒所向，一簇簇一层层缠绕的楼群被分断、撕裂，然后毫无顾惜地抛向身后，一骑绝尘般杀出雾霾笼罩的包围圈。
-                    凭如此速度我似乎该兴奋，或者乘着如此的气势而燃起激情
-                </section>
-            </div>
-        </article>
+        <%}%>
     </div>
 </div>
 
 <footer>
-    © Lvren 上海旅人有限公司 |
-    沪公网安备 xxxxxxxxxxxxxxx号
+    <div class="wow lightSpeedIn go-top" onclick="goTop()">
+        <img src="/icon/top2.png" alt="回到顶部">
+    </div>
+    <div class="web-info">
+        © Lvren 上海旅人有限公司 |
+        沪公网安备 xxxxxxxxxxxxxxx号
+    </div>
 </footer>
 
-<script src="/javascripts/wow.min.js"></script>
-<script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="/javascripts/swiper.min.js"></script>
-<script src="/javascripts/swiper.animate1.0.2.min.js"></script>
+<%-include js.html%>
 <script src="/javascripts/swiper.js"></script>
-<script src="/javascripts/style.js"></script>
-<script src="/javascripts/logoUp.js"></script>
+
 
 </body>
 </html>

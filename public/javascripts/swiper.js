@@ -8,7 +8,7 @@ var galleryTop = new Swiper('.gallery-top', {
     autoplay: 5000,
     lazyLoading : true,
     lazyLoadingInPrevNext : true,
-    mousewheelControl : true,
+    // mousewheelControl : true,
     // 如果需要分页器
     pagination: '.swiper-pagination',
     // 如果需要前进后退按钮
