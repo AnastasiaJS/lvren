@@ -1,22 +1,88 @@
-.main {
+#more-cards {
   width: 70%;
-  margin: auto;
-  display: -webkit-flex;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between; }
-  .main .card {
-    width: 320px;
-    height: 420px;
-    padding: 1.5rem;
-    margin-top: 2em;
-    background: #fff; }
-    .main .card img {
+  margin: auto; }
+  #more-cards .main {
+    width: 100%;
+    margin: auto;
+    display: -webkit-flex;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between; }
+    #more-cards .main .card {
+      width: 320px;
+      height: 420px;
+      padding: 1rem;
+      margin: 2em auto;
+      background: #fff;
+      position: relative;
+      text-align: center;
+      border: solid 1px transparent; }
+      #more-cards .main .card:hover {
+        cursor: pointer;
+        border: solid 1px #ddd; }
+        #more-cards .main .card:hover .header img {
+          box-shadow: 0 0 20px 1px lightcoral; }
+      #more-cards .main .card .header img {
+        width: 2.5em;
+        height: 2.5em;
+        border-radius: 50%;
+        vertical-align: middle;
+        margin-right: 0.5em; }
+      #more-cards .main .card > img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        margin: 1em auto; }
+      #more-cards .main .card .card-footer {
+        position: absolute;
+        bottom: 2em;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        text-align: left; }
+        #more-cards .main .card .card-footer div {
+          margin: 0.5em; }
+        #more-cards .main .card .card-footer .place {
+          flex: 1; }
+          #more-cards .main .card .card-footer .place img {
+            vertical-align: middle; }
+        #more-cards .main .card .card-footer .price {
+          flex: 2; }
+  #more-cards .pagination {
+    width: 100%;
+    margin: 6em auto; }
+    #more-cards .pagination ul {
       width: 100%;
-      height: 200px;
-      object-fit: cover;
-      margin: 2em auto; }
-    .main .card p {
-      padding: 2em; }
+      margin: auto;
+      padding: 0;
+      text-align: center; }
+      #more-cards .pagination ul .page-normal {
+        display: inline-block;
+        list-style: none;
+        width: 1.5rem;
+        height: 1.5rem;
+        line-height: 1.5rem;
+        border: solid 1px #ddd;
+        vertical-align: middle;
+        margin: 0.5em;
+        cursor: pointer; }
+        #more-cards .pagination ul .page-normal a {
+          display: inline-block;
+          width: 100%;
+          height: 100%; }
+        #more-cards .pagination ul .page-normal:hover {
+          color: lightcoral;
+          border: solid 1px lightcoral;
+          transition: ease-in-out 0.5s; }
+        #more-cards .pagination ul .page-normal .page-active {
+          color: #fff;
+          background: lightcoral;
+          transition: ease-in-out 0.5s; }
+        #more-cards .pagination ul .page-normal .page-disable {
+          cursor: not-allowed;
+          color: #bbb;
+          border: dashed 1px #ddd; }
+          #more-cards .pagination ul .page-normal .page-disable :hover {
+            border: none; }
 
 /*# sourceMappingURL=moreCard.css.map */

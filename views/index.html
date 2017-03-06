@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><%= title %></title>
+    <title>lvren</title>
     <link rel='stylesheet' href='/stylesheets/style.css'/>
     <%- include layoutCss.html%>
 </head>
 <body>
-<!--<h1><%= title %></h1>-->
-<!--<p>Welcome to <%= title %></p>-->
 
 <!--<form id="upload" method="post" enctype="multipart/form-data">-->
 <!--<input type="file" name="logo" multiple id="input-upload">-->
@@ -66,7 +64,8 @@
 <div class="type">
     <div class="title">
         <div class="wow bounceInLeft title-big">主题精选</div>
-        <p class="wow bounce small-sentence">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite></p>
+        <p class="wow bounce small-sentence">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite>
+        </p>
     </div>
     <div class="main">
         <div class="part">
@@ -104,22 +103,39 @@
     <figure>
         <img class="wow flipInX" src="/images/slide3.jpg" alt="三毛">
     </figure>
-    <p class="wow swing quote">&ldquo;如果心无处可栖，到哪都是流浪。&rdquo; <cite class="author">&mdash; 三毛</cite></p>
+    <p class="wow swing quote">&ldquo;如果心无处可栖，到哪里都是流浪。&rdquo; <cite class="author">&mdash; 三毛</cite></p>
 </div>
 
 <div class="popular">
     <div class="title">
         <div class="wow bounceInLeft title-big">最受欢迎旅人</div>
-        <p class="wow bounce small-sentence">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite></p>
-        <div class="title-tip" onclick="location.href='/card/more'">更多</div>
+        <p class="wow bounce small-sentence">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite>
+        </p>
+        <div class="title-tip" onclick="location.href='/card/more/?index=1'">更多</div>
     </div>
     <div class="main">
-        <% for(let i=0;i<6;i++){%>
-        <div class="card" onclick="openCard()">
+        <% for(let i=0;i< face.length;i++){%>
+        <div class="card" onclick="openCard(<%=face[i].Tid%>)">
+            <div class="header">
+                <img src="http://p3.music.126.net/IAZKcW9XEAD-3Ce7xscrWA==/3264450024529041.jpg?param=200y200" alt="">
+                <sapn><%=face[i].Nickname%></sapn>
+            </div>
             <img src="/images/slide2.jpg" alt="">
-            <p>
-                detail detail
-            </p>
+            <h3>
+                <%=face[i].Title%>
+            </h3>
+            <div class="card-footer">
+                <div class="price">
+                    <sapn style="font-size: 1.5em;color:#F08080"><%=face[i].Price%></sapn>元/次
+                </div>
+                <div class="place">
+                    <img src="/icon/local.png" alt="">
+                    <%=face[i].Addr%>
+                </div>
+                <div class="goto">
+
+                </div>
+            </div>
         </div>
         <%}%>
     </div>
@@ -142,12 +158,11 @@
         <div id="ani6"></div>
     </div>
 </div>
-
-
 <div class="articles">
     <div class="title">
         <div class="wow bounceInLeft title-big">我的城市故事</div>
-        <p class="wow bounce small-sentence">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite></p>
+        <p class="wow bounce small-sentence">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite>
+        </p>
         <div class="title-tip">更多</div>
     </div>
     <div class="article-main">
@@ -168,7 +183,6 @@
         <%}%>
     </div>
 </div>
-
 <%-include js.html%>
 <script src="/javascripts/swiper.js"></script>
 

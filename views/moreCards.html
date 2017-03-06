@@ -9,17 +9,83 @@
 <body>
 <%- include nav.html%>
 
-<section class="main">
-    <% for(let i=0;i<20;i++){%>
-    <div class="card" onclick="openCard()">
-        <img src="/images/slide2.jpg" alt="">
-        <p>
-            detail detail
-        </p>
+<div id="more-cards">
+    <div class="nav">
+        现在位置>所有旅人
     </div>
-    <%}%>
-</section>
+    <section class="main">
+        <% for(let i=0;i< face.length;i++){%>
+        <div class="card" onclick="openCard(<%=face[i].Tid%>)">
+            <div class="header">
+                <img src="http://p3.music.126.net/IAZKcW9XEAD-3Ce7xscrWA==/3264450024529041.jpg?param=200y200" alt="">
+                <sapn><%=face[i].Nickname%></sapn>
+            </div>
+            <img src="/images/slide2.jpg" alt="">
+            <h3>
+                <%=face[i].Title%>
+            </h3>
+            <div class="card-footer">
+                <div class="price">
+                    <sapn style="font-size: 1.5em;color:#F08080"><%=face[i].Price%></sapn>元/次
+                </div>
+                <div class="place">
+                    <img src="/icon/local.png" alt="">
+                    <%=face[i].Addr%>
+                </div>
+                <div class="goto">
 
+                </div>
+            </div>
+        </div>
+        <%}%>
+
+    </section>
+
+    <div class="pagination" id="card-pager">
+        <ul>
+            <li class="page-normal">
+                <a href="javascript:indexPage(-1)" id="page-prev"><</a>
+            </li>
+            <% for(let i=1;i<=pageAccount;i++){%>
+            <li class="page-normal">
+                <a href="/card/more?index=<%=i%>" id="page-<%=i%>"><%=i%></a>
+            </li>
+            <%}%>
+            <li class="page-normal">
+                <a href="javascript:indexPage(1)" id="page-next"> > </a>
+            </li>
+        </ul>
+    </div>
+</div>
 <%-include js.html%>
+<script>
+    let search = location.search.slice(1);
+    let currentPage = parseInt(search.split('=')[1]);
+    console.log(search);
+    console.log(location);
+    $("[id^='page-']").removeClass('page-active');
+
+    $(`#page-${currentPage}`).addClass('page-active');
+
+    if (currentPage == 1) {
+        $("#page-prev").addClass('page-disable');
+    } else if (currentPage == <%= pageAccount %>) {
+        $("#page-next").addClass('page-disable');
+
+    }
+    function indexPage(n) {
+        let page = currentPage + n;
+        if (page < 2) {
+            page = 1;
+        }
+        else if (page > <%= pageAccount %>) {
+            page = <%=pageAccount%>;
+
+        }
+        location.search = '?index=' + page;
+
+        }
+</script>
+<script src="/javascripts/moreCard.js"></script>
 </body>
 </html>

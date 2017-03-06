@@ -2,7 +2,7 @@ var express = require('express');
 var multipart = require('connect-multiparty');
 var router = express.Router();
 var fileuuid = require('./../util/uuidHelper');
-
+var userDao = require('./../dao/userDao');
 
 
 var qiniu = require("qiniu");
@@ -37,8 +37,14 @@ function uploadFile(uptoken,filename, localFile,res) {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
- 
-    res.render('index', {title: '旅人'});
+
+    userDao.getCards(0, 6, res, function (result) {
+        res.render('index',{face:result.results})
+    });
+    // res.render('index', {title: '旅人'});
+});
+router.get('/addCard', function (req, res, next) {
+    res.render('addCard', {title: '添加旅人卡'});
 });
 
 //单文件上传处理，使用七牛云服务

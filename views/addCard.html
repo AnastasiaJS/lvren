@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%=title%></title>
+    <link rel='stylesheet' href="/stylesheets/addCard.css"/>
+    <%- include layoutCss.html%>
+</head>
+<body>
+<%-include nav.html%>
+<div class="main" id="addCard">
+    <form action='javascript:;' id="add-frm">
+        <section id="add-carousel">
+            <input type="file" multiple name="facePic" id="facePic">
+        </section>
+        <section id="add-card-detail">
+            <div class="add-about">
+                【关于我】<br>
+                <textarea name="About" id="add-about"   rows="10"></textarea>
+            </div>
+            <div class="add-project">
+                【关于玩法】
+                <textarea name="Play" id="add-project" rows="10"></textarea>
+            </div>
+            <div class="add-time">
+                【关于时间】
+                <textarea name="AppointTime" id="add-time" rows="10"></textarea>
+            </div>
+            <div class="add-price">
+                【费用包含】
+                <textarea name="AboutPrice" id="add-price" rows="10"></textarea>
+            </div>
+            <div class="add-other">
+                【费用包含】
+                <textarea name="Other" id="add-other" rows="10"></textarea>
+            </div>
+        </section>
+    </form>
+    <aside>
+        卡片目录————
+        <ul>
+            <li><a href="#add-carousel">顶部轮播图</a></li>
+            <li><a href="">关于我</a></li>
+            <li><a href="">关于项目</a></li>
+            <li><a href="">关于时间</a></li>
+            <li><a href="">价格包含</a></li>
+            <li><a href="">其他</a></li>
+        </ul>
+    </aside>
+</div>
+</body>
+<%-include js.html%>
+
+<script src="/javascripts/card.js"></script>
+
+</html>

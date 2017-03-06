@@ -27,12 +27,12 @@
 <div class="main" id="card">
     <article>
         <div id="card-header">
-            <h1>朱仔穿街过巷带你游广州</h1>
+            <h1><%=card.Title%></h1>
             <div class="tip">
-                <div class="place">广州</div>
-                <div class="price">￥ <big>100</big> 元/次</div>
+                <div class="place"><%=card.Addr%></div>
+                <div class="price">￥ <big><%=card.Price%></big> 元/次</div>
                 <div class="rented">2人租过</div>
-                <div class="remark">3条留言</div>
+                <div class="remark"><%= msg.length %>条留言</div>
                 <div class="save">
                     <button onclick="save()">
                         <img src="/icon/save.png" alt="" id="save-img">
@@ -67,6 +67,7 @@
         <section id="card-detail">
             <div class="card-nav">
                <ul>
+                   <li>关于我</li>
                    <li>关于项目</li>
                    <li>关于时间</li>
                    <li>项目包含</li>
@@ -74,15 +75,13 @@
                </ul>
             </div>
             <p class="project">
+                【关于我】
+                <%= card.About %>
+            </p>
+            <img src="/images/gongyi.jpg" alt="">
+            <p class="project">
                 【关于项目】
-                如果热爱绘画，或是对传统绘画感兴趣
-                不管是爱好者，还是初学者，我想我们都能交流交流
-
-                你可以告诉我你喜欢的绘画类型
-                我可以手把手教你画几张小画（油画、素描或者速写都可以）
-
-                若是你也没有明确的绘画类型喜好，只是想尝试着了解绘画
-                没关系，我可以给你分享关于各种绘画类型的小知识，希望能对你的热爱有些许帮助.
+                <%= card.Play %>
             </p>
             <img src="/images/gongyi.jpg" alt="">
             <p class="project">
@@ -110,26 +109,26 @@
             </p>
             <img src="/images/dushi.jpg" alt="">
             <p>
-                其他
+                【其他】<%= card.Other %>
             </p>
         </section>
     </article>
     <aside>
         <div class="header">
             <img src="/images/renwen.jpg" alt="">
-            <div class="name">十安</div>
+            <div class="name"><%= card.Nickname %></div>
             <p class=" wow  pulse">
                 <cite>&ldquo;如果心无处可栖，到哪都是流浪。&rdquo;</cite>
             </p>
             <div class="resume">
-                <span>程序员</span>
+                <span><%= card.Job %></span>
                 <span>射手座</span><br>
-                <span>18岁</span>
+                <span><%= card.Age %>岁</span>
                 <span>180cm</span>
             </div>
             <ul class="rent-info">
-                <li>可否砍价或者倒贴：否</li>
-                <li>微信认证暗号：来自旅人</li>
+                <li>可否砍价或者倒贴：<%= card.Cancut %></li>
+                <li>微信认证暗号：<%= card.Anhao %></li>
                 <li>卫星号：租ta，通过认证后可见</li>
             </ul>
         </div>
