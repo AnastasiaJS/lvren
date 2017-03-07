@@ -4,37 +4,77 @@
     <meta charset="UTF-8">
     <title><%=title%></title>
     <link rel='stylesheet' href="/stylesheets/addCard.css"/>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/model/default.css"/>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/model/component.css"/>
+
     <%- include layoutCss.html%>
+    <script src="/javascripts/model/modernizr.custom.js"></script>
 </head>
 <body>
+
 <%-include nav.html%>
+
 <div class="main" id="addCard">
     <form action='javascript:;' id="add-frm">
         <section id="add-carousel">
-            <input type="file" multiple name="facePic" id="facePic">
+            <label for="add-carousel">
+                <div class="carousel1">
+                    <img src="/icon/upload-img.png" alt="">
+                </div>
+                <div class="carousel2">
+                    <h2>设置封面图片</h2><br>
+                    <small>——建议选择横图</small>
+                </div>
+            </label>
+            <div class="add-title">
+                <input type="text" placeholder="填写卡片标题">
+            </div>
+            <input type="file" name="facePic" id="facePic">
         </section>
         <section id="add-card-detail">
+
+            <div class="add-canCut">
+                <label for="add-canCut">
+                    是否可以砍价：
+                </label>
+                <input type="checkbox" id="add-canCut" name="Cancut" value="1" >
+            </div>
+            <div class="add-price">
+                <label for="add-canCut">
+                    价格（次）：
+                </label>
+                <input type="number" id="add-price" name="Price" required>
+            </div>
+
             <div class="add-about">
                 【关于我】<br>
-                <textarea name="About" id="add-about"   rows="10"></textarea>
+                <textarea name="About" id="add-about" rows="6" required></textarea>
             </div>
             <div class="add-project">
-                【关于玩法】
-                <textarea name="Play" id="add-project" rows="10"></textarea>
+                【项目介绍】
+                <textarea name="Play" id="add-project" rows="6" required></textarea>
             </div>
             <div class="add-time">
                 【关于时间】
-                <textarea name="AppointTime" id="add-time" rows="10"></textarea>
+                <textarea name="AppointTime" id="add-time" rows="6" required></textarea>
             </div>
-            <div class="add-price">
+            <div class="about-price">
                 【费用包含】
-                <textarea name="AboutPrice" id="add-price" rows="10"></textarea>
+                <textarea name="AboutPrice" id="about-price" rows="6" required></textarea>
             </div>
             <div class="add-other">
-                【费用包含】
-                <textarea name="Other" id="add-other" rows="10"></textarea>
+                【其他】
+                <textarea name="Other" id="add-other" rows="6"></textarea>
+            </div>
+            <div class="add-photo">
+                <label for="photos">【相关图片】（4~6张）</label><br>
+                <div class="upload-box" id="show-photos">
+                    <img src="/icon/upload-img.png" alt="">
+                    <input type="file" name="photos" id="photos" multiple>
+                </div>
             </div>
         </section>
+        <button class="btn btn-default" onclick="uploadFile()">提交</button>
     </form>
     <aside>
         卡片目录————
@@ -48,9 +88,37 @@
         </ul>
     </aside>
 </div>
-</body>
+<!--添加消息提醒的模态框-->
+
+<div class="md-modal md-effect-7" id="modal-7">
+    <div class="md-content">
+        <h3 id="modal-tip">错误提示</h3>
+        <div>
+            <p id="face-tip-msg"></p>
+            <button class="md-close">关闭</button>
+        </div>
+    </div>
+</div>
+<!--触发div-->
+<div class="md-trigger" data-modal="modal-7" id="face-tip" style="opacity: 0"></div>
+
+<div class="md-overlay"></div>
+<!--模态框  end-->
 <%-include js.html%>
 
-<script src="/javascripts/card.js"></script>
+<script src="/javascripts/addCard.js"></script>
+<!-- classie.js by @desandro: https://github.com/desandro/classie -->
+<script src="/javascripts/model/classie.js"></script>
+<script src="/javascripts/model/modalEffects.js"></script>
+
+<!-- for the blur effect -->
+<!-- by @derSchepp https://github.com/Schepp/CSS-Filters-Polyfill -->
+<!--<script>-->
+    <!--// this is important for IEs-->
+    <!--var polyfilter_scriptpath = '/javascripts/model/';-->
+<!--</script>-->
+<script src="/javascripts/model/cssParser.js"></script>
+<!--<script src="/javascripts/model/css-filters-polyfill.js"></script>-->
+</body>
 
 </html>

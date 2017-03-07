@@ -166,21 +166,32 @@
         <div class="title-tip">更多</div>
     </div>
     <div class="article-main">
-        <% for(let i=0;i<4;i++){%>
-        <article>
-            <div class="article-left">
-                <img src="/images/gaomi.jpg" alt="高密">
+        <img src="/images/slide3.jpg" alt="">
+        <div class="article-more">
+            Story
+            <p class="wow bounce small-sentence" style="font-size: 1rem;width: 12rem;margin:0.5em auto;">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite>
+            <div class="more">
+                -more-
             </div>
-            <div class="article-right" onclick="location.href='#'">
-                <h1>高密行</h1>
-                <section>
-                    G字头的速度，果然不同凡响，没等回过神，站台已经消失得无影无踪。
-                    呼啸着向前，似一把出鞘的利刃，飞快地割切着堡垒密布的城市。锋芒所向，一簇簇一层层缠绕的楼群被分断、撕裂，然后毫无顾惜地抛向身后，一骑绝尘般杀出雾霾笼罩的包围圈。
-                    凭如此速度我似乎该兴奋，或者乘着如此的气势而燃起激情
-                </section>
-            </div>
-        </article>
-        <%}%>
+        </div>
+        <div class="article-list">
+
+            <% for(let i=0;i<4;i++){%>
+            <article>
+                <div class="article-left">
+                    <img src="/images/gaomi.jpg" alt="高密">
+                </div>
+                <div class="article-right" onclick="location.href='#'">
+                    <h1>高密行</h1>
+                    <div><small>莫言莫言</small>--
+                        G字头的速度，果然不同凡响，没等回过神，站台已经消失得无影无踪。
+                        呼啸着向前，似一把出鞘的利刃，飞快地割切着堡垒密布的城市。锋芒所向，一簇簇一层层缠绕的楼群被分断、撕裂，然后毫无顾惜地抛向身后，一骑绝尘般杀出雾霾笼罩的包围圈。
+                        凭如此速度我似乎该兴奋，或者乘着如此的气势而燃起激情
+                    </div>
+                </div>
+            </article>
+            <%}%>
+        </div>
     </div>
 </div>
 <%-include js.html%>

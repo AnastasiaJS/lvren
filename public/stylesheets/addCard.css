@@ -2,6 +2,7 @@
   width: 60%;
   margin: 12em auto;
   padding: 0;
+  color: #333;
   box-sizing: border-box; }
   #addCard form {
     background: #fff;
@@ -9,9 +10,9 @@
     display: inline-block;
     margin-right: 3rem;
     padding: 4em; }
-    #addCard form .add-about, #addCard form .add-project, #addCard form .add-time, #addCard form .add-price, #addCard form .add-other {
+    #addCard form .add-about, #addCard form .add-project, #addCard form .add-time, #addCard form .about-price, #addCard form .add-other {
       text-align: left; }
-      #addCard form .add-about textarea, #addCard form .add-project textarea, #addCard form .add-time textarea, #addCard form .add-price textarea, #addCard form .add-other textarea {
+      #addCard form .add-about textarea, #addCard form .add-project textarea, #addCard form .add-time textarea, #addCard form .about-price textarea, #addCard form .add-other textarea {
         border: solid 1px #ddd;
         width: 100%;
         height: 100%;
@@ -33,7 +34,89 @@
 
 #add-carousel {
   width: 100%;
-  height: 400px;
+  height: 320px;
+  border: solid 1px #ddd;
+  position: relative;
+  text-align: center; }
+  #add-carousel input[type=file] {
+    display: block;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    opacity: 0;
+    z-index: 2;
+    background: lightblue; }
+  #add-carousel label {
+    position: absolute;
+    top: 5%;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around; }
+    #add-carousel label .carousel1 {
+      flex: 1; }
+      #add-carousel label .carousel1 img {
+        width: 64px;
+        height: 64px;
+        margin-left: 2em; }
+    #add-carousel label .carousel2 {
+      flex: 7; }
+  #add-carousel .add-title input {
+    position: absolute;
+    z-index: 3;
+    height: 3.5rem;
+    width: 20rem;
+    line-height: 2rem;
+    left: 50%;
+    margin-left: -10rem;
+    bottom: 1.5rem;
+    border: none;
+    box-shadow: 0 0 6px 2px #ddd;
+    font-size: 1.5rem; }
+  #add-carousel > img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    z-index: 1; }
+
+#face-tip {
+  position: relative;
+  z-index: -2; }
+
+#add-card-detail {
+  margin-top: 4em; }
+
+.add-photo {
   border: solid 1px #ddd; }
+  .add-photo .upload-box {
+    width: 100px;
+    height: 100px;
+    border: solid 1px #ddd;
+    position: relative;
+    background: #EFEFEF;
+    text-align: center;
+    display: inline-block;
+    font-size: 0; }
+    .add-photo .upload-box > img {
+      width: 32px;
+      height: 32px;
+      position: relative;
+      top: 50%;
+      margin-top: -16px;
+      margin-right: 0.2em; }
+
+#photos {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  margin-right: 0.2em; }
 
 /*# sourceMappingURL=addCard.css.map */
