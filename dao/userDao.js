@@ -29,14 +29,17 @@ function uploadFile(uptoken, filename, localFile, callback) {
         if (!err) {// 上传成功， 处理返回值
             console.log(ret.hash, ret.key, ret.persistentId);
             let url = `http://olb1e0iqk.bkt.clouddn.com/${ret.key}`;
-            callback({url});
+            callback(Object.assign({},{url},{code:200}))
         } else {// 上传失败， 处理返回代码
-            callback({err});
+            callback(Object.assign({},{err},{code:500}))
+
         }
     });
 }
 
 function uploadImg(original, callback) {
+    console.log("uploadImg>>>>>>>");
+
     var facename = fileuuid.fileUUID(original.originalFilename);//上传到七牛后保存的文件名
 
     var token = uptoken(bucket, facename);//生成上传 Token
@@ -44,12 +47,26 @@ function uploadImg(original, callback) {
     uploadFile(token, facename, filePath, callback);//调用uploadFile上传
 }
 function uploadImgs(original, callback) {
-    original.map(item=> {
-        uploadImg(original, callback);
+    let photos=[];
+    let newData={};
+    original.map((item,index)=> {
+        console.log(index)
+        uploadImg(item, function (data) {
+            photos[index]=data.url;
+            console.log('url>>>>>',photos[index]);
+
+            newData=Object.assign({},{code:data.code,err:data.err})
+        });
     });
+
+    
+    console.log('photos>>>>',photos);
+    console.log('newData>>>>',newData);
+    callback(Object.assign({},{code:newData.code,photos}));
 
 }
 
+/*七牛云相关服务的应用 =====end*/
 function getCards(start, acount, res, callback) {
 
     console.log("===================getface");
@@ -102,43 +119,45 @@ var card_inner = function (req, res, tid) {
 };
 
 
-/*七牛云相关服务的应用 =====end*/
-
-
 function addCard(req, res) {
 
     console.log(">>>>", req.body);
     console.log(">>>>", req.files);
 
+    uploadImg(req.files.facePic, function (data) {
+        let body=req.body;
 
-    // let photos=req.files.photos;
-    // for(let i=0;i<photos.length;i++){
-    //
-    // }
-    uploadImg(req.files.face, function (data) {
-        if (data.url) {
-            pool.getConnection(function (err, connection) {
-                connection.query($sql.addCard, [tid], function (err, content) {
-                    connection.release();
-                    if (err) {
-                        console.log(err.message)
-                    }
-                    else {
+        if (data.code==200) {
 
-                    }
+            let canCut=body.canCut?"是":"否";
+            uploadImgs(req.files.photos, function (datas) {
+                if(datas.code==200){
+                    pool.getConnection(function (err, connection) {
+                        connection.query($sql.addCard, [2,body.title,body.about,
+                            body.price,canCut,body.play,body.other,body.appointTime,
+                            body.aboutPrice,data.url,datas.photos.join(',')], function (err, result) {
+                            connection.release();
+                            if (err) {
+                                console.log(err.message)
+                            }
+                            else {
+                                console.log("result>>>>>>>>>",result[0])
+                            }
 
-                });
+                        });
+                    });
+                }else{
+                    res.json({code:500})
+                }
             });
+
             // res.json({code:200,url:data.url})
         }
         else {
-            // res.json({code:500})
+            res.json({code:500})
         }
     });
 
-    uploadImg(req.files.photos, function (data) {
-
-    });
 
 
     //    todo:将filename存入数据库
