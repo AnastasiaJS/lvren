@@ -29,7 +29,7 @@
         <div id="card-header">
             <h1><%=card.Title%></h1>
             <div class="tip">
-                <div class="place"><%=card.Addr%></div>
+                <div class="place"><%=card.Price%></div>
                 <div class="price">￥ <big><%=card.Price%></big> 元/次</div>
                 <div class="rented">2人租过</div>
                 <div class="remark"><%= msg.length %>条留言</div>
@@ -48,15 +48,18 @@
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 <div class="swiper-slide ">
-                    <img src="/images/slide2.jpg" alt="" class="swiper-lazy">
+                    <%
+                    let photos=card.Photos.split(',');
+                    %>
+                    <img src=<%=photos[0]%> alt="" class="swiper-lazy">
                     <div class="swiper-lazy-preloader"></div>
                 </div>
                 <div class="swiper-slide ">
-                    <img src="/images/slide1.jpg" alt="" class="swiper-lazy">
+                    <img src=<%=photos[1]%> alt="" class="swiper-lazy">
                     <div class="swiper-lazy-preloader"></div>
                 </div>
                 <div class="swiper-slide ">
-                    <img src="/images/slide3.jpg" alt="" class="swiper-lazy">
+                    <img src=<%=photos[2]%> alt="" class="swiper-lazy">
                     <div class="swiper-lazy-preloader"></div>
                 </div>
             </div>
@@ -78,36 +81,29 @@
                 【关于我】
                 <%= card.About %>
             </p>
-            <img src="/images/gongyi.jpg" alt="">
+            <img src=<%=photos[3]%> alt="">
             <p class="project">
                 【关于项目】
                 <%= card.Play %>
             </p>
-            <img src="/images/gongyi.jpg" alt="">
+            <%
+            if(photos.length>4){
+            %>
+            <img src=<%=photos[4]%> alt="">
+            <%}%>
             <p class="project">
                 【关于时间】
-                如果热爱绘画，或是对传统绘画感兴趣
-                不管是爱好者，还是初学者，我想我们都能交流交流
-
-                你可以告诉我你喜欢的绘画类型
-                我可以手把手教你画几张小画（油画、素描或者速写都可以）
-
-                若是你也没有明确的绘画类型喜好，只是想尝试着了解绘画
-                没关系，我可以给你分享关于各种绘画类型的小知识，希望能对你的热爱有些许帮助.
+                <%= card.AppointTime %>
             </p>
-            <img src="/images/renwen.jpg" alt="">
+            <%
+            if(photos.length>5){
+            %>
+            <img src=<%=photos[5]%> alt="">
+            <%}%>
             <p class="project">
                 【费用包含】
-                如果热爱绘画，或是对传统绘画感兴趣
-                不管是爱好者，还是初学者，我想我们都能交流交流
-
-                你可以告诉我你喜欢的绘画类型
-                我可以手把手教你画几张小画（油画、素描或者速写都可以）
-
-                若是你也没有明确的绘画类型喜好，只是想尝试着了解绘画
-                没关系，我可以给你分享关于各种绘画类型的小知识，希望能对你的热爱有些许帮助.
+                <%= card.AboutPrice %>
             </p>
-            <img src="/images/dushi.jpg" alt="">
             <p>
                 【其他】<%= card.Other %>
             </p>
@@ -127,7 +123,7 @@
                 <span>180cm</span>
             </div>
             <ul class="rent-info">
-                <li>可否砍价或者倒贴：<%= card.Cancut %></li>
+                <li>可否砍价或者倒贴：<%= card.CanCut %></li>
                 <li>微信认证暗号：<%= card.Anhao %></li>
                 <li>卫星号：租ta，通过认证后可见</li>
             </ul>

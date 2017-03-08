@@ -29,16 +29,15 @@ function uploadFile(uptoken, filename, localFile, callback) {
         if (!err) {// 上传成功， 处理返回值
             console.log(ret.hash, ret.key, ret.persistentId);
             let url = `http://olb1e0iqk.bkt.clouddn.com/${ret.key}`;
-            callback(Object.assign({},{url},{code:200}))
+            callback(Object.assign({}, {url}, {code: 200}))
         } else {// 上传失败， 处理返回代码
-            callback(Object.assign({},{err},{code:500}))
+            callback(Object.assign({}, {err}, {code: 500}))
 
         }
     });
 }
 
 function uploadImg(original, callback) {
-    console.log("uploadImg>>>>>>>");
 
     var facename = fileuuid.fileUUID(original.originalFilename);//上传到七牛后保存的文件名
 
@@ -47,31 +46,32 @@ function uploadImg(original, callback) {
     uploadFile(token, facename, filePath, callback);//调用uploadFile上传
 }
 function uploadImgs(original, callback) {
-    let photos=[];
-    let newData={};
-    original.map((item,index)=> {
-        console.log(index)
+    let photos = [];
+    let newData = {};
+    original.map((item, index)=> {
         uploadImg(item, function (data) {
-            photos[index]=data.url;
-            console.log('url>>>>>',photos[index]);
-
-            newData=Object.assign({},{code:data.code,err:data.err})
+            photos[index] = data.url;
+            // console.log('url>>>>>', photos[index]);
+            newData = Object.assign({}, {code: data.code, err: data.err});
+            // if(index==original.length-1){
+            //     console.log('photos>>>>', photos);
+            //     console.log('newData>>>>', newData);
+            //     callback(Object.assign({}, {code: newData.code, photos}));
+            //
+            // }
         });
     });
+    setTimeout(function () {
+        callback(Object.assign({}, {code: newData.code, photos}));
+    },5000);
 
-    
-    console.log('photos>>>>',photos);
-    console.log('newData>>>>',newData);
-    callback(Object.assign({},{code:newData.code,photos}));
+
 
 }
 
 /*七牛云相关服务的应用 =====end*/
 function getCards(start, acount, res, callback) {
 
-    console.log("===================getface");
-    console.log("===================start==" + start);
-    console.log("===================acount" + acount);
     pool.getConnection(function (err, connection) {
         connection.query($sql.sqltotal, function (err, total) {
             if (err) {
@@ -103,7 +103,7 @@ var card_inner = function (req, res, tid) {
                 connection.query($sql.sqlMsg, [tid], function (err, msg) {
                     connection.query($sql.sqlReply, [tid], function (err, reply) {
                         connection.release();
-                        console.log('>>>>>>>>>', content)
+                        console.log('>>>>>>>>>', content);
                         res.render("cardDetail", {
                             card: content[0],
                             msg: msg,
@@ -125,39 +125,38 @@ function addCard(req, res) {
     console.log(">>>>", req.files);
 
     uploadImg(req.files.facePic, function (data) {
-        let body=req.body;
+        let body = req.body;
 
-        if (data.code==200) {
+        if (data.code == 200) {
 
-            let canCut=body.canCut?"是":"否";
+            let canCut = body.canCut ? "是" : "否";
+            let other = body.other ? body.other : "";
+            console.log("canCut>>>>>",canCut)
             uploadImgs(req.files.photos, function (datas) {
-                if(datas.code==200){
+                if (datas.code == 200) {
                     pool.getConnection(function (err, connection) {
-                        connection.query($sql.addCard, [2,body.title,body.about,
-                            body.price,canCut,body.play,body.other,body.appointTime,
-                            body.aboutPrice,data.url,datas.photos.join(',')], function (err, result) {
+                        connection.query($sql.addCard, ['2', body.title, body.about,
+                            body.price, canCut, body.play, other, body.appointTime,
+                            body.aboutPrice, data.url, datas.photos.join(',')], function (err, result) {
                             connection.release();
                             if (err) {
                                 console.log(err.message)
                             }
                             else {
-                                console.log("result>>>>>>>>>",result[0])
+                                res.json({code:200})
                             }
 
                         });
                     });
-                }else{
-                    res.json({code:500})
+                } else {
+                    res.json({code: 500})
                 }
             });
-
-            // res.json({code:200,url:data.url})
         }
         else {
-            res.json({code:500})
+            res.json({code: 500})
         }
     });
-
 
 
     //    todo:将filename存入数据库

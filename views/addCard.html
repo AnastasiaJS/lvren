@@ -43,7 +43,7 @@
                 <label for="add-canCut">
                     价格（次）：
                 </label>
-                <input type="number" id="add-price" name="Price" required>
+                <input type="number" id="add-price" name="price" required>
             </div>
 
             <div class="add-about">
@@ -74,7 +74,8 @@
                 </div>
             </div>
         </section>
-        <button class="btn btn-default" onclick="uploadFile()">提交</button>
+        <button class="btn btn-default" id="btn-addCard" onclick="uploadFile()">提交</button>
+        <span id="add-tip"></span>
     </form>
     <aside>
         卡片目录————
@@ -100,7 +101,7 @@
     </div>
 </div>
 <!--触发div-->
-<div class="md-trigger" data-modal="modal-7" id="face-tip" style="opacity: 0"></div>
+<button class="md-trigger" data-modal="modal-7" id="face-tip" style="opacity: 0">modal</button>
 
 <div class="md-overlay"></div>
 <!--模态框  end-->

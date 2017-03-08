@@ -15,6 +15,7 @@
 <!--<div id="showPhoto">-->
 <!--</div>-->
 <%- include nav.html%>
+<!--todo:上传七牛404图片-->
 <div class="carousel">
     <div class="swiper-container gallery-top" id="carousel">
         <div class="swiper-wrapper">
@@ -120,7 +121,7 @@
                 <img src="http://p3.music.126.net/IAZKcW9XEAD-3Ce7xscrWA==/3264450024529041.jpg?param=200y200" alt="">
                 <sapn><%=face[i].Nickname%></sapn>
             </div>
-            <img src="/images/slide2.jpg" alt="">
+            <img src="<%=face[i].face%>" alt="">
             <h3>
                 <%=face[i].Title%>
             </h3>
@@ -130,7 +131,6 @@
                 </div>
                 <div class="place">
                     <img src="/icon/local.png" alt="">
-                    <%=face[i].Addr%>
                 </div>
                 <div class="goto">
 
@@ -196,7 +196,9 @@
 </div>
 <%-include js.html%>
 <script src="/javascripts/swiper.js"></script>
+<script>
 
+</script>
 
 </body>
 </html>
