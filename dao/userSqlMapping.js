@@ -2,6 +2,9 @@
  * Created by SWSD on 2017-03-06.
  */
 var card = {
+    register_insert: 'INSERT INTO `user`(Uid,Password) VALUES(?,?)',
+    login_judge: "select * from `user` where Uid=? and Password=?",
+    user: "select * from `user` where Uid=?",
     sqltotal: 'select count(*) total from tourcard',
     sqllimit: 'select Tid,face,Title,Price,Nickname from tourcard,`user` WHERE  tourcard.Uid=`user`.Uid ORDER BY Uptime desc LIMIT ?,?',
     sqlContent: 'select *,year(NOW())-year(Birthday) Age from tourcard,`user` where tourcard.Tid=? and tourcard.Uid=user.Uid ',

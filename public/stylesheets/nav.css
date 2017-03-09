@@ -23,45 +23,85 @@ a {
 /*layout===end*/
 header {
   font-size: 1.2rem;
-  position: fixed;
   top: 0;
   width: 100%;
+  line-height: 3em;
   color: lightcoral;
   background: rgba(255, 255, 255, 0);
-  z-index: 100;
-  transition: all 1s; }
-  header .nav {
-    width: 70%;
-    margin: 0 auto;
-    padding: 0; }
-    header .nav a {
-      text-decoration: none;
-      color: inherit; }
-    header .nav .logo {
+  transition: all 1s;
+  margin: auto;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  text-align: center; }
+  header .logo {
+    width: 4em;
+    margin-left: -1.1em; }
+    header .logo > a {
+      border: solid 1px lightcoral;
+      border-radius: 50%;
+      width: 2.2em;
+      height: 2.2em;
+      line-height: 2.2em;
       display: inline-block; }
-    header .nav ul {
-      height: 2rem;
+    header .logo > ul {
+      display: none;
+      width: 4em;
+      height: 5em;
       line-height: 2rem;
-      font-size: 24px;
       font-weight: 500;
-      display: inline-block; }
-      header .nav ul li {
-        display: inline-block;
-        border-bottom: none;
-        position: relative;
-        margin-right: 2em; }
-        header .nav ul li:after {
+      padding: 0; }
+      header .logo > ul li {
+        text-align: center;
+        padding: 0.4em;
+        width: 3em;
+        height: 1.5em; }
+        header .logo > ul li:after {
           content: "";
           position: absolute;
-          bottom: -2px;
-          left: 0;
-          width: 100%;
+          right: 50%;
+          margin-right: -1em;
+          margin-top: 1.6em;
+          width: 3em;
           height: 2px;
           background: lightcoral;
           transform: scaleX(0);
           transition: all 0.3s; }
-        header .nav ul li:hover:after {
+        header .logo > ul li:hover:after {
           transform: scaleX(1); }
+    header .logo:hover ul {
+      display: block; }
+  header .nav {
+    width: 70%;
+    margin: auto;
+    padding: 0;
+    position: relative;
+    transition: all 1s; }
+    header .nav .logo {
+      display: inline-block; }
+    header .nav .user {
+      position: absolute;
+      right: 0;
+      display: inline-block; }
+      header .nav .user .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        padding: 12px 16px;
+        z-index: 300; }
+
+#logined {
+  font-size: 1rem; }
+  #logined img {
+    width: 1.2em;
+    height: 1.2em;
+    border-radius: 50%;
+    border: solid 2px lightcoral;
+    vertical-align: middle; }
+  #logined:hover .dropdown-content {
+    display: block; }
 
 footer .web-info {
   background-color: #000;

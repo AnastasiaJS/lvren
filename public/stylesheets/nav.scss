@@ -26,41 +26,52 @@ a{
 /*layout===end*/
 header {
   font-size: 1.2rem;
-  position: fixed;
   top: 0;
   width: 100%;
+  //height:3em;
+  line-height:3em;
+  //z-index:2;
   color: lightcoral;
   background: rgba(255, 255, 255, 0);
-  z-index: 100;
   transition: all 1s;
-  //box-shadow: #999 0 1px 2px;
-  .nav {
-    width: 70%;
-    margin: 0 auto;
-    padding: 0;
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-    .logo {
+  margin:auto;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  text-align: center;
+  .logo{
+    //position: absolute;
+    width:4em;
+    //height:2.2em;
+    //left:50%;
+    margin-left: -1.1em;
+    >a{
+      border:solid 1px lightcoral;
+      border-radius: 50%;
+      width:2.2em;
+      height:2.2em;
+      line-height:2.2em;
       display: inline-block;
     }
-    ul {
-      height:2rem;
+    >ul{
+      display: none;
+      width:4em;
+      height:5em;
       line-height: 2rem;
-      font-size: 24px;
       font-weight: 500;
+      padding: 0;
       li {
-        display: inline-block;
-        border-bottom: none;
-        position: relative;
-        margin-right: 2em;
+        text-align: center;
+        padding:0.4em;
+        width:3em ;
+        height:1.5em;
         &:after {
           content: "";
           position: absolute;
-          bottom: -2px;
-          left: 0;
-          width: 100%;
+          right: 50%;
+          margin-right: -1em;
+          margin-top: 1.6em;
+          width: 3em;
           height: 2px;
           background: lightcoral;
           transform: scaleX(0);
@@ -70,11 +81,55 @@ header {
           transform: scaleX(1);
         }
       }
+    }
+    &:hover{
+      ul{
+        display: block;
+      }
+    }
+  }
+  .nav {
+    width: 70%;
+    margin:auto;
+    padding: 0;
+    position: relative;
+
+    .logo {
       display: inline-block;
     }
+    .user{
+      position: absolute;
+      right:0;
+      display: inline-block;
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 12px 16px;
+        z-index: 300;
+      }
+    }
+    transition: all 1s;
   }
 }
 
+#logined {
+  font-size: 1rem;
+  img{
+    width:1.2em;
+    height:1.2em;
+    border-radius: 50%;
+    border:solid 2px lightcoral;
+    vertical-align: middle;
+  }
+  &:hover{
+    .dropdown-content {
+      display: block;
+    }
+  }
+}
 
 footer {
   .web-info{

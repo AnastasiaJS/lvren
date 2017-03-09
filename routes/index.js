@@ -22,5 +22,15 @@ router.route('/addCard')
 
     });
 
+router.post('/login',function (req,res,next) {
+        userDao.login(req,res)
+    });
+router.post('/register',function (req,res,next) {
+    userDao.register(req,res)
+});
+//标记用户是否登录
+router.get('/session',function (req,res,next) {
+    userDao.isLogin(req,res,next);
+});
 
 module.exports = router;

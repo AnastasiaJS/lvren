@@ -4,6 +4,7 @@
 var $conf = require("./../conf/db");
 var $sql = require('./userSqlMapping');
 var fileuuid = require('./../util/uuidHelper');
+var pwdMd5 = require('./../util/md5Helper');
 
 var mysql = require('mysql');
 // var query = require('./../util/DBHelper');
@@ -63,8 +64,7 @@ function uploadImgs(original, callback) {
     });
     setTimeout(function () {
         callback(Object.assign({}, {code: newData.code, photos}));
-    },5000);
-
+    }, 5000);
 
 
 }
@@ -131,7 +131,7 @@ function addCard(req, res) {
 
             let canCut = body.canCut ? "是" : "否";
             let other = body.other ? body.other : "";
-            console.log("canCut>>>>>",canCut)
+            console.log("canCut>>>>>", canCut)
             uploadImgs(req.files.photos, function (datas) {
                 if (datas.code == 200) {
                     pool.getConnection(function (err, connection) {
@@ -143,7 +143,7 @@ function addCard(req, res) {
                                 console.log(err.message)
                             }
                             else {
-                                res.json({code:200})
+                                res.json({code: 200})
                             }
 
                         });
@@ -161,6 +161,88 @@ function addCard(req, res) {
 
     //    todo:将filename存入数据库
 }
+
+function login(req, res) {
+    var uid = req.body.uid;
+    var pwd = req.body.password;
+    //直接对"123456"字符串加密
+    var encode = pwdMd5.pwdMd5(pwd);
+    console.log("encode:" + encode);
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.login_judge, [uid, encode], function (err, result) {
+            if (err) {
+                res.render("error");
+            }
+            else {
+                console.log(JSON.stringify(result));
+                if (result) {
+                    req.session.uid = result[0].Uid;
+                    res.json({code: 200, Msg: "登录成功", nickname: result[0].Uid})
+                }
+                else {
+                    res.json({code: 500, Msg: "账号或密码错误！"})
+                }
+            }
+            connection.release();
+        });
+    })
+}
+
+function register(req, res) {
+    var param = req.body;
+    console.log(param);
+
+    /*-------------string md5------------------*/
+    var encode = pwdMd5.pwdMd5(param.password);
+    console.log("string:" + encode);
+
+    pool.getConnection(function (err, connection) {
+        console.log('ok 1 ok 1 ok 1 ok 1 ok 1 ok 1 ok ok')
+
+        // if(isReg.length>0){
+        //     res.json({code:300,msg:'该邮箱已注册'})
+        // }
+
+        connection.query($sql.register_insert, [param.uid, encode], function (err, result) {
+            console.log(result);
+            connection.release();
+            if (err) {
+                res.json({code: 500, msg: err});
+            }
+            else if (result.affectedRows > 0) {
+                req.session.uid = param.uid;
+                res.json({code: 200, msg: "注册成功"})
+            }
+        });
+    });
+}
+function isLogin(req, res) {
+    if (req.session.uid) {
+        //若已登录返回用户相关信息
+        //todo:判断用户信息填写是否完善
+        pool.getConnection(function (err, connection) {
+            connection.query($sql.user, [req.session.uid], function (err, result) {
+                connection.release();
+                if (err) {
+                    res.render("error");
+                }
+                else if (result) {
+                    req.session.uid = result[0].Uid;
+                    res.json({code: 200, nickname: result[0].Uid})
+                }
+                else {
+                    res.json({code: 500})
+                }
+
+            });
+        })
+    } else {
+        res.json({code: 500})
+    }
+}
 exports.getCards = getCards;
 exports.card_inner = card_inner;
 exports.addCard = addCard;
+exports.login = login;
+exports.register = register;
+exports.isLogin = isLogin;

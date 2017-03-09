@@ -1,0 +1,58 @@
+@charset "UTF-8";
+/*鐧诲綍娉ㄥ唽琛ㄥ崟==begin====*/
+#modal-12 {
+  text-align: center; }
+  #modal-12 h3 {
+    color: #ff6056;
+    width: 3em;
+    height: 3em;
+    border: solid 1px #c0392b;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 3em;
+    margin: 2em auto; }
+  #modal-12 p {
+    color: #c0392b; }
+  #modal-12 form input:not(:last-child) {
+    font-size: 1.2rem;
+    height: 2em;
+    width: 20em;
+    border-top: transparent;
+    border-left: transparent;
+    border-right: transparent;
+    border-bottom-color: #555;
+    border-bottom-width: 1px;
+    margin-bottom: 0.8em;
+    outline: none; }
+  #modal-12 form input[type=submit] {
+    border: none;
+    width: 4em;
+    height: 2em;
+    line-height: 2em;
+    background: #c0392b;
+    color: #fff;
+    font-size: 1em;
+    letter-spacing: 1px;
+    cursor: pointer;
+    display: inline-block;
+    border-radius: 2px; }
+    #modal-12 form input[type=submit]:after {
+      content: ''; }
+  #modal-12 a {
+    color: cadetblue;
+    display: block;
+    font-size: 0.8rem;
+    width: 4em;
+    cursor: pointer; }
+    #modal-12 a:hover {
+      border-bottom: solid 1px cadetblue; }
+  #modal-12 .md-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #444;
+    cursor: pointer; }
+
+/*鐧诲綍娉ㄥ唽琛ㄥ崟===end====*/
+
+/*# sourceMappingURL=form.css.map */

@@ -1,12 +1,140 @@
+<!--登录注册模态框-->
+
+<div class="md-modal md-effect-12" id="modal-12">
+    <div class="md-content">
+        <h3 id="modal-tip">旅人</h3>
+        <p id="frm-tip"></p>
+        <div>
+            <form action="javascript:;" id="frm-login">
+                <input type="text" placeholder="邮箱" name="uid"><br>
+                <input type="password" name="password" placeholder="密码"><br>
+                <input type="submit" id="btn-login" value="登录"><a onclick="goRegister()">马上注册</a>
+            </form>
+            <form action="javascript:;" id="frm-register" style="display: none">
+                <input type="text" placeholder="邮箱" name="uid"><br>
+                <input type="password" name="password" placeholder="密码"><br>
+                <input type="password" name="password2" placeholder="确认密码"><br>
+                <input type="submit" id="btn-register" value="注册"><a onclick="goLogin()">去登录</a>
+            </form>
+
+        </div>
+    </div>
+    <div class="md-close">x</div>
+</div>
+
+<!--登录注册模态框结束-->
+
 <header id="menu">
     <div class="nav">
         <div class="logo">
-            <a href="#">旅人</a>
+            <a href="/">旅人</a>
+            <ul>
+                <li id="nav-guangchang"><a href="#">广场</a></li>
+                <li id="nav-send"><a href="/addCard">发布</a></li>
+            </ul>
         </div>
-        <ul>
-            <li id="nav-index"><a href="/">首页</a></li>
-            <li id="nav-guangchang"><a href="#">广场</a></li>
-            <li id="nav-send"><a href="/addCard">发布</a></li>
-        </ul>
+        <div class="user">
+            <button class="md-trigger" data-modal="modal-12" style="display: none" id="not-login">登录</button>
+            <a href="/setting" id="logined" style="display: none">
+                <img src="http://p3.music.126.net/IAZKcW9XEAD-3Ce7xscrWA==/3264450024529041.jpg?param=200y200" alt="">
+                <span id="nav-nickname"></span>
+            </a>
+            <div class="dropdown-content">
+                <p>退出</p>
+            </div>
+        </div>
     </div>
 </header>
+
+<div class="md-overlay"></div>
+<script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+
+<script>
+    $.get('/session',function (data) {
+        console.log(data)
+        if(data.code==200){
+            $("#not-login").css("display","none");
+            $("#logined").css("display","block");
+            $("#nav-nickname").text(data.nickname);
+//            $("#headpic").attr('src','/upload/'+data.headPic)
+        }else{
+            $("#logined").css("display","none");
+            $("#not-login").css("display","block");
+        }
+    })
+
+    function goRegister(){
+        $("#frm-register").css('display','block');
+        $("#frm-login").css('display','none');
+    }
+    function goLogin(){
+        $("#frm-register").css('display','none');
+        $("#frm-login").css('display','block');
+    }
+
+
+    $("#frm-login").submit(function () {
+        $.ajax({
+            url: '/login',
+            type: 'POST',
+            data: $("#frm-login").serialize(),
+            dataType: 'json',
+            beforeSend: function () {
+                $('#frm-tip').text('正在登录...');
+                // 禁用按钮防止重复提交，发送前响应
+                $("#btn-login").attr({ disabled: "disabled" });
+
+            },
+            success: function (data) {
+                if(data.code==200){
+                    $("#frm-tip").text(data.msg);
+                    location.href = '/'
+                }
+                else{
+                    $("#frm-tip").text(data.msg);
+                    return false;
+                }
+            },
+            complete: function () {//完成响应
+                $("#btn-login").removeAttr("disabled");
+//                $('#frm-tip').text('');
+            },
+            error: function () {
+                $("#frm-tip").text(data.msg);
+                return false;
+            }
+        });
+    })
+    $("#frm-register").submit(function () {
+        $.ajax({
+            url: '/register',
+            type: 'POST',
+            data: $("#frm-register").serialize(),
+            dataType: 'json',
+            beforeSend: function () {
+                $('#frm-tip').text('正在注册...');
+                // 禁用按钮防止重复提交，发送前响应
+                $("#btn-register").attr({ disabled: "disabled" });
+
+            },
+            success: function (data) {
+                if(data.code==200){
+                    $("#frm-tip").text(data.msg);
+                    location.href = '/'
+                }
+                else{
+                    $("#frm-tip").text(data.msg);
+                    return false;
+                }
+            },
+            complete: function () {//完成响应
+                $("#btn-register").removeAttr("disabled");
+//                $('#frm-tip').text('');
+            },
+            error: function () {
+                $("#frm-tip").text(data.msg);
+                return false;
+            }
+        });
+    })
+</script>

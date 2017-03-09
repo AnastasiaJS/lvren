@@ -16,12 +16,13 @@
 <!--</div>-->
 <%- include nav.html%>
 <!--todo:上传七牛404图片-->
-<div class="carousel">
-    <div class="swiper-container gallery-top" id="carousel">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <img data-src="/images/slide1.jpg" alt="" class="swiper-lazy">
-                <div class="swiper-lazy-preloader"></div>
+<div class="main">
+    <div class="carousel">
+        <div class="swiper-container gallery-top" id="carousel">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img data-src="/images/slide1.jpg" alt="" class="swiper-lazy">
+                    <div class="swiper-lazy-preloader"></div>
             <span class="ani" swiper-animate-effect="bounceInRight" swiper-animate-duration="1s"
                   swiper-animate-delay="0.1s">
                 logo
@@ -33,164 +34,165 @@
                 把我租给你，还有我在这个城市的秘密
                 把我租给你，还有我在这个城市的秘密
             </span>
-            </div>
-            <div class="swiper-slide ">
-                <img data-src="/images/slide2.jpg" alt="" class="swiper-lazy">
-                <div class="swiper-lazy-preloader"></div>
+                </div>
+                <div class="swiper-slide ">
+                    <img data-src="/images/slide2.jpg" alt="" class="swiper-lazy">
+                    <div class="swiper-lazy-preloader"></div>
             <span class="ani" swiper-animate-effect="bounceInLeft" swiper-animate-duration="2s"
                   swiper-animate-delay="0.1s">
                 22222
             </span>
-            </div>
-            <div class="swiper-slide ">
-                <img data-src="/images/slide3.jpg" alt="" class="swiper-lazy">
-                <div class="swiper-lazy-preloader"></div>
+                </div>
+                <div class="swiper-slide ">
+                    <img data-src="/images/slide3.jpg" alt="" class="swiper-lazy">
+                    <div class="swiper-lazy-preloader"></div>
             <span class="ani" swiper-animate-effect="bounceInLeft" swiper-animate-duration="2s"
                   swiper-animate-delay="0.1s">
                 333333
             </span>
+                </div>
+
             </div>
-
+            <!-- 如果需要分页器 -->
+            <div class="swiper-pagination"></div>
+            <!--&lt;!&ndash;&lt;!&ndash; 如果需要导航按钮 &ndash;&gt;&ndash;&gt;-->
+            <div class="swiper-button-prev  swiper-button-white"></div>
+            <div class="swiper-button-next  swiper-button-white"></div>
         </div>
-        <!-- 如果需要分页器 -->
-        <div class="swiper-pagination"></div>
-        <!--&lt;!&ndash;&lt;!&ndash; 如果需要导航按钮 &ndash;&gt;&ndash;&gt;-->
-        <div class="swiper-button-prev  swiper-button-white"></div>
-        <div class="swiper-button-next  swiper-button-white"></div>
+
     </div>
 
-</div>
-
-<!--分类-->
-<div class="type">
-    <div class="title">
-        <div class="wow bounceInLeft title-big">主题精选</div>
-        <p class="wow bounce small-sentence">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite>
-        </p>
-    </div>
-    <div class="main">
-        <div class="part">
-            <img src="/images/ziran.jpg" alt="">
-            <p>自然</p>
+    <!--分类-->
+    <div class="type">
+        <div class="title">
+            <div class="wow bounceInLeft title-big">主题精选</div>
+            <p class="wow bounce small-sentence">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite>
+            </p>
         </div>
-        <div class="part">
-            <img src="/images/renwen.jpg" alt="">
-            <p>人文</p>
-        </div>
-        <div class="part">
-            <img src="/images/yinshi.jpg" alt="">
-            <p>传统饮食</p>
-        </div>
-        <div class="part">
-            <img src="/images/dushi.jpg" alt="">
-            <p>都市</p>
-        </div>
-        <div class="part">
-            <img src="/images/tianyuan.jpg" alt="">
-            <p>田园风光</p>
-        </div>
-        <div class="part">
-            <img src="/images/gongyi.jpg" alt="">
-            <p>文化与工艺</p>
-        </div>
-        <div class="part">
-            <img src="/images/gongyi.jpg" alt="">
-            <p>文化与工艺</p>
-        </div>
-    </div>
-</div>
-<div class="sentence">
-    <img class="sentence-bg" src="/images/big_1.jpg" alt="">
-    <figure>
-        <img class="wow flipInX" src="/images/slide3.jpg" alt="三毛">
-    </figure>
-    <p class="wow swing quote">&ldquo;如果心无处可栖，到哪里都是流浪。&rdquo; <cite class="author">&mdash; 三毛</cite></p>
-</div>
-
-<div class="popular">
-    <div class="title">
-        <div class="wow bounceInLeft title-big">最受欢迎旅人</div>
-        <p class="wow bounce small-sentence">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite>
-        </p>
-        <div class="title-tip" onclick="location.href='/card/more/?index=1'">更多</div>
-    </div>
-    <div class="main">
-        <% for(let i=0;i< face.length;i++){%>
-        <div class="card" onclick="openCard(<%=face[i].Tid%>)">
-            <div class="header">
-                <img src="http://p3.music.126.net/IAZKcW9XEAD-3Ce7xscrWA==/3264450024529041.jpg?param=200y200" alt="">
-                <sapn><%=face[i].Nickname%></sapn>
+        <div class="main">
+            <div class="part">
+                <img src="/images/ziran.jpg" alt="">
+                <p>自然</p>
             </div>
-            <img src="<%=face[i].face%>" alt="">
-            <h3>
-                <%=face[i].Title%>
-            </h3>
-            <div class="card-footer">
-                <div class="price">
-                    <sapn style="font-size: 1.5em;color:#F08080"><%=face[i].Price%></sapn>元/次
-                </div>
-                <div class="place">
-                    <img src="/icon/local.png" alt="">
-                </div>
-                <div class="goto">
-
-                </div>
+            <div class="part">
+                <img src="/images/renwen.jpg" alt="">
+                <p>人文</p>
+            </div>
+            <div class="part">
+                <img src="/images/yinshi.jpg" alt="">
+                <p>传统饮食</p>
+            </div>
+            <div class="part">
+                <img src="/images/dushi.jpg" alt="">
+                <p>都市</p>
+            </div>
+            <div class="part">
+                <img src="/images/tianyuan.jpg" alt="">
+                <p>田园风光</p>
+            </div>
+            <div class="part">
+                <img src="/images/gongyi.jpg" alt="">
+                <p>文化与工艺</p>
+            </div>
+            <div class="part">
+                <img src="/images/gongyi.jpg" alt="">
+                <p>文化与工艺</p>
             </div>
         </div>
-        <%}%>
     </div>
-</div>
+    <div class="sentence">
+        <img class="sentence-bg" src="/images/big_1.jpg" alt="">
+        <figure>
+            <img class="wow flipInX" src="/images/slide3.jpg" alt="三毛">
+        </figure>
+        <p class="wow swing quote">&ldquo;如果心无处可栖，到哪里都是流浪。&rdquo; <cite class="author">&mdash; 三毛</cite></p>
+    </div>
 
-<div class="music">
-    <img class="music-bg" src="/images/skllr.jpg" alt="时空恋旅人">
-    <audio id="aud" loop>
-        <source src="/chengdu.mp3" type="audio/mpeg">
-    </audio>
-    <img class="wow bounce music-control" id="play" src="/images/play.png" onclick="aud_play()"/>
-    <img class="wow bounce music-control" id="pause" src="/images/pause.png" onclick="aud_pause()"/>
-    <!--动态播放效果-->
-    <div id="music-ani">
-        <div id="ani1"></div>
-        <div id="ani2"></div>
-        <div id="ani3"></div>
-        <div id="ani4"></div>
-        <div id="ani5"></div>
-        <div id="ani6"></div>
-    </div>
-</div>
-<div class="articles">
-    <div class="title">
-        <div class="wow bounceInLeft title-big">我的城市故事</div>
-        <p class="wow bounce small-sentence">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite>
-        </p>
-        <div class="title-tip">更多</div>
-    </div>
-    <div class="article-main">
-        <img src="/images/slide3.jpg" alt="">
-        <div class="article-more">
-            Story
-            <p class="wow bounce small-sentence" style="font-size: 1rem;width: 12rem;margin:0.5em auto;">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite>
-            <div class="more">
-                -more-
-            </div>
+    <div class="popular">
+        <div class="title">
+            <div class="wow bounceInLeft title-big">最受欢迎旅人</div>
+            <p class="wow bounce small-sentence">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite>
+            </p>
+            <div class="title-tip" onclick="location.href='/card/more/?index=1'">更多</div>
         </div>
-        <div class="article-list">
-
-            <% for(let i=0;i<4;i++){%>
-            <article>
-                <div class="article-left">
-                    <img src="/images/gaomi.jpg" alt="高密">
+        <div class="main">
+            <% for(let i=0;i< face.length;i++){%>
+            <div class="card" onclick="openCard(<%=face[i].Tid%>)">
+                <div class="header">
+                    <img src="http://p3.music.126.net/IAZKcW9XEAD-3Ce7xscrWA==/3264450024529041.jpg?param=200y200" alt="">
+                    <sapn><%=face[i].Nickname%></sapn>
                 </div>
-                <div class="article-right" onclick="location.href='#'">
-                    <h1>高密行</h1>
-                    <div><small>莫言莫言</small>--
-                        G字头的速度，果然不同凡响，没等回过神，站台已经消失得无影无踪。
-                        呼啸着向前，似一把出鞘的利刃，飞快地割切着堡垒密布的城市。锋芒所向，一簇簇一层层缠绕的楼群被分断、撕裂，然后毫无顾惜地抛向身后，一骑绝尘般杀出雾霾笼罩的包围圈。
-                        凭如此速度我似乎该兴奋，或者乘着如此的气势而燃起激情
+                <img src="<%=face[i].face%>" alt="">
+                <h3>
+                    <%=face[i].Title%>
+                </h3>
+                <div class="card-footer">
+                    <div class="price">
+                        <sapn style="font-size: 1.5em;color:#F08080"><%=face[i].Price%></sapn>元/次
+                    </div>
+                    <div class="place">
+                        <img src="/icon/local.png" alt="">
+                    </div>
+                    <div class="goto">
+
                     </div>
                 </div>
-            </article>
+            </div>
             <%}%>
+        </div>
+    </div>
+
+    <div class="music">
+        <img class="music-bg" src="/images/skllr.jpg" alt="时空恋旅人">
+        <audio id="aud" loop>
+            <source src="/chengdu.mp3" type="audio/mpeg">
+        </audio>
+        <img class="wow bounce music-control" id="play" src="/images/play.png" onclick="aud_play()"/>
+        <img class="wow bounce music-control" id="pause" src="/images/pause.png" onclick="aud_pause()"/>
+        <!--动态播放效果-->
+        <div id="music-ani">
+            <div id="ani1"></div>
+            <div id="ani2"></div>
+            <div id="ani3"></div>
+            <div id="ani4"></div>
+            <div id="ani5"></div>
+            <div id="ani6"></div>
+        </div>
+    </div>
+    <div class="articles">
+        <div class="title">
+            <div class="wow bounceInLeft title-big">我的城市故事</div>
+            <p class="wow bounce small-sentence">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite>
+            </p>
+            <div class="title-tip">更多</div>
+        </div>
+        <div class="article-main">
+            <img src="/images/slide3.jpg" alt="">
+            <div class="article-more">
+                Story
+                <p class="wow bounce small-sentence" style="font-size: 1rem;width: 12rem;margin:0.5em auto;">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite>
+                <div class="more">
+                    -more-
+                </div>
+            </div>
+            <div class="article-list">
+
+                <% for(let i=0;i<4;i++){%>
+                <article>
+                    <div class="article-left">
+                        <img src="/images/gaomi.jpg" alt="高密">
+                    </div>
+                    <div class="article-right" onclick="location.href='#'">
+                        <h1>高密行</h1>
+                        <div><small>莫言莫言</small>--
+                            G字头的速度，果然不同凡响，没等回过神，站台已经消失得无影无踪。
+                            呼啸着向前，似一把出鞘的利刃，飞快地割切着堡垒密布的城市。锋芒所向，一簇簇一层层缠绕的楼群被分断、撕裂，然后毫无顾惜地抛向身后，一骑绝尘般杀出雾霾笼罩的包围圈。
+                            凭如此速度我似乎该兴奋，或者乘着如此的气势而燃起激情
+                        </div>
+                    </div>
+                </article>
+                <%}%>
+            </div>
         </div>
     </div>
 </div>
