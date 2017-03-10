@@ -240,9 +240,14 @@ function isLogin(req, res) {
         res.json({code: 500})
     }
 }
+function logout(req,res) {
+    req.session.uid=null;
+    res.redirect('/');
+}
 exports.getCards = getCards;
 exports.card_inner = card_inner;
 exports.addCard = addCard;
 exports.login = login;
 exports.register = register;
 exports.isLogin = isLogin;
+exports.logout = logout;

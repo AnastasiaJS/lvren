@@ -1,4 +1,3 @@
-
 /*layout==begin*/
 html, body {
   width: 100%;
@@ -14,57 +13,60 @@ body {
   color: #333;
   //margin-top: 2rem;
 }
-ul li{
+
+ul li {
   list-style: none;
-  margin:0;
+  margin: 0;
   padding: 0;
 }
-a{
+
+a {
   text-decoration: none;
   color: inherit;
 }
+
 /*layout===end*/
 header {
   font-size: 1.2rem;
   top: 0;
   width: 100%;
   //height:3em;
-  line-height:3em;
+  line-height: 3em;
   //z-index:2;
   color: lightcoral;
   background: rgba(255, 255, 255, 0);
   transition: all 1s;
-  margin:auto;
+  margin: auto;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   text-align: center;
-  .logo{
+  .logo {
     //position: absolute;
-    width:4em;
+    width: 4em;
     //height:2.2em;
     //left:50%;
     margin-left: -1.1em;
-    >a{
-      border:solid 1px lightcoral;
+    > a {
+      border: solid 1px lightcoral;
       border-radius: 50%;
-      width:2.2em;
-      height:2.2em;
-      line-height:2.2em;
+      width: 3rem;
+      height: 3rem;
+      line-height: 3rem;
       display: inline-block;
     }
-    >ul{
+    > ul {
       display: none;
-      width:4em;
-      height:5em;
+      width: 4em;
+      height: 5em;
       line-height: 2rem;
       font-weight: 500;
       padding: 0;
       li {
         text-align: center;
-        padding:0.4em;
-        width:3em ;
-        height:1.5em;
+        padding: 0.4em;
+        width: 3em;
+        height: 1.5em;
         &:after {
           content: "";
           position: absolute;
@@ -82,57 +84,100 @@ header {
         }
       }
     }
-    &:hover{
-      ul{
+    &:hover {
+      ul {
         display: block;
       }
     }
   }
   .nav {
     width: 70%;
-    margin:auto;
+    margin: auto;
     padding: 0;
     position: relative;
 
     .logo {
       display: inline-block;
     }
-    .user{
+    .user {
       position: absolute;
-      right:0;
+      right: 0;
       display: inline-block;
       .dropdown-content {
         display: none;
         position: absolute;
         background-color: #f9f9f9;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        padding: 12px 16px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         z-index: 300;
+        ul {
+          padding: 0;
+        }
+      }
+      &:hover {
+        .dropdown-content {
+          display: block;
+          ul {
+            padding: 0;
+            li {
+              width: 3em;
+              height: 1.5em;
+              a {
+                //border-bottom: solid 1px lightcoral;
+              }
+            }
+          }
+        }
       }
     }
     transition: all 1s;
   }
 }
 
+#not-login {
+  position: absolute;
+  right: 0;
+  top:0;
+  display: inline-block;
+  z-index:2;
+  background: transparent;
+  border: none;
+  color: lightcoral;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 3rem;
+  height: 2rem;
+  padding: 0;
+  margin: 0.5em auto;
+  outline: none;
+  &:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 2rem;
+    height: 1px;
+    background: lightcoral;
+    transform: scaleX(0);
+    transition: all 0.3s;
+  }
+  &:hover:after {
+    transform: scaleX(1);
+  }
+}
+
 #logined {
   font-size: 1rem;
-  img{
-    width:1.2em;
-    height:1.2em;
+  img {
+    width: 1.2em;
+    height: 1.2em;
     border-radius: 50%;
-    border:solid 2px lightcoral;
+    border: solid 2px lightcoral;
     vertical-align: middle;
-  }
-  &:hover{
-    .dropdown-content {
-      display: block;
-    }
   }
 }
 
 footer {
-  .web-info{
+  .web-info {
     background-color: #000;
     text-align: center;
     height: 2em;
@@ -140,15 +185,15 @@ footer {
     color: #fff;
   }
 
-  .go-top{
+  .go-top {
     margin-top: 4rem;
     background: rgba(252, 214, 214, 0.4);
     text-align: center;
     overflow: hidden;
-    width:100%;
-    height:48px;
-    &:hover{
-      background: rgba(253, 211, 211,0.5);
+    width: 100%;
+    height: 48px;
+    &:hover {
+      background: rgba(253, 211, 211, 0.5);
       cursor: pointer;
     }
   }

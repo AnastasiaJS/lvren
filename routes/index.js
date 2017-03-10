@@ -32,5 +32,8 @@ router.post('/register',function (req,res,next) {
 router.get('/session',function (req,res,next) {
     userDao.isLogin(req,res,next);
 });
+router.get('/logout', function (req, res, next) {
+    userDao.logout(req, res)
+});
 
 module.exports = router;

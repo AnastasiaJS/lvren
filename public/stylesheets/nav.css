@@ -40,9 +40,9 @@ header {
     header .logo > a {
       border: solid 1px lightcoral;
       border-radius: 50%;
-      width: 2.2em;
-      height: 2.2em;
-      line-height: 2.2em;
+      width: 3rem;
+      height: 3rem;
+      line-height: 3rem;
       display: inline-block; }
     header .logo > ul {
       display: none;
@@ -87,10 +87,46 @@ header {
         display: none;
         position: absolute;
         background-color: #f9f9f9;
-        min-width: 160px;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-        padding: 12px 16px;
         z-index: 300; }
+        header .nav .user .dropdown-content ul {
+          padding: 0; }
+      header .nav .user:hover .dropdown-content {
+        display: block; }
+        header .nav .user:hover .dropdown-content ul {
+          padding: 0; }
+          header .nav .user:hover .dropdown-content ul li {
+            width: 3em;
+            height: 1.5em; }
+
+#not-login {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: inline-block;
+  z-index: 2;
+  background: transparent;
+  border: none;
+  color: lightcoral;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 3rem;
+  height: 2rem;
+  padding: 0;
+  margin: 0.5em auto;
+  outline: none; }
+  #not-login:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 2rem;
+    height: 1px;
+    background: lightcoral;
+    transform: scaleX(0);
+    transition: all 0.3s; }
+  #not-login:hover:after {
+    transform: scaleX(1); }
 
 #logined {
   font-size: 1rem; }
@@ -100,8 +136,6 @@ header {
     border-radius: 50%;
     border: solid 2px lightcoral;
     vertical-align: middle; }
-  #logined:hover .dropdown-content {
-    display: block; }
 
 footer .web-info {
   background-color: #000;
