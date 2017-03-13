@@ -42,7 +42,7 @@ app.use(require('node-sass-middleware')({
   sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({ secret: 'jack', key: 'jack_key',cookie: {maxAge: 12000000 }}));//session有效时间20分钟
+app.use(session({ secret: 'Anastasia', key: 'qianchuan',cookie: {maxAge: 12000000 }}));//session有效时间20分钟
 
 
 app.use('/', index);

@@ -137,21 +137,23 @@ header {
     border: solid 2px lightcoral;
     vertical-align: middle; }
 
-footer .web-info {
-  background-color: #000;
-  text-align: center;
-  height: 2em;
-  line-height: 2em;
-  color: #fff; }
-footer .go-top {
-  margin-top: 4rem;
-  background: rgba(252, 214, 214, 0.4);
-  text-align: center;
-  overflow: hidden;
-  width: 100%;
-  height: 48px; }
-  footer .go-top:hover {
-    background: rgba(253, 211, 211, 0.5);
-    cursor: pointer; }
+footer {
+  bottom: 0; }
+  footer .web-info {
+    background-color: #000;
+    text-align: center;
+    height: 2em;
+    line-height: 2em;
+    color: #fff; }
+  footer .go-top {
+    margin-top: 4rem;
+    background: rgba(252, 214, 214, 0.4);
+    text-align: center;
+    overflow: hidden;
+    width: 100%;
+    height: 48px; }
+    footer .go-top:hover {
+      background: rgba(253, 211, 211, 0.5);
+      cursor: pointer; }
 
 /*# sourceMappingURL=nav.css.map */

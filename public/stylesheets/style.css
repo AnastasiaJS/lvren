@@ -316,6 +316,7 @@
   .articles .article-main article {
     display: -webkit-flex;
     /* Safari */
+    display: flex;
     height: 12em;
     width: 90%;
     margin: auto;

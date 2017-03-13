@@ -70,6 +70,25 @@ function uploadImgs(original, callback) {
 }
 
 /*七牛云相关服务的应用 =====end*/
+
+/*判断账户是否已注册=== begin========*/
+function isReg(uid,callback) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.reg_search, [uid], function (err, isReg) {
+            if (err) {
+                console.log('reg_search>>>>', err);
+                callback({code:2,msg:'出错啦~'});
+            } else if (isReg.length > 0) {
+                callback({code:1,msg:'该邮箱已注册'});
+            } else {
+                callback({code:0,msg:'该邮箱未注册'});
+            }
+            connection.release();
+        })
+    })
+};
+
+/*判断账户是否已注册===end*/
 function getCards(start, acount, res, callback) {
 
     pool.getConnection(function (err, connection) {
@@ -167,24 +186,35 @@ function login(req, res) {
     var pwd = req.body.password;
     //直接对"123456"字符串加密
     var encode = pwdMd5.pwdMd5(pwd);
-    console.log("encode:" + encode);
-    pool.getConnection(function (err, connection) {
-        connection.query($sql.login_judge, [uid, encode], function (err, result) {
-            if (err) {
-                res.render("error");
-            }
-            else {
-                console.log(JSON.stringify(result));
-                if (result) {
-                    req.session.uid = result[0].Uid;
-                    res.json({code: 200, Msg: "登录成功", nickname: result[0].Uid})
-                }
-                else {
-                    res.json({code: 500, Msg: "账号或密码错误！"})
-                }
-            }
-            connection.release();
-        });
+    // let isReg=isReg(uid)
+    // console.log(isReg)
+
+    isReg(uid,function (data) {
+        if(data.code==1){
+            pool.getConnection(function (err, connection) {
+                connection.query($sql.login_judge, [uid, encode], function (err, result) {
+                    if (err) {
+                        res.render("error");
+                    }
+                    else {
+                        console.log(JSON.stringify(result));
+                        if (result.length>0) {
+                            req.session.uid = result[0].Uid;
+                            console.log('login ok')
+                            res.json({code: 200, msg: "登录成功", nickname: result[0].Uid})
+                        }
+                        else {
+                            res.json({code: 500, msg: "账号或密码错误！"})
+                        }
+                    }
+                    connection.release();
+
+                });
+            })
+        }else{
+            res.json(data)
+        }
+
     })
 }
 
@@ -194,28 +224,28 @@ function register(req, res) {
 
     /*-------------string md5------------------*/
     var encode = pwdMd5.pwdMd5(param.password);
-    console.log("string:" + encode);
+    isReg(param.uid,function (data) {
+        if (data.code == 1) {
+            res.json({code:300,msg:data.msg})
+        }else{
+            pool.getConnection(function (err, connection) {
+                connection.query($sql.register_insert, [param.uid, encode], function (err, result) {
 
-    pool.getConnection(function (err, connection) {
-        console.log('ok 1 ok 1 ok 1 ok 1 ok 1 ok 1 ok ok')
-
-        // if(isReg.length>0){
-        //     res.json({code:300,msg:'该邮箱已注册'})
-        // }
-
-        connection.query($sql.register_insert, [param.uid, encode], function (err, result) {
-            console.log(result);
-            connection.release();
-            if (err) {
-                res.json({code: 500, msg: err});
-            }
-            else if (result.affectedRows > 0) {
-                req.session.uid = param.uid;
-                res.json({code: 200, msg: "注册成功"})
-            }
-        });
-    });
+                    if (err) {
+                        console.log('register_insert>>>>>>>', err);
+                        res.json({code: 500, msg: err});
+                    }
+                    else if (result.affectedRows > 0) {
+                        req.session.uid = param.uid;
+                        res.json({code: 200, msg: "注册成功,跳转至首页..."})
+                    }
+                    connection.release();
+                });
+            })
+        }
+    })
 }
+
 function isLogin(req, res) {
     if (req.session.uid) {
         //若已登录返回用户相关信息
@@ -240,8 +270,8 @@ function isLogin(req, res) {
         res.json({code: 500})
     }
 }
-function logout(req,res) {
-    req.session.uid=null;
+function logout(req, res) {
+    req.session.uid = null;
     res.redirect('/');
 }
 exports.getCards = getCards;

@@ -3,6 +3,7 @@
  */
 var card = {
     register_insert: 'INSERT INTO `user`(Uid,Password) VALUES(?,?)',
+    reg_search:'select * from `user` where Uid=?',
     login_judge: "select * from `user` where Uid=? and Password=?",
     user: "select * from `user` where Uid=?",
     sqltotal: 'select count(*) total from tourcard',

@@ -1,0 +1,130 @@
+#my {
+  width: 960px;
+  margin: auto; }
+  #my .top {
+    background: #fff;
+    margin-top: 60px;
+    position: relative;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    display: -webkit-flex;
+    display: flex;
+    flex-flow: column nowrap; }
+    #my .top .header, #my .top .tab {
+      flex: 1; }
+    #my .top .header {
+      display: -webkit-flex;
+      display: flex;
+      flex-flow: row nowrap; }
+      #my .top .header .img-header {
+        flex: 2;
+        position: relative;
+        top: -20%; }
+        #my .top .header .img-header img {
+          position: relative;
+          top: -20%;
+          left: 10%;
+          width: 8rem;
+          height: 8rem;
+          border: solid 8px #fff;
+          border-radius: 8px;
+          box-shadow: 0 0 4px rgba(0, 0, 0, 0.2); }
+      #my .top .header #name {
+        flex: 4; }
+      #my .top .header .setting {
+        flex: 1;
+        border-radius: 2px;
+        padding: 0 0.8rem;
+        height: 2rem;
+        line-height: 2rem;
+        background: linear-gradient(#FAFAFA, #F2F2F2);
+        border: 1px solid #D9D9D9;
+        cursor: pointer;
+        text-decoration: none;
+        color: #444;
+        white-space: nowrap;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+        text-align: center;
+        position: relative;
+        top: 1.5rem;
+        right: 0.5rem; }
+  #my .tab {
+    border-top: solid 1px #EDEDED; }
+    #my .tab ul {
+      padding: 0; }
+      #my .tab ul li {
+        display: inline-block;
+        width: 6rem;
+        height: 2rem;
+        text-align: center;
+        line-height: 2rem;
+        color: #777;
+        border-right: solid 1px #EDEDED; }
+        #my .tab ul li:hover {
+          color: #9A0000;
+          cursor: pointer; }
+      #my .tab ul .active {
+        color: #000;
+        font-weight: 900; }
+  #my .main {
+    margin-top: 4rem;
+    background: #fff;
+    min-height: 500px;
+    width: 100%;
+    padding: 4rem 0; }
+    #my .main .order {
+      width: 100%;
+      min-height: 500px;
+      display: flex;
+      flex-flow: row nowrap; }
+      #my .main .order .order-menu {
+        flex: 1;
+        border-right: solid 1px #9A0000;
+        min-height: 500px; }
+        #my .main .order .order-menu ul {
+          padding: 0; }
+          #my .main .order .order-menu ul li {
+            color: #777;
+            position: relative;
+            right: -1.2em;
+            height: 4em;
+            line-height: 4em; }
+            #my .main .order .order-menu ul li .icon {
+              display: inline-block;
+              font-size: 1em;
+              width: 2em;
+              height: 2em;
+              vertical-align: middle;
+              fill: currentColor;
+              overflow: hidden;
+              background: #fff; }
+          #my .main .order .order-menu ul .active {
+            color: #9A0000;
+            font-weight: 900; }
+      #my .main .order .order-main {
+        flex: 9;
+        padding-left: 4rem; }
+        #my .main .order .order-main .order {
+          width: 800px;
+          height: 200px;
+          display: flex;
+          flex-flow: column nowrap; }
+          #my .main .order .order-main .order .ord_top {
+            flex: 1;
+            height: 3rem;
+            line-height: 3rem;
+            border-bottom: solid 1px #EDEDED; }
+            #my .main .order .order-main .order .ord_top span {
+              margin-right: 2rem; }
+              #my .main .order .order-main .order .ord_top span i {
+                background: url("/icon/connect.png") no-repeat;
+                width: 30px;
+                display: inline-block;
+                margin-right: 10px;
+                vertical-align: middle; }
+          #my .main .order .order-main .order .ord_bottom {
+            flex: 6; }
+            #my .main .order .order-main .order .ord_bottom img {
+              width: 120px;
+              height: 120px; }
+
+/*# sourceMappingURL=setting.css.map */

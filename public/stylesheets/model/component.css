@@ -422,19 +422,23 @@ button:hover {
 	-moz-transform: scale(0.8);
 	-ms-transform: scale(0.8);
 	transform: scale(0.8);
-	opacity: 0;
+	background: #fff;
+	/*opacity: 0;*/
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
 	transition: all 0.3s;
 }
 
 .md-show.md-effect-12 ~ .md-overlay {
-	background: #fff;
-} 
+	background: rgba(0,0,0,0.5);
+}
 
-.md-effect-12 .md-content h3,
+.md-effect-12 .md-content h3{
+    background: transparent;
+}
 .md-effect-12 .md-content {
-	background: transparent;
+	/*background: transparent;*/
+    padding:2em;
 }
 
 .md-show.md-effect-12 .md-content {
