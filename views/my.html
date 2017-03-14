@@ -22,25 +22,25 @@
             <div class="setting">个人设置</div>
         </div>
         <div class="tab">
-            <ul>
-                <li class="active">订单</li>
-                <li>旅人卡</li>
-                <li>收藏</li>
-                <li>消息</li>
+            <ul onclick="changeMy(event)">
+                <li class="active" id="tab1">订单</li>
+                <li id="tab2">旅人卡</li>
+                <li id="tab3">收藏</li>
+                <li id="tab4">消息</li>
             </ul>
         </div>
     </div>
 
     <div class="main">
-        <div class="order">
+        <div class="order-list">
             <div class="order-menu">
-                <ul>
-                    <li class="active">我在租谁
+                <ul id="order-menu">
+                    <li class="active" onclick="changeOrder('0')">我在租谁
                         <svg class="icon" aria-hidden="true">
                             <use xlink:href="#icon-keche"></use>
                         </svg>
                     </li>
-                    <li>谁在租我
+                    <li onclick="changeOrder('1')">谁在租我
                         <svg class="icon" aria-hidden="true">
                             <use xlink:href="#icon-fanchuan"></use>
                         </svg>
@@ -48,12 +48,19 @@
                 </ul>
             </div>
             <div class="order-main">
-
+                <ul class="filter_nav order_nav_ul" id="filter_nav">
+                    <li class="on tap" id="filter-order0" onclick="fliterOrder('0')"><a title="全部订单">全部订单</a></li>
+                    <li class="tap" id="filter-order1" onclick="fliterOrder('1')"><a title="待确认">待确认</a></li>
+                    <li class="tap" id="filter-order2" onclick="fliterOrder('2')"><a title="待付款">待付款</a></li>
+                    <li class="tap" id="filter-order3" onclick="fliterOrder('3')"><a title="待见面">待见面</a></li>
+                    <li class="tap" id="filter-order4" onclick="fliterOrder('4')"><a title="待评价">待评价</a></li>
+                </ul>
+                <% for(let i=0;i<3;i++){%>
                 <div class="order">
                     <div class="ord_top">
                         <span class="time">2016-09-23 09:55:47</span><span>订单号：1546225709535525</span>
                         <span class="name">当地人：<a href="/rent/detail-9.html">跃跃跃跃跃</a></span>
-                        <span class="contact _j_contact" title="联系Ta" data-friend="打死我也不说好么" data-num="mazzysr"><i></i>联系Ta</span>
+                        <span class="contact" title="联系Ta" data-friend="打死我也不说好么" data-num="mazzysr"><i></i>联系Ta</span>
                     </div>
                     <div class="ord_bottom">
                         <dl class="pic">
@@ -70,18 +77,19 @@
                             </dd>
                         </dl>
                         <div class="ord_c">
-                    <span class="font_c">
+                            <span class="font_c">
                                                     已取消
-                                            </span>
+                            </span>
                         </div>
-                        <div class="pro_r">
+                        <div class="ord_r">
                             <div class="price">商议价格 <span class="money">￥ <b>100</b></span></div>
 
-                            <a class="btn1 _j_delete_order" data-id="1546225709535525">删除订单</a>
+                            <a class="btn comment_order" data-id="1546225709535525">删除订单</a>
+                            <a class="btn delete_order" data-id="1546225709535525">删除订单</a>
                         </div>
                     </div>
                 </div>
-
+                <%}%>
             </div>
         </div>
     </div>
@@ -89,5 +97,6 @@
 <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
 
 <script src="/javascripts/iconfont.js"></script>
+<script src="/javascripts/my.js"></script>
 </body>
 </html>

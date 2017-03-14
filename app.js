@@ -12,7 +12,6 @@ var card = require('./routes/card');
 
 var app = express();
 
-
 // 设置跨域访问，方便开发
 app.all('*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*'); //*代表可访问的地址，可以设置指定域名
@@ -20,7 +19,6 @@ app.all('*', function(req, res, next) {
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
   next();
 });
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));//放模板文件的目录
@@ -48,6 +46,8 @@ app.use(session({ secret: 'Anastasia', key: 'qianchuan',cookie: {maxAge: 1200000
 app.use('/', index);
 app.use('/users', users);
 app.use('/card', card);
+
+
 
 
 // catch 404 and forward to error handler
