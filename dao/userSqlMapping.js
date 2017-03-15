@@ -11,6 +11,6 @@ var card = {
     sqlContent: 'select *,year(NOW())-year(Birthday) Age from tourcard,`user` where tourcard.Tid=? and tourcard.Uid=user.Uid ',
     sqlMsg: 'SELECT *,date_format(message.Time,"%h:%i %Y-%c-%d") Time  FROM `user`, message,tourcard WHERE message.Uid=`user`.Uid AND tourcard.Tid=? AND tourcard.Tid=message.Tid order by message.Time desc',
     sqlReply: 'SELECT *,date_format(Time,"%h:%i %Y-%c-%d") Time FROM `reply` where Cid=? order by Time desc',
-    addCard:'INSERT INTO tourcard(Uid,Title,About,Price,CanCut,Play,Other,AppointTime,AboutPrice,Face,Photos) VALUES(?,?,?,?,?,?,?,?,?,?,?)'
+    addCard:'INSERT INTO tourcard(Uid,Title,About,Addr,Price,CanCut,Play,Other,AppointTime,AboutPrice,Face,Photos) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)'
 };
 module.exports = card;

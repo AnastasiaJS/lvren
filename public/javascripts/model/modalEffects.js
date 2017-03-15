@@ -46,7 +46,7 @@ var ModalEffects = (function() {
 			close.addEventListener( 'click', function( ev ) {
 				ev.stopPropagation();
 				removeModalHandler();
-				location.href='/';
+				// location.href='/';
 			});
 
 		} );

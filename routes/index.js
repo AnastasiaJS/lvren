@@ -35,9 +35,5 @@ router.get('/logout', function (req, res, next) {
     userDao.logout(req, res)
 });
 
-router.post('/xhr', function (req, res, next) {
-    console.log(req.body);
-    res.json({msg: `${req.body.name},you look nice today!`})
-})
 
 module.exports = router;

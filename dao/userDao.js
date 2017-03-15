@@ -112,7 +112,7 @@ function getCards(start, acount, res, callback) {
     })
 
 }
-var card_inner = function (req, res, tid) {
+var card_inner = function (req, res, tid,callback) {
     pool.getConnection(function (err, connection) {
         connection.query($sql.sqlContent, [tid], function (err, content) {
             if (err) {
@@ -123,7 +123,7 @@ var card_inner = function (req, res, tid) {
                     connection.query($sql.sqlReply, [tid], function (err, reply) {
                         connection.release();
                         console.log('>>>>>>>>>', content);
-                        res.render("cardDetail", {
+                        callback({
                             card: content[0],
                             msg: msg,
                             rep: reply,
@@ -140,8 +140,8 @@ var card_inner = function (req, res, tid) {
 
 function addCard(req, res) {
 
-    console.log(">>>>", req.body);
-    console.log(">>>>", req.files);
+    // console.log(">>>>", req.body);
+    // console.log(">>>>", req.files);
 
     uploadImg(req.files.facePic, function (data) {
         let body = req.body;
@@ -154,7 +154,7 @@ function addCard(req, res) {
             uploadImgs(req.files.photos, function (datas) {
                 if (datas.code == 200) {
                     pool.getConnection(function (err, connection) {
-                        connection.query($sql.addCard, ['2', body.title, body.about,
+                        connection.query($sql.addCard, ['2', body.title, body.about,body.addr,
                             body.price, canCut, body.play, other, body.appointTime,
                             body.aboutPrice, data.url, datas.photos.join(',')], function (err, result) {
                             connection.release();

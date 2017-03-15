@@ -5,7 +5,9 @@ var userDao = require('./../dao/userDao');
 /* GET users listing. */
 router.get('/', function (req, res, next) {
     let tid=req.query.card;
-    userDao.card_inner(req,res,tid);
+    userDao.card_inner(req,res,tid,function (data) {
+        res.render('cardDetail',data)
+    });
 });
 router.get('/more', function (req, res, next) {
     var index = 1;

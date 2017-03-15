@@ -1,0 +1,142 @@
+#addCard {
+  width: 100%;
+  padding: 0;
+  color: #333;
+  box-sizing: border-box; }
+  #addCard form {
+    background: #fff;
+    width: 80%;
+    margin: auto; }
+
+#add-carousel {
+  width: 770px;
+  height: 300px;
+  border: solid 1px #ddd;
+  position: relative;
+  text-align: center; }
+  #add-carousel input[type=file] {
+    display: block;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    opacity: 0;
+    z-index: 3;
+    cursor: pointer; }
+  #add-carousel label {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around; }
+  #add-carousel .add-title input {
+    position: absolute;
+    z-index: 3;
+    height: 3.5rem;
+    width: 20rem;
+    line-height: 2rem;
+    left: 50%;
+    margin-left: -10rem;
+    bottom: 1.5rem;
+    border: none;
+    box-shadow: 0 0 2px 1px #ddd;
+    font-size: 1.5rem; }
+  #add-carousel > img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    z-index: 1; }
+
+#face-tip {
+  position: relative;
+  z-index: -2; }
+
+#add-card-detail {
+  margin-top: 4em; }
+  #add-card-detail [class^='add-'] {
+    margin: 0.5rem auto; }
+    #add-card-detail [class^='add-'] label:not(:last-child) {
+      display: inline-block;
+      width: 8rem;
+      height: 1rem;
+      line-height: 1rem;
+      text-align: right; }
+    #add-card-detail [class^='add-'] input:not([type='file']) {
+      width: 176px;
+      height: 18px;
+      border-radius: 5px;
+      border: 1px solid #d6d6d6;
+      padding: 6px;
+      line-height: 18px;
+      color: #666;
+      transition: box-shadow .25s linear 0s;
+      display: inline-block;
+      outline: none;
+      text-align: left; }
+      #add-card-detail [class^='add-'] input:not([type='file'])[type='checkbox'] {
+        height: 32px;
+        vertical-align: middle; }
+    #add-card-detail [class^='add-'] textarea {
+      display: inline-block;
+      width: 562px;
+      height: 70px;
+      border: 1px solid #d6d6d6;
+      border-radius: 5px;
+      line-height: 24px;
+      padding: 8px;
+      outline: 0;
+      resize: none;
+      vertical-align: top; }
+
+.add-photo span {
+  color: #999; }
+.add-photo ul {
+  padding: 0;
+  margin-left: 8rem; }
+  .add-photo ul li {
+    float: left;
+    margin-right: 1.5rem;
+    margin-top: 1.5rem;
+    width: 100px;
+    height: 100px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; }
+  .add-photo ul li:not(:first-child) img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; }
+.add-photo .upload-box {
+  width: 100%;
+  height: 100%;
+  border: solid 1px #ddd;
+  position: relative;
+  background: #EFEFEF; }
+  .add-photo .upload-box img {
+    position: absolute;
+    top: 50%;
+    margin-top: -32px;
+    left: 50%;
+    margin-left: -32px; }
+
+#photos {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  outline: none;
+  cursor: pointer;
+  opacity: 0; }
+
+.div-btn {
+  display: block;
+  margin: 300px auto;
+  text-align: center; }
+
+/*# sourceMappingURL=addCard.css.map */

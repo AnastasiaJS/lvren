@@ -1,0 +1,60 @@
+<div id="order-list">
+    <div class="order-menu">
+        <ul id="order-menu">
+            <li class="active" onclick="changeOrder('0')">我在租谁
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-keche"></use>
+                </svg>
+            </li>
+            <li onclick="changeOrder('1')">谁在租我
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-fanchuan"></use>
+                </svg>
+            </li>
+        </ul>
+    </div>
+    <div class="order-main">
+        <ul class="filter_nav order_nav_ul" id="filter_nav">
+            <li class="on tap" id="filter-order0" onclick="fliterOrder('0')"><a title="全部订单">全部订单</a></li>
+            <li class="tap" id="filter-order1" onclick="fliterOrder('1')"><a title="待确认">待确认</a></li>
+            <li class="tap" id="filter-order2" onclick="fliterOrder('2')"><a title="待付款">待付款</a></li>
+            <li class="tap" id="filter-order3" onclick="fliterOrder('3')"><a title="待见面">待见面</a></li>
+            <li class="tap" id="filter-order4" onclick="fliterOrder('4')"><a title="待评价">待评价</a></li>
+        </ul>
+        <% for(let i=0;i<3;i++){%>
+        <div class="order">
+            <div class="ord_top">
+                <span class="time">2016-09-23 09:55:47</span><span>订单号：1546225709535525</span>
+                <span class="name">当地人：<a href="/rent/detail-9.html">跃跃跃跃跃</a></span>
+                <span class="contact" title="联系Ta" data-friend="打死我也不说好么" data-num="mazzysr"><i></i>联系Ta</span>
+            </div>
+            <div class="ord_bottom">
+                <dl class="pic">
+                    <dt>
+                        <a href="/rent/detail-9.html"><img
+                                src="http://b4-q.mafengwo.net/s9/M00/E9/02/wKgBs1ZC5-uAeHUQAALtJ_qWFTY54.jpeg?imageMogr2%2Fthumbnail%2F%21240x240r%2Fgravity%2FCenter%2Fcrop%2F%21240x240%2Fquality%2F100"
+                                alt="" width="100%"></a>
+                    </dt>
+                    <dd>
+                        <h2><a href="/rent/detail-9.html">亲身参与一场排练，是感受北京地下摇滚文化的最好方式。</a></h2>
+                        <p class="address"><i></i>北京</p>
+                        <p class="time">预约时间：2016-09-30 10:00</p>
+                        <p class="place">见面地点：待确认</p>
+                    </dd>
+                </dl>
+                <div class="ord_c">
+                            <span class="font_c">
+                                                    已取消
+                            </span>
+                </div>
+                <div class="ord_r">
+                    <div class="price">商议价格 <span class="money">￥ <b>100</b></span></div>
+
+                    <a class="btn comment_order" data-id="1546225709535525">删除订单</a>
+                    <a class="btn delete_order" data-id="1546225709535525">删除订单</a>
+                </div>
+            </div>
+        </div>
+        <%}%>
+    </div>
+</div>
