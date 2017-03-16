@@ -173,3 +173,14 @@
     line-height: 1.5em;;
   }
 }
+
+.btn-order{
+  position: fixed;
+  top:45%;
+  width:4rem;
+  height:4rem;
+  left:2rem;
+  .icon{
+    font-size: 2rem;
+  }
+}

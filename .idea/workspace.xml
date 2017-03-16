@@ -20,7 +20,7 @@
     <favorites_list name="untitled" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5769231">
+    <splitter split-orientation="horizontal" split-proportion="0.6488834">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="users.js" pinned="false" current-in-tab="false">
@@ -90,8 +90,8 @@
           <file leaf-file-name="cardDetail.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/views/cardDetail.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="470">
-                  <caret line="163" column="30" selection-start-line="163" selection-start-column="30" selection-end-line="163" selection-end-column="30" />
+                <state relative-caret-position="350">
+                  <caret line="155" column="7" selection-start-line="155" selection-start-column="7" selection-end-line="155" selection-end-column="7" />
                   <folding />
                 </state>
               </provider>
@@ -126,8 +126,8 @@
           <file leaf-file-name="cardDetail.scss" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/public/stylesheets/cardDetail.scss">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="560">
-                  <caret line="106" column="23" selection-start-line="106" selection-start-column="23" selection-end-line="106" selection-end-column="23" />
+                <state relative-caret-position="510">
+                  <caret line="183" column="20" selection-start-line="183" selection-start-column="20" selection-end-line="183" selection-end-column="20" />
                   <folding />
                 </state>
               </provider>
@@ -251,8 +251,8 @@
         <option value="$PROJECT_DIR$/views/index.html" />
         <option value="$PROJECT_DIR$/public/stylesheets/model/component.css" />
         <option value="$PROJECT_DIR$/views/nav.html" />
-        <option value="$PROJECT_DIR$/public/stylesheets/cardDetail.scss" />
         <option value="$PROJECT_DIR$/views/cardDetail.html" />
+        <option value="$PROJECT_DIR$/public/stylesheets/cardDetail.scss" />
       </list>
     </option>
   </component>
@@ -664,12 +664,12 @@
       <workItem from="1489367239677" duration="19965000" />
       <workItem from="1489453568232" duration="22537000" />
       <workItem from="1489539079724" duration="29279000" />
-      <workItem from="1489626191690" duration="25505000" />
+      <workItem from="1489626191690" duration="27195000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="357512000" />
+    <option name="totallyTimeSpent" value="359202000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -769,13 +769,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
           <caret line="59" column="32" selection-start-line="59" selection-start-column="32" selection-end-line="59" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../pd-528e1706-51c5-11e4-bcd3-00163e001348/4a48a3a4-51c5-11e4-b6f5-00163e001348/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="274" column="24" selection-start-line="274" selection-start-column="24" selection-end-line="274" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -1140,14 +1133,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/stylesheets/cardDetail.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="560">
-          <caret line="106" column="23" selection-start-line="106" selection-start-column="23" selection-end-line="106" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/my/addCard.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-930">
@@ -1180,10 +1165,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../pd-528e1706-51c5-11e4-bcd3-00163e001348/4a48a3a4-51c5-11e4-b6f5-00163e001348/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1165">
+          <caret line="322" column="64" selection-start-line="322" selection-start-column="64" selection-end-line="322" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/views/cardDetail.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="470">
-          <caret line="163" column="30" selection-start-line="163" selection-start-column="30" selection-end-line="163" selection-end-column="30" />
+        <state relative-caret-position="350">
+          <caret line="155" column="7" selection-start-line="155" selection-start-column="7" selection-end-line="155" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/stylesheets/cardDetail.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="183" column="20" selection-start-line="183" selection-start-column="20" selection-end-line="183" selection-end-column="20" />
           <folding />
         </state>
       </provider>

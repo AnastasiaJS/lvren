@@ -131,4 +131,13 @@
     text-align: left;
     line-height: 1.5em; }
 
+.btn-order {
+  position: fixed;
+  top: 45%;
+  width: 4rem;
+  height: 4rem;
+  left: 2rem; }
+  .btn-order .icon {
+    font-size: 2rem; }
+
 /*# sourceMappingURL=cardDetail.css.map */
