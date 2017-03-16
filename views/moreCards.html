@@ -15,10 +15,10 @@
     </div>
     <section class="main">
         <% for(let i=0;i< face.length;i++){%>
-        <div class="card" onclick="openCard(<%=face[i].Tid%>)">
+        <div class="card" onclick="openCard('<%=face[i].Uid%>')">
             <div class="header">
                 <img src="http://p3.music.126.net/IAZKcW9XEAD-3Ce7xscrWA==/3264450024529041.jpg?param=200y200" alt="">
-                <sapn><%=face[i].Nickname%></sapn>
+                <sapn><%=face[i].Name%></sapn>
             </div>
             <img src="/images/slide2.jpg" alt="">
             <h3>
@@ -69,7 +69,7 @@
 
     if (currentPage == 1) {
         $("#page-prev").addClass('page-disable');
-    } else if (currentPage == <%= pageAccount %>) {
+    } else if (currentPage == '<%= pageAccount %>') {
         $("#page-next").addClass('page-disable');
 
     }
@@ -78,8 +78,8 @@
         if (page < 2) {
             page = 1;
         }
-        else if (page > <%= pageAccount %>) {
-            page = <%=pageAccount%>;
+        else if (page > '<%= pageAccount %>') {
+            page = '<%=pageAccount%>';
 
         }
         location.search = '?index=' + page;

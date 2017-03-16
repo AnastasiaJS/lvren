@@ -4,8 +4,8 @@ var userDao = require('./../dao/userDao');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    let tid=req.query.card;
-    userDao.card_inner(req,res,tid,function (data) {
+    let uid=req.query.card;
+    userDao.card_inner(req,res,uid,function (data) {
         res.render('cardDetail',data)
     });
 });

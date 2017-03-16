@@ -1,9 +1,9 @@
-#addCard {
+#addCard, #updateCard {
   width: 100%;
   padding: 0;
   color: #333;
   box-sizing: border-box; }
-  #addCard form {
+  #addCard form, #updateCard form {
     background: #fff;
     width: 80%;
     margin: auto; }

@@ -1,5 +1,5 @@
 #card {
-  width: 60%;
+  width: 960px;
   margin: 12em auto;
   padding: 0;
   display: flex;
@@ -22,14 +22,15 @@
       align-items: center;
       line-height: 1em;
       margin: auto; }
-      #card article .tip .place, #card article .tip .rented, #card article .tip .remark {
+      #card article .tip .place {
+        flex: 2; }
+      #card article .tip .rented, #card article .tip .remark {
         flex: 1; }
       #card article .tip .save, #card article .tip .price, #card article .tip .rent {
         flex: 2; }
       #card article .tip .place {
         position: relative; }
-        #card article .tip .place:before {
-          content: "";
+        #card article .tip .place i {
           background: url("/icon/local.png") no-repeat;
           position: absolute;
           left: 0;
@@ -43,14 +44,13 @@
         text-align: center; }
         #card article .tip .save button, #card article .tip .rent button {
           outline: none;
-          cursor: pointer;
+          padding: 0;
           background: transparent;
           border: solid 2px #ddd;
           border-radius: 4px;
           width: 5em;
           height: 2.2em;
-          line-height: 2em;
-          position: relative;
+          line-height: 2.2em;
           font-size: 1.2rem;
           color: lightcoral; }
       #card article .tip .rent {
@@ -70,7 +70,7 @@
     flex: 1;
     background: #ffffff;
     display: inline-block;
-    padding-top: 2.5rem; }
+    padding: 2.5rem 1rem; }
     #card aside .header {
       text-align: center;
       margin: auto; }
@@ -78,7 +78,8 @@
         width: 6rem;
         height: 6rem;
         border-radius: 50%;
-        border: solid 2px lightcoral; }
+        border: solid 2px lightcoral;
+        overflow: hidden; }
       #card aside .header .name {
         margin: 0.5em auto;
         font-size: 1.5rem; }

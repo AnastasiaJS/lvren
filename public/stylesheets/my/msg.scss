@@ -1,0 +1,72 @@
+#msg {
+  .title {
+    height: 4.2rem;
+    font-size: 1.2rem;
+    color: #222;
+    border-bottom: 1px solid #EEEFF2;
+    border-top: 1px solid #EEEFF2;
+    padding-left: 4rem;
+    a {
+      height: 2.5rem;
+      line-height: 2.5rem;
+      min-width: 90px;
+      padding: 0 5px;
+      text-align: center;
+      display: inline-block;
+      margin-top: 1rem;
+      margin-right: 0.8rem;
+      &:hover {
+        background-color: #eeeff2;
+      }
+      &.on {
+        background-color: #eeeff2;
+      }
+    }
+  }
+
+  .content {
+    margin-left:4rem;
+    a {
+      color: #666;
+      height:5rem;
+      dt,dd{
+        margin:0;
+        padding: 0;
+      }
+      dl{
+        display: flex;
+        flex-flow: row nowrap;
+        box-sizing: border-box;
+        border-bottom: #eeeff2 1px dashed;
+        //border-bottom: #000 1px dashed;
+        align-items: center;
+      }
+      dt{
+        flex:1;
+        img{
+          vertical-align: middle;
+        }
+      }
+      dd{
+        flex:9;
+      }
+      .name {
+        color: #222;
+        padding-right: 10px;
+        height:1.5rem;
+        line-height: 1.5rem;
+      }
+      .time_ly {
+         color: #999;
+       }
+      .two {
+        white-space: nowrap;
+        max-width: 940px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height:1.5rem;
+        line-height: 1.5rem;
+      }
+    }
+  }
+}

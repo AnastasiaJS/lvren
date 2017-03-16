@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>title</title>
-    <link rel='stylesheet' href="/stylesheets/cardDetail.css"/>
     <%- include layoutCss.html%>
+    <link rel='stylesheet' href="/stylesheets/cardDetail.css"/>
 
     <style type="text/css">
         .icon {
@@ -29,10 +29,10 @@
         <div id="card-header">
             <h1><%=card.Title%></h1>
             <div class="tip">
-                <div class="place"><%=card.Addr%></div>
+                <div class="place"><i></i><%=card.Addr%></div>
                 <div class="price">￥ <big><%=card.Price%></big> 元/次</div>
                 <div class="rented">2人租过</div>
-                <div class="remark"><%= msg.length %>条留言</div>
+                <div class="remark">6条留言</div>
                 <div class="save">
                     <button onclick="save()">
                         <img src="/icon/save.png" alt="" id="save-img">
@@ -70,19 +70,19 @@
         <section id="card-detail">
             <div class="card-nav">
                <ul>
-                   <li>关于我</li>
-                   <li>关于项目</li>
-                   <li>关于时间</li>
-                   <li>项目包含</li>
-                   <li>其他</li>
+                   <li><a href="#about">关于我</a></li>
+                   <li><a href="#project">关于项目</a></li>
+                   <li><a href="#appointTime">关于时间</a></li>
+                   <li><a href="#aboutPrice">费用包含</a></li>
+                   <li><a href="#aboutOther">其他</a></li>
                </ul>
             </div>
-            <p class="project">
+            <p class="project" id="about">
                 【关于我】
                 <%= card.About %>
             </p>
             <img src=<%=photos[3]%> alt="">
-            <p class="project">
+            <p class="project" id="project">
                 【关于项目】
                 <%= card.Play %>
             </p>
@@ -91,7 +91,7 @@
             %>
             <img src=<%=photos[4]%> alt="">
             <%}%>
-            <p class="project">
+            <p class="project" id="appointTime">
                 【关于时间】
                 <%= card.AppointTime %>
             </p>
@@ -100,21 +100,21 @@
             %>
             <img src=<%=photos[5]%> alt="">
             <%}%>
-            <p class="project">
+            <p class="project" id="aboutPrice">
                 【费用包含】
                 <%= card.AboutPrice %>
             </p>
-            <p>
+            <p id="aboutOther">
                 【其他】<%= card.Other %>
             </p>
         </section>
     </article>
     <aside>
         <div class="header">
-            <img src="/images/renwen.jpg" alt="">
-            <div class="name"><%= card.Nickname %></div>
+            <img src="<%=card.HeadPic%>" alt="">
+            <div class="name"><%= card.Name %></div>
             <p class=" wow  pulse">
-                <cite>&ldquo;如果心无处可栖，到哪都是流浪。&rdquo;</cite>
+                <cite>&ldquo;如果心无处可栖，到哪都是流浪。如果心无处可栖，到哪都是流浪到哪都是流浪。&rdquo;</cite>
             </p>
             <div class="resume">
                 <span><%= card.Job %></span>
@@ -147,6 +147,21 @@
         </div>
     </aside>
 </div>
+<!--添加消息提醒的模态框-->
+
+<div class="md-modal md-effect-7" id="modal-7">
+    <div class="md-content">
+        <h3 id="modal-tip">错误提示</h3>
+        <div>
+            <p id="face-tip-msg"></p>
+            <button class="md-close">关闭</button>
+        </div>
+    </div>
+</div>
+<!--触发div-->
+<button class="md-trigger" data-modal="modal-7" id="face-tip" style="opacity: 0">modal</button>
+
+<div class="md-overlay"></div>
 </body>
 <%-include js.html%>
 <script>

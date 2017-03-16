@@ -2,24 +2,22 @@ body {
   margin-top: 6rem; }
 
 #more-cards {
-  width: 70%;
+  width: 960px;
   margin: auto; }
   #more-cards .main {
     width: 100%;
-    margin: auto;
-    display: -webkit-flex;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between; }
+    margin: auto; }
     #more-cards .main .card {
-      width: 20%;
-      margin: 2%;
-      height: 340px;
+      display: inline-block;
+      width: 260px;
+      margin: 1rem 0.7rem;
+      height: 420px;
       padding: 1rem;
       background: #fff;
       position: relative;
       border-radius: 4px;
-      border: solid 1px transparent; }
+      border: solid 1px transparent;
+      text-align: center; }
       #more-cards .main .card:hover {
         cursor: pointer;
         border: solid 1px #ddd; }

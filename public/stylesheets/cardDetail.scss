@@ -1,5 +1,5 @@
 #card {
-  width: 60%;
+  width: 960px;
   margin: 12em auto;
   padding: 0;
   display: flex;
@@ -23,7 +23,10 @@
       align-items: center;
       line-height: 1em;
       margin: auto;
-      .place, .rented, .remark {
+      .place{
+        flex: 2;
+      }
+      .rented, .remark {
         flex: 1;
       }
       .save, .price, .rent {
@@ -32,8 +35,7 @@
       }
       .place {
         position: relative;
-        &:before {
-          content: "";
+        i {
           background: url("/icon/local.png") no-repeat;
           position: absolute;
           left: 0;
@@ -46,18 +48,18 @@
         color: lightcoral;
         font-weight: 600;
       }
-      .save, .rent {
+      .save,.rent {
         text-align: center;
         button {
           outline: none;
-          cursor: pointer;
+          padding: 0;
           background: transparent;
           border: solid 2px #ddd;
           border-radius: 4px;
           width: 5em;
           height: 2.2em;
-          line-height: 2em;
-          position: relative;
+          line-height: 2.2em;
+          //position: relative;
           font-size: 1.2rem;
           color: lightcoral;
         }
@@ -88,7 +90,7 @@
     flex: 1;
     background: #ffffff;
     display: inline-block;
-    padding-top: 2.5rem;
+    padding: 2.5rem 1rem;
     .header {
       text-align: center;
       //width: 90%;
@@ -98,6 +100,7 @@
         height: 6rem;
         border-radius: 50%;
         border: solid 2px lightcoral;
+        overflow: hidden;
       }
       .name {
         margin: 0.5em auto;

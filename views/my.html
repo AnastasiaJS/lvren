@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/stylesheets/my/setting.css">
     <link rel='stylesheet' href="/stylesheets/my/addCard.css"/>
     <link rel='stylesheet' href="/stylesheets/my/collection.css"/>
+    <link rel='stylesheet' href="/stylesheets/my/msg.css"/>
     <!--模态框js-->
     <script src="/javascripts/model/modernizr.custom.js"></script>
 </head>
@@ -24,7 +25,7 @@
                     个人简介
                 </p>
             </div>
-            <div class="setting">个人设置</div>
+            <a class="setting" href="/users/setting">个人设置</a>
         </div>
         <div class="tab">
             <ul onclick="changeMy(event)">
@@ -37,7 +38,20 @@
     </div>
 
     <div class="main">
+        <!--order模块-->
+        <%- include ./my/order.html%>
+        <!--card模块-->
+        <%
+            if(haveCard){
+        %>
+        <%- include ./my/card.html%>
+        <%}else{%>
+        <%- include ./my/addCard.html%>
+        <%}%>
+        <!--collection模块-->
         <%- include ./my/collection.html%>
+        <!--msg模块-->
+        <%- include ./my/msg.html%>
     </div>
 </div>
 <!--添加消息提醒的模态框-->

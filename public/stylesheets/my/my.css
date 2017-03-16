@@ -70,7 +70,8 @@
     background: #fff;
     min-height: 500px;
     width: 100%;
-    padding: 4rem 0; }
+    padding: 4rem 0;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2); }
     #my .main #order-list {
       width: 100%;
       min-height: 500px;

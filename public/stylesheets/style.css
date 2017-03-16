@@ -63,7 +63,7 @@
 .type {
   margin: 2em auto;
   background-color: #fff;
-  width: 70%;
+  width: 960px;
   text-align: center; }
   .type .title {
     width: 100%;
@@ -80,52 +80,54 @@
     .type .title .small-sentence {
       padding: 0.5em; }
   .type .main {
+    margin-top: 2em; }
+  .type .main-row {
     display: -webkit-flex;
     display: flex;
     flex-flow: wrap row;
-    justify-content: flex-start;
-    margin-top: 2em; }
-  .type .part {
-    position: relative;
-    width: 18%;
-    height: 180px;
-    margin: 0.5em;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    overflow: hidden; }
-    .type .part img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: all 0.5s; }
-    .type .part p {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem; }
+    .type .main-row .part {
       position: relative;
-      height: 100%;
-      text-align: center;
-      top: -50%;
-      color: #fff;
-      margin-top: -0.1em;
-      font-size: 30px;
-      font-weight: 800;
-      opacity: 0;
-      transition: all 0.5s; }
-    .type .part:hover img {
-      opacity: 0.8;
-      -webkit-transform: scale(1.2);
-      -moz-transform: scale(1.2);
-      -ms-transform: scale(1.2);
-      -o-transform: scale(1.2);
-      transform: scale(1.2);
-      cursor: pointer; }
-    .type .part:hover p {
-      opacity: 1;
-      -webkit-transform: translate(0, -1.5em);
-      -moz-transform: translate(0, -1.5em);
-      -ms-transform: translate(0, -1.5em);
-      -o-transform: translate(0, -1.5em);
-      transform: translate(0, -1.5em);
-      cursor: pointer; }
+      flex: 1;
+      height: 180px;
+      margin: 0.5em;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      overflow: hidden; }
+      .type .main-row .part img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all 0.5s; }
+      .type .main-row .part p {
+        position: relative;
+        height: 100%;
+        text-align: center;
+        top: -50%;
+        color: #fff;
+        margin-top: -0.1em;
+        font-size: 30px;
+        font-weight: 800;
+        opacity: 0;
+        transition: all 0.5s; }
+      .type .main-row .part:hover img {
+        opacity: 0.8;
+        -webkit-transform: scale(1.2);
+        -moz-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+        -o-transform: scale(1.2);
+        transform: scale(1.2);
+        cursor: pointer; }
+      .type .main-row .part:hover p {
+        opacity: 1;
+        -webkit-transform: translate(0, -1.5em);
+        -moz-transform: translate(0, -1.5em);
+        -ms-transform: translate(0, -1.5em);
+        -o-transform: translate(0, -1.5em);
+        transform: translate(0, -1.5em);
+        cursor: pointer; }
 
 .sentence {
   height: 320px;
@@ -160,7 +162,7 @@
     top: 2em; }
 
 .popular, .articles {
-  width: 70%;
+  width: 960px;
   margin: 6em auto;
   text-align: center; }
   .popular .title, .articles .title {
@@ -177,51 +179,47 @@
         cursor: pointer; }
     .popular .title .small-sentence, .articles .title .small-sentence {
       padding: 0.5em; }
-  .popular .main, .articles .main {
-    display: -webkit-flex;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around; }
-    .popular .main .card, .articles .main .card {
-      width: 300px;
-      margin: 2%;
-      height: 420px;
-      padding: 1rem;
-      background: #fff;
-      position: relative;
-      border-radius: 4px;
-      border: solid 1px transparent; }
-      .popular .main .card:hover, .articles .main .card:hover {
-        cursor: pointer;
-        border: solid 1px #ddd; }
-        .popular .main .card:hover .header img, .articles .main .card:hover .header img {
-          box-shadow: 0 0 20px 1px lightcoral; }
-      .popular .main .card .header img, .articles .main .card .header img {
-        width: 2.5em;
-        height: 2.5em;
-        border-radius: 50%;
-        vertical-align: middle;
-        margin-right: 0.5em; }
-      .popular .main .card > img, .articles .main .card > img {
-        width: 100%;
-        height: 180px;
-        object-fit: cover;
-        margin: 1em auto; }
-      .popular .main .card .card-footer, .articles .main .card .card-footer {
-        position: absolute;
-        bottom: 1em;
-        display: flex;
-        align-items: center;
-        width: 100%;
-        text-align: left; }
-        .popular .main .card .card-footer div, .articles .main .card .card-footer div {
-          margin: 0.5em; }
-        .popular .main .card .card-footer .place, .articles .main .card .card-footer .place {
-          flex: 1; }
-          .popular .main .card .card-footer .place img, .articles .main .card .card-footer .place img {
-            vertical-align: middle; }
-        .popular .main .card .card-footer .price, .articles .main .card .card-footer .price {
-          flex: 2; }
+  .popular .main .card, .articles .main .card {
+    display: inline-block;
+    width: 260px;
+    margin: 1rem 0.7rem;
+    height: 420px;
+    padding: 1rem;
+    background: #fff;
+    position: relative;
+    border-radius: 4px;
+    border: solid 1px transparent; }
+    .popular .main .card:hover, .articles .main .card:hover {
+      cursor: pointer;
+      border: solid 1px #ddd; }
+      .popular .main .card:hover .header img, .articles .main .card:hover .header img {
+        box-shadow: 0 0 20px 1px lightcoral; }
+    .popular .main .card .header img, .articles .main .card .header img {
+      width: 2.5em;
+      height: 2.5em;
+      border-radius: 50%;
+      vertical-align: middle;
+      margin-right: 0.5em; }
+    .popular .main .card > img, .articles .main .card > img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      margin: 1em auto; }
+    .popular .main .card .card-footer, .articles .main .card .card-footer {
+      position: absolute;
+      bottom: 1em;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      text-align: left; }
+      .popular .main .card .card-footer div, .articles .main .card .card-footer div {
+        margin: 0.5em; }
+      .popular .main .card .card-footer .place, .articles .main .card .card-footer .place {
+        flex: 1; }
+        .popular .main .card .card-footer .place img, .articles .main .card .card-footer .place img {
+          vertical-align: middle; }
+      .popular .main .card .card-footer .price, .articles .main .card .card-footer .price {
+        flex: 2; }
 
 .music {
   position: relative;

@@ -1,0 +1,56 @@
+#msg .title {
+  height: 4.2rem;
+  font-size: 1.2rem;
+  color: #222;
+  border-bottom: 1px solid #EEEFF2;
+  border-top: 1px solid #EEEFF2;
+  padding-left: 4rem; }
+  #msg .title a {
+    height: 2.5rem;
+    line-height: 2.5rem;
+    min-width: 90px;
+    padding: 0 5px;
+    text-align: center;
+    display: inline-block;
+    margin-top: 1rem;
+    margin-right: 0.8rem; }
+    #msg .title a:hover {
+      background-color: #eeeff2; }
+    #msg .title a.on {
+      background-color: #eeeff2; }
+#msg .content {
+  margin-left: 4rem; }
+  #msg .content a {
+    color: #666;
+    height: 5rem; }
+    #msg .content a dt, #msg .content a dd {
+      margin: 0;
+      padding: 0; }
+    #msg .content a dl {
+      display: flex;
+      flex-flow: row nowrap;
+      box-sizing: border-box;
+      border-bottom: #eeeff2 1px dashed;
+      align-items: center; }
+    #msg .content a dt {
+      flex: 1; }
+      #msg .content a dt img {
+        vertical-align: middle; }
+    #msg .content a dd {
+      flex: 9; }
+    #msg .content a .name {
+      color: #222;
+      padding-right: 10px;
+      height: 1.5rem;
+      line-height: 1.5rem; }
+    #msg .content a .time_ly {
+      color: #999; }
+    #msg .content a .two {
+      white-space: nowrap;
+      max-width: 940px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      height: 1.5rem;
+      line-height: 1.5rem; }
+
+/*# sourceMappingURL=msg.css.map */

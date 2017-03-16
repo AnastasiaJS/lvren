@@ -38,7 +38,6 @@ $("#facePic").change(function () {
     $("#face").click(function () {
         $("#facePic").click()
     });
-    return flag = true;
 
 });
 $("#photos").change(function () {
@@ -50,6 +49,11 @@ $("#photos").change(function () {
         return flag = false;
     }
     else {
+        //先清空所有photos
+        for(let i=0;i<6;i++){
+            console.log(i);
+            $(`#li${i}`).html('')
+        }
         for (var i = 0; i < this.files.length; i++) {
             var filepath = this.files[i];
             var ext = filepath.type.toUpperCase();
@@ -61,17 +65,58 @@ $("#photos").change(function () {
                 return flag = false;
             }
             var srcs = getObjectURL(this.files[i]);   //获取路径
-            $(`#li${i} img`).attr('src',srcs);
-            // flag = true;
+            // $(`#li${i} img`).attr('src',srcs);
+            $(`#li${i}`).html(`<img src="${srcs}">`);
         }
     }
 });
 
+$("#update-frm").submit(function (e) {
+    e.preventDefault();
+    var formData = new FormData($("#update-frm")[0]);
+    $.ajax({
+        url: '/users/updateCard',
+        type: 'POST',
+        data: formData,
+        async: true,
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend: function () {
+            $('#update-tip').text('上传中...');
+            // 禁用按钮防止重复提交，发送前响应
+            $("#btn-updateCard").attr({ disabled: "disabled" });
+
+        },
+        success: function (data) {
+            if (200 === data.code) {
+                toClick("#face-tip",  function () {
+                    $("#modal-tip").text("信息");
+                    $("#face-tip-msg").text("发布成功!");
+                });
+            } else {
+                toClick("#face-tip", function () {
+                    console.log(data)
+                    $("#face-tip-msg").text(data.msg);
+                })
+            }
+        },
+        complete: function () {//完成响应
+            $("#btn-updateCard").removeAttr("disabled");
+            $('#update-tip').text('');
+        },
+        error: function () {
+            toClick("#face-tip",function () {
+                $("#face-tip-msg").text("与服务器通信发生错误!");
+            })
+        }
+    });
+});
 $("#add-frm").submit(function (e) {
     e.preventDefault();
     var formData = new FormData($("#add-frm")[0]);
     $.ajax({
-        url: '/addCard',
+        url: '/users/addCard',
         type: 'POST',
         data: formData,
         async: true,
@@ -107,13 +152,4 @@ $("#add-frm").submit(function (e) {
             })
         }
     });
-})
-function uploadFile() {
-
-    console.log(flag)
-    //判断文件是否符合
-    if (flag) {
-
-
-    }
-}
+});

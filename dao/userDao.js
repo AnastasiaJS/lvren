@@ -72,16 +72,16 @@ function uploadImgs(original, callback) {
 /*七牛云相关服务的应用 =====end*/
 
 /*判断账户是否已注册=== begin========*/
-function isReg(uid,callback) {
+function isReg(uid, callback) {
     pool.getConnection(function (err, connection) {
         connection.query($sql.reg_search, [uid], function (err, isReg) {
             if (err) {
                 console.log('reg_search>>>>', err);
-                callback({code:2,msg:'出错啦~'});
+                callback({code: 2, msg: '出错啦~'});
             } else if (isReg.length > 0) {
-                callback({code:1,msg:'该邮箱已注册'});
+                callback({code: 1, msg: '该邮箱已注册'});
             } else {
-                callback({code:0,msg:'该邮箱未注册'});
+                callback({code: 0, msg: '该邮箱未注册'});
             }
             connection.release();
         })
@@ -98,51 +98,118 @@ function getCards(start, acount, res, callback) {
             }
             else {
                 connection.query($sql.sqllimit, [start, acount], function (err, result) {
-                    connection.release();
                     if (err) {
                         console.log("sqllimit错误：" + err.message);
                     }
                     else {
-                        console.log('~~~~~~~~~~~~~~~' + total[0])
                         callback({totals: total[0], results: result});
                     }
+                    connection.release();
                 });
             }
         });
     })
 
 }
-var card_inner = function (req, res, tid,callback) {
+function card_inner(req, res, uid, callback) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.sqlContent, [tid], function (err, content) {
+        connection.query($sql.sqlContent, [uid], function (err, content) {
             if (err) {
                 console.log(err.message)
             }
             else {
-                connection.query($sql.sqlMsg, [tid], function (err, msg) {
-                    connection.query($sql.sqlReply, [tid], function (err, reply) {
-                        connection.release();
-                        console.log('>>>>>>>>>', content);
-                        callback({
-                            card: content[0],
-                            msg: msg,
-                            rep: reply,
-                            // sessionId: req.session.userId
-                        });
-                    })
-                })
+                // connection.query($sql.sqlMsg, [tid], function (err, msg) {
+                //     connection.query($sql.sqlReply, [tid], function (err, reply) {
+
+                callback({
+                    card: content[0],
+                    // msg: msg,
+                    // rep: reply,
+                    // sessionId: req.session.userId
+                });
+                connection.release();
+                //     })
+                // })
             }
 
         });
     });
 };
+function updateCard(req, res, uid) {
+    let facePic,photos;
+
+    let body = req.body;
+    let canCut = body.canCut ? "是" : "否";
+    let other = body.other ? req.body.other : "";
+
+    /*以下使用promise，使得face和photos依次上传完图片后插入数据库*/
+    let getFace = function() {
+        let promise = new Promise(function(resolve, reject){
+            if(req.files.facePic.originalFilename==''){
+                facePic=req.session.face;
+                resolve(facePic);
+            }else {
+                uploadImg(req.files.facePic, function (data) {
+                    if (data.code == 200) {
+                        facePic = data.url;
+                        resolve(facePic);
+                    }
+                    else {
+                        reject({code: 500, msg: '封面文件上传出错！'});
+                        // res.json({code: 500, msg: '封面文件上传出错！'})
+                    }
+                });
+            }
+        });
+        return promise;
+    };
+    let getPhotos = function() {
+        let promise = new Promise(function(resolve, reject){
+            if(req.files.photos.originalFilename==''){
+                photos=req.session.photos;
+                resolve(photos);
+            }else{
+                uploadImgs(req.files.photos, function (datas) {
+                    if (datas.code == 200) {
+                        photos=datas.photos.join(',');
+                        resolve(photos);
+                    } else {
+                        reject({code: 500, msg: '说明图片上传出错！'});
+                    }
+                });
+            }
+        });
+        return promise;
+    };
+    getFace().then(function (facePic) {
+        /*这里getFace 成功后再调用另一个promise*/
+        getPhotos().then(function (photos) {
+            console.log('>>>>>>>>>',facePic);
+            console.log('>>>>>>>>>',photos);
+            pool.getConnection(function (err, connection) {
+                connection.query($sql.updateCard, [body.title, body.about, body.addr,
+                    body.price, canCut, body.play, other, body.appointTime,
+                    body.aboutPrice, facePic, photos,uid+''], function (err, result) {
+                    if (err) {
+                        console.log(err.message)
+                    }
+                    else if(result.changedRows==1) {
+                        res.json({code: 200})
+                    }
+                    connection.release();
+                });
+            });
+        }).catch(function (err) {
+            res.json(err)
+        })
+    }).catch(function (err) {
+        res.json(err)
+    });
+
+};
 
 
-function addCard(req, res) {
-
-    // console.log(">>>>", req.body);
-    // console.log(">>>>", req.files);
-
+function addCard(req, res,uid) {
     uploadImg(req.files.facePic, function (data) {
         let body = req.body;
 
@@ -150,11 +217,10 @@ function addCard(req, res) {
 
             let canCut = body.canCut ? "是" : "否";
             let other = body.other ? body.other : "";
-            console.log("canCut>>>>>", canCut)
             uploadImgs(req.files.photos, function (datas) {
                 if (datas.code == 200) {
                     pool.getConnection(function (err, connection) {
-                        connection.query($sql.addCard, ['2', body.title, body.about,body.addr,
+                        connection.query($sql.addCard, [uid, body.title, body.about, body.addr,
                             body.price, canCut, body.play, other, body.appointTime,
                             body.aboutPrice, data.url, datas.photos.join(',')], function (err, result) {
                             connection.release();
@@ -176,9 +242,57 @@ function addCard(req, res) {
             res.json({code: 500})
         }
     });
+}
 
-
-    //    todo:将filename存入数据库
+function setting(req, res,uid) {
+    let body = req.body;
+    console.log(body);
+    let headPic;
+    if(req.session.HeadPic){
+        headPic=req.session.HeadPic
+    }else {
+        uploadImg(req.files.headPic, function (data) {
+            if (data.code == 200) {
+                headPic=data.url;
+                pool.getConnection(function (err, connection) {
+                    connection.query($sql.updateUser, [body.name, body.gender, body.birthday, body.IDcard,
+                        body.job, body.tel, body.wechat, body.anhao, body.zhifubao,
+                        headPic,body.intro,uid], function (err, result) {
+                        if (err) {
+                            console.log(err.message)
+                        }
+                        else {
+                            res.json({code: 200})
+                        }
+                        connection.release();
+                    });
+                });
+            }
+            else {
+                res.json({code: 500})
+            }
+        });  
+    }
+   
+}
+function getSetting(req, res,uid) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.getSetting, [uid], function (err, result) {
+            if (err) {
+                console.log(err.message)
+            }
+            else {
+                if(result[0].HeadPic){
+                    req.session.HeadPic=result[0].HeadPic;
+                    console.log('req.session.HeadPic>>>>>>',req.session.HeadPic)
+                }
+                res.render('my/setting',{
+                    user:result[0]
+                })
+            }
+            connection.release();
+        });
+    });
 }
 
 function login(req, res) {
@@ -189,8 +303,8 @@ function login(req, res) {
     // let isReg=isReg(uid)
     // console.log(isReg)
 
-    isReg(uid,function (data) {
-        if(data.code==1){
+    isReg(uid, function (data) {
+        if (data.code == 1) {
             pool.getConnection(function (err, connection) {
                 connection.query($sql.login_judge, [uid, encode], function (err, result) {
                     if (err) {
@@ -198,7 +312,7 @@ function login(req, res) {
                     }
                     else {
                         console.log(JSON.stringify(result));
-                        if (result.length>0) {
+                        if (result.length > 0) {
                             req.session.uid = result[0].Uid;
                             console.log('login ok')
                             res.json({code: 200, msg: "登录成功", nickname: result[0].Uid})
@@ -211,7 +325,7 @@ function login(req, res) {
 
                 });
             })
-        }else{
+        } else {
             res.json(data)
         }
 
@@ -224,10 +338,10 @@ function register(req, res) {
 
     /*-------------string md5------------------*/
     var encode = pwdMd5.pwdMd5(param.password);
-    isReg(param.uid,function (data) {
+    isReg(param.uid, function (data) {
         if (data.code == 1) {
-            res.json({code:300,msg:data.msg})
-        }else{
+            res.json({code: 300, msg: data.msg})
+        } else {
             pool.getConnection(function (err, connection) {
                 connection.query($sql.register_insert, [param.uid, encode], function (err, result) {
 
@@ -274,10 +388,31 @@ function logout(req, res) {
     req.session.uid = null;
     res.redirect('/');
 }
+
+function my(req,res,uid,callback) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.sqlContent,[uid],function (err,card) {
+            if (err) {
+                //todo:错误处理
+                console.log(err.message)
+            }else if(card.length>0){
+                req.session.face=card[0].Face;
+                req.session.photos=card[0].Photos;
+                callback({card:card[0],haveCard:true})
+            }else{
+                callback({haveCard:false})
+            }
+        })
+    });
+}
 exports.getCards = getCards;
 exports.card_inner = card_inner;
+exports.updateCard = updateCard;
 exports.addCard = addCard;
 exports.login = login;
 exports.register = register;
 exports.isLogin = isLogin;
 exports.logout = logout;
+exports.my = my;
+exports.setting = setting;
+exports.getSetting = getSetting;

@@ -1,3 +1,98 @@
+#setting {
+  width: 960px;
+  height: 800px;
+  margin: 4rem auto;
+  background: #fff;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2); }
+  #setting .hd {
+    padding: 18px 0;
+    border-bottom: 1px solid #eee;
+    text-align: center; }
+    #setting .hd strong {
+      font-size: 1.7rem;
+      color: #444;
+      font-weight: normal; }
+  #setting .userinfo {
+    padding: 2rem 12rem; }
+    #setting .userinfo [id^='set-'] span {
+      color: red;
+      margin-left: 1rem; }
+    #setting .userinfo dl dt {
+      display: inline-block;
+      width: 8rem;
+      height: 1rem;
+      line-height: 1rem;
+      text-align: right; }
+    #setting .userinfo dl dd {
+      display: inline-block; }
+      #setting .userinfo dl dd input:not([type=radio]) {
+        width: 176px;
+        height: 18px;
+        border-radius: 5px;
+        border: 1px solid #d6d6d6;
+        padding: 6px;
+        line-height: 18px;
+        color: #666;
+        transition: box-shadow .25s linear 0s;
+        display: inline-block;
+        outline: none;
+        text-align: left; }
+      #setting .userinfo dl dd input[type='radio'] {
+        width: 1rem;
+        height: 1rem;
+        vertical-align: middle;
+        margin-top: -2px;
+        margin-bottom: 1px; }
+      #setting .userinfo dl dd input[name='intro'] {
+        width: 20rem;
+        height: 18px;
+        border-bottom: solid 1px #999;
+        border-top: transparent;
+        border-left: transparent;
+        border-right: transparent;
+        border-radius: 0; }
+      #setting .userinfo dl dd #input-hd {
+        width: 100px;
+        height: 100px;
+        border: solid 1px #ddd;
+        position: relative;
+        background: #EFEFEF;
+        box-sizing: border-box; }
+        #setting .userinfo dl dd #input-hd img:first-child {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          margin-top: -28px;
+          margin-left: -28px; }
+        #setting .userinfo dl dd #input-hd input[type='file'] {
+          width: 100%;
+          height: 100%;
+          padding: 0;
+          margin: 0;
+          opacity: 0; }
+      #setting .userinfo dl dd textarea {
+        display: inline-block;
+        width: 562px;
+        height: 70px;
+        border: 1px solid #d6d6d6;
+        border-radius: 5px;
+        line-height: 24px;
+        padding: 8px;
+        outline: 0;
+        resize: none;
+        vertical-align: top; }
 
+#show-hd {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3; }
+
+.btn-sub {
+  width: 100%;
+  text-align: center; }
 
 /*# sourceMappingURL=setting.css.map */

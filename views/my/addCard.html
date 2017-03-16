@@ -1,62 +1,56 @@
-<div id="updateCard" style="display: none">
-    <form action='javascript:;' id="update-frm">
+<div id="addCard" style="display: none">
+    <form action='javascript:;' id="add-frm">
         <section id="add-carousel">
-            <label for="add-carousel" style="background: url('<%=card.Face%>') no-repeat;background-size: cover">
+            <label for="add-carousel">
                 <div class="carousel2">
                     <h2>设置封面图片</h2>
                     <small>——建议选择横图</small>
                 </div>
             </label>
             <div class="add-title">
-                <input type="text" placeholder="填写卡片标题" name="title" required value="<%=card.Title%>">
+                <input type="text" placeholder="填写卡片标题" name="title" required >
             </div>
-            <input type="file" name="facePic" id="facePic">
+            <input type="file" name="facePic" id="facePic" required>
         </section>
         <section id="add-card-detail">
             <div class="add-addr">
                 <label for="add-addr">
                     项目城市：
                 </label>
-                <input type="text" id="add-addr" name="addr" required value="<%=card.Addr%>">
+                <input type="text" id="add-addr" name="addr"  required>
             </div>
             <div class="add-canCut">
                 <label for="add-canCut">
                     是否可以砍价：
                 </label>
-                <%
-                if(card.CanCut=='是'){
-                %>
                 <input type="checkbox" id="add-canCut" name="canCut" value="1" checked>
-                <%}else{%>
-                <input type="checkbox" id="add-canCut" name="canCut" value="1">
-                <%}%>
             </div>
             <div class="add-price">
                 <label for="add-canCut">
                     定价：
                 </label>
-                <input type="number" id="add-price" name="price" required value="<%=card.Price%>"> &nbsp; 元/次
+                <input type="number" id="add-price" name="price" required > &nbsp; 元/次
             </div>
 
             <div class="add-about">
                 <label for="add-about">关于我：</label>
-                <textarea name="about" id="add-about" rows="6" required><%=card.About%></textarea>
+                <textarea name="about" id="add-about" rows="6" required ></textarea>
             </div>
             <div class="add-project">
                 <label for="add-project">项目介绍：</label>
-                <textarea name="play" id="add-project" rows="6" required><%=card.Play%></textarea>
+                <textarea name="play" id="add-project" rows="6" required></textarea>
             </div>
             <div class="add-time">
                 <label for="add-time">时间安排：</label>
-                <textarea name="appointTime" id="add-time" rows="6" required><%=card.AppointTime%></textarea>
+                <textarea name="appointTime" id="add-time" rows="6" required></textarea>
             </div>
             <div class="add-about-price">
                 <label for="add-price">费用包含：</label>
-                <textarea name="aboutPrice" id="about-price" rows="6" required><%=card.AboutPrice%></textarea>
+                <textarea name="aboutPrice" id="about-price" rows="6" required></textarea>
             </div>
             <div class="add-other">
                 <label for="add-other">其他：</label>
-                <textarea name="other" id="add-other" rows="6"><%=card.Other%></textarea>
+                <textarea name="other" id="add-other" rows="6"></textarea>
             </div>
             <div class="add-photo">
                 <label for="photos">相关图片：</label>
@@ -65,41 +59,33 @@
                     <li>
                         <div class="upload-box">
                             <img src="/icon/upload-img.png" alt="">
-                            <input type="file" name="photos" id="photos" multiple>
+                            <input type="file" name="photos" id="photos" multiple required>
                         </div>
                     </li>
-                    <%
-                    let photos=card.Photos.split(',');
-
-                    %>
                     <li id="li0">
-                        <img src="<%=photos[0]%>" alt="">
+                        <img src="" alt="">
                     </li>
                     <li id="li1">
-                        <img src="<%=photos[1]%>" alt="">
+                        <img src="" alt="">
                     </li>
                     <li id="li2">
-                        <img src="<%=photos[2]%>" alt="">
+                        <img src="" alt="">
                     </li>
                     <li id="li3">
-                        <img src="<%=photos[3]%>" alt="">
+                        <img src="" alt="">
                     </li>
                     <li id="li4">
-                        <%if(photos.length>4){%>
-                        <img src="<%=photos[4]%>" alt="">
-                        <%}%>
+                        <img src="" alt="">
                     </li>
                     <li id="li5">
-                        <%if(photos.length>5){%>
-                        <img src="<%=photos[5]%>" alt="">
-                        <%}%>
+                        <img src="" alt="">
                     </li>
                 </ul>
             </div>
         </section>
         <div class="div-btn">
-            <button type="submit" class="btn btn-default" id="btn-updateCard">提交</button>
-            <span id="update-tip"></span>
+            <button type="submit" class="btn btn-default" id="btn-addCard">提交</button>
+            <span id="add-tip"></span>
         </div>
 
     </form>

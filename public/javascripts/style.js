@@ -31,6 +31,6 @@ function aud_pause() {
 
 }
 
-function openCard(tid) {
-    location.href='/card?card='+tid;
+function openCard(uid) {
+    location.href='/card?card='+uid;
 }

@@ -11,15 +11,6 @@ router.get('/', function (req, res, next) {
         res.render('index', {face: result.results})
     });
 });
-router.route('/addCard')
-    .get(function (req, res, next) {
-        res.render('addCard', {title: '添加旅人卡'});
-    })
-    .post(multipart(), function (req, res, next) {
-
-        userDao.addCard(req, res)
-
-    });
 
 router.post('/login', function (req, res, next) {
     userDao.login(req, res)

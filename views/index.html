@@ -70,34 +70,35 @@
             </p>
         </div>
         <div class="main">
-            <div class="part">
-                <img src="/images/ziran.jpg" alt="">
-                <p>自然</p>
+            <div class="main-row">
+                <div class="part">
+                    <img src="/images/ziran.jpg" alt="">
+                    <p>自然</p>
+                </div>
+                <div class="part">
+                    <img src="/images/renwen.jpg" alt="">
+                    <p>人文</p>
+                </div>
+                <div class="part">
+                    <img src="/images/yinshi.jpg" alt="">
+                    <p>传统饮食</p>
+                </div>
             </div>
-            <div class="part">
-                <img src="/images/renwen.jpg" alt="">
-                <p>人文</p>
+            <div class="main-row">
+                <div class="part">
+                    <img src="/images/dushi.jpg" alt="">
+                    <p>都市</p>
+                </div>
+                <div class="part">
+                    <img src="/images/tianyuan.jpg" alt="">
+                    <p>田园风光</p>
+                </div>
+                <div class="part">
+                    <img src="/images/gongyi.jpg" alt="">
+                    <p>文化与工艺</p>
+                </div>
             </div>
-            <div class="part">
-                <img src="/images/yinshi.jpg" alt="">
-                <p>传统饮食</p>
-            </div>
-            <div class="part">
-                <img src="/images/dushi.jpg" alt="">
-                <p>都市</p>
-            </div>
-            <div class="part">
-                <img src="/images/tianyuan.jpg" alt="">
-                <p>田园风光</p>
-            </div>
-            <div class="part">
-                <img src="/images/gongyi.jpg" alt="">
-                <p>文化与工艺</p>
-            </div>
-            <div class="part">
-                <img src="/images/gongyi.jpg" alt="">
-                <p>文化与工艺</p>
-            </div>
+
         </div>
     </div>
     <div class="sentence">
@@ -116,11 +117,14 @@
             <div class="title-tip" onclick="location.href='/card/more/?index=1'">更多</div>
         </div>
         <div class="main">
+            <div class="main-row">
+
+            </div>
             <% for(let i=0;i< face.length;i++){%>
-            <div class="card" onclick="openCard(<%=face[i].Tid%>)">
+            <div class="card" onclick="openCard('<%=face[i].Uid%>')">
                 <div class="header">
                     <img src="http://p3.music.126.net/IAZKcW9XEAD-3Ce7xscrWA==/3264450024529041.jpg?param=200y200" alt="">
-                    <sapn><%=face[i].Nickname%></sapn>
+                    <span><%=face[i].Name%></span>
                 </div>
                 <img src="<%=face[i].face%>" alt="">
                 <h3>
@@ -128,7 +132,7 @@
                 </h3>
                 <div class="card-footer">
                     <div class="price">
-                        <sapn style="font-size: 1.5em;color:#F08080"><%=face[i].Price%></sapn>元/次
+                        <span style="font-size: 1.5em;color:#F08080"><%=face[i].Price%></span>元/次
                     </div>
                     <div class="place">
                         <img src="/icon/local.png" alt="">
