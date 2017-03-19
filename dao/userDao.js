@@ -390,20 +390,63 @@ function logout(req, res) {
 }
 
 function my(req,res,uid,callback) {
+
     pool.getConnection(function (err, connection) {
-        connection.query($sql.sqlContent,[uid],function (err,card) {
+        connection.query($sql.getOrder0,[uid,'%'],function (err,order0) {
             if (err) {
                 //todo:错误处理
-                console.log(err.message)
-            }else if(card.length>0){
-                req.session.face=card[0].Face;
-                req.session.photos=card[0].Photos;
-                callback({card:card[0],haveCard:true})
+                console.log('getOrder>>>>>>',err.message)
             }else{
-                callback({haveCard:false})
-            }
-        })
+                connection.query($sql.sqlContent,[uid],function (err,card) {
+                    if (err) {
+                        //todo:错误处理
+                        console.log(err.message)
+                    }else if(card.length>0){
+                        req.session.face=card[0].Face;
+                        req.session.photos=card[0].Photos;
+                        callback({card:card[0],haveCard:true,order0:order0})
+                    }else{
+                        callback({haveCard:false,order0:order0})
+                    }
+                })
+            } 
+        });
     });
+}
+
+function getOrder(req,res,uid) {
+    let type=req.query.otype,sql=$sql.getOrder0;
+    if(req.query.order==1){
+        sql=$sql.getOrder1;
+    }
+    pool.getConnection(function (err,connection) {
+        connection.query(sql,[uid,type],function (err,result) {
+            if (err) {
+                console.log('getOrder>>>>>>>', err);
+                res.json({code: 500, msg: err});
+            }
+            else{
+                console.log('result[0]>>>>',result)
+                res.json({code: 200,order:result})
+            }
+            connection.release();
+        })
+    })
+}
+
+function order(req,res,uid) {
+    pool.getConnection(function (err,connection) {
+        connection.query($sql.addOrder,[req.body.tid,uid,0,req.body.appointment],function (err,result) {
+            if (err) {
+                console.log('addOrder>>>>>>>', err);
+                res.json({code: 500, msg: err});
+            }
+            else if (result.affectedRows > 0) {
+                res.json({code: 200})
+            }
+            connection.release();
+        })
+    })
 }
 exports.getCards = getCards;
 exports.card_inner = card_inner;
@@ -416,3 +459,5 @@ exports.logout = logout;
 exports.my = my;
 exports.setting = setting;
 exports.getSetting = getSetting;
+exports.order = order;
+exports.getOrder = getOrder;

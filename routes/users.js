@@ -7,7 +7,15 @@ var userDao = require('./../dao/userDao');
 router.get('/', function (req, res, next) {
     //  tid=uid;
     let uid = req.session.uid ? req.session.uid : 2;
+   
     userDao.my(req,res,uid,function (data) {
+        res.render('my',data)
+    })
+});
+router.get('/getOrder', function (req, res, next) {
+    //  tid=uid;
+    let uid = req.session.uid ? req.session.uid : 2;
+    userDao.getOrder(req,res,uid,function (data) {
         res.render('my',data)
     })
 });
@@ -30,6 +38,11 @@ router.post('/updateCard', multipart(), function (req, res, next) {
 router.post('/addCard', multipart(), function (req, res, next) {
     let uid = req.session.uid ? req.session.uid : 2;
     userDao.addCard(req, res, uid)
+
+});
+router.post('/order', multipart(), function (req, res, next) {
+    let uid = req.session.uid ? req.session.uid : 2;
+    userDao.order(req, res, uid)
 
 });
 

@@ -2,6 +2,7 @@
  * Created by SWSD on 2017-03-14.
  */
 
+
 function getObjectURL(file) {
     var url = null;
     if (window.createObjectURL != undefined) {
@@ -55,13 +56,80 @@ function changeOrder(n) {
     for(let i=0;i<2;i++){
         $("#order-menu li").removeClass('active');
     }
-    $(`#order-menu li`).eq(n).addClass('active')
+    $(`#order-menu li`).eq(n).addClass('active');
+
+    $.get(`/users/getOrder?order=${n}`,function (data) {
+
+    })
 }
 function fliterOrder(n) {
-    for(let i=0;i<=4;i++){
+    let queren='',btn='';
+    for(let i=-1;i<4;i++){
         $("#filter-order"+i).removeClass('on');
     }
-    $("#filter-order"+n).addClass('on')
+    $("#filter-order"+n).addClass('on');
+    if(n==-1){
+        $("#order-filter").html('');
+        $("#order-default").css("display","block");
+    }else{
+        if(n==0){
+        }else if(n==1){
+            btn=`<a class="btn comment_order">付款</a>`;
+            queren=''
+        }else if(n==2){
+            queren=`<span class="font_c" style="color: green">已付款</span>>`
+        }else if(n==3){
+            btn=`<a class="btn comment_order">评价</a>`
+            queren=`<span class="font_c" style="color: green">已完成</span>>`
+        }
+        if(n==4){
+            queren=`<span class="font_c">已取消</span>>`
+        }
+        $.get(`/users/getOrder?order=0&otype=${n}`,function (data) {
+            if (200 === data.code) {
+                let order=data.order;
+                $("#order-default").css("display","none");
+                $("#order-filter").html('');
+                for(var i=0;i<order.length;i++){
+                    $("#order-filter").append(`<div class="order">
+            <div class="ord_top">
+                <span class="time">${order[i].OrderTime}</span><span>订单号：${order[i].Oid}</span>
+                <span class="name">当地人：<a href="/rent/detail-9.html">${order[i].Name}</a></span>
+                <span class="contact" title="联系Ta" data-num="mazzysr"><i></i>联系Ta</span>
+            </div>
+            <div class="ord_bottom">
+                <dl class="pic">
+                    <dt>
+                        <a href="/card?card=${order[i].Uid}"><img
+                                src="${order[i].Face}"
+                                alt="" width="100%"></a>
+                    </dt>
+                    <dd>
+                        <h2><a href="/rent/detail-9.html">${order[i].Title}</a></h2>
+                        <p class="address"><i></i>${order[i].Addr}</p>
+                        <p class="time">预约时间：${order[i].Appointment}</p>
+                        <p class="place">见面地点：待确认</p>
+                    </dd>
+                </dl>
+                <div class="ord_c">
+                      ${queren}      
+                          
+                </div>
+                <div class="ord_r">
+                    <div class="price">商议价格 <span class="money">￥ <b>${order[i].Price}</b></span></div>
+
+                    ${btn}
+                    <a class="btn delete_order">删除订单</a>
+                </div>
+            </div>
+        </div>`)
+                }
+            } else {
+                alert("服务器连接失败，请稍后~")
+            }
+        })
+    }
+    
 }
 
 function collect(i) {

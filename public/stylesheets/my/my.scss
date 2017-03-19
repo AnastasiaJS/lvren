@@ -28,7 +28,7 @@ body {
         //left:20%;
         img {
           position: relative;
-          top: -20%;
+          top: -5%;
           left: 10%;
           width: 8rem;
           height: 8rem;
@@ -170,6 +170,7 @@ body {
             flex:1;
             height:2rem;
             line-height:2rem;
+            position: relative;
             span{
               margin-right: 2rem;
               i{
@@ -182,10 +183,12 @@ body {
               }
             }
             .contact{
-                font-size: 1rem;
+              font-size: 1rem;
               color: #9A0000;
               font-weight: 700;
               cursor: pointer;
+              position: absolute;
+              right:1.5rem;
             }
           }
           .ord_bottom{

@@ -1,0 +1,94 @@
+
+.btn-order ~.md-overlay{
+  background: rgba(0,0,0,0.5);
+}
+
+#modal-order {
+  .md-content {
+    color: #333;
+    background: #fff;
+    position: relative;
+    border-radius: 3px;
+    margin: 0 auto;
+    h3{
+      background: #ff6056;
+      color:#fff;
+    }
+  }
+  .order-content{
+    border-bottom:solid 1px #ddd;
+    padding: 0.5rem;
+    text-align: center;
+    //min-width:450px;
+    font-size: 0.8rem;
+    line-height: 1rem;
+
+    dl{
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      //min-width:300px;
+        img{
+          width:80px;
+          height:80px;
+          object-fit: cover;
+        }
+        dt{
+          flex: 1;
+        }
+        dd{
+          flex: 3;
+          h2{
+            font-size: 1rem;
+            font-weight: 600;
+          }
+          p{
+            margin:0;
+            color: #999;
+            padding: 2px 0;
+          }
+        }
+        .address{
+          i{
+            width: 16px;
+            height:16px;
+            background: url("/icon/local2.png") no-repeat;
+            display: inline-block;
+            margin-right: 5px;
+            vertical-align: middle;
+          }
+        }
+
+    }
+
+  }
+form{
+  margin-top: 1rem;
+  small{
+    font-size: 0.6rem;
+  }
+  button{
+    display: inline-block;
+    float: right;
+    margin-right: 1rem;
+  }
+  input{
+    width: 176px;
+    height: 18px;
+    border-radius: 5px;
+    border: 1px solid #d6d6d6;
+    padding: 6px;
+    line-height: 18px;
+    color: #666;
+    transition: box-shadow .25s linear 0s;
+    display: inline-block;
+  }
+  .md-close{
+    background: #ddd;
+  }
+  #btn-sendOrder{
+    background: #ff6056;
+  }
+}
+
+}

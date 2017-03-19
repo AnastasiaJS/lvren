@@ -180,7 +180,19 @@
   width:4rem;
   height:4rem;
   left:2rem;
+  cursor: pointer;
   .icon{
     font-size: 2rem;
   }
+}
+@keyframes zuta
+{
+  from {top:40%}
+  to {top:45%;}
+}
+
+@-webkit-keyframes zuta
+{
+  from {top:40%}
+  to {top:45%;}
 }

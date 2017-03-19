@@ -136,8 +136,21 @@
   top: 45%;
   width: 4rem;
   height: 4rem;
-  left: 2rem; }
+  left: 2rem;
+  cursor: pointer; }
   .btn-order .icon {
     font-size: 2rem; }
 
-/*# sourceMappingURL=cardDetail.css.map */
+@keyframes zuta {
+  from {
+    top: 40%; }
+
+  to {
+    top: 45%; } }
+
+@-webkit-keyframes zuta {
+  from {
+    top: 40%; }
+
+  to {
+    top: 45%; } }
