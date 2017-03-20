@@ -28,7 +28,7 @@ body {
         //left:20%;
         img {
           position: relative;
-          top: -5%;
+          top: -2rem;
           left: 10%;
           width: 8rem;
           height: 8rem;
@@ -254,6 +254,7 @@ body {
                 border-radius: 5px;
                 display: inline-block;
                 margin-top: 10px;
+                cursor: pointer;
               }
               .delete_order{
                 color:#999;
@@ -266,6 +267,72 @@ body {
             }
           }
         }
+      }
+    }
+  }
+}
+
+#order-man{
+  width:800px;
+  .man{
+    width:90%;
+    margin:auto;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content:flex-start;
+    align-items: center;
+    border-bottom: solid 1px #ddd;
+    dt{
+      flex: 1;
+      img{
+        width:120px;
+        height:120px;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+    }
+    dd{
+      flex: 4;
+    }
+    >div{
+      flex: 1;
+      display: flex;
+      flex-flow: column;
+      justify-content: flex-start;
+    }
+    .btn{
+      width: 116px;
+      height: 30px;
+      text-align: center;
+      line-height: 30px;
+      border-radius: 5px;
+      display: inline-block;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    .delete_order{
+      color:#999;
+      background: #eee;
+    }
+    .comment_order{
+      background-color: #ffa800;
+      color: #fff;
+    }
+
+    .contact{
+      font-size: 1rem;
+      color: #9A0000;
+      font-weight: 700;
+      cursor: pointer;
+      flex: 2;
+      margin-bottom: 4rem;
+      i{
+        background: url("/icon/connect.png") no-repeat;
+        width:32px;
+        height:30px;
+        display: inline-block;
+        margin-right: 10px;
+        vertical-align: middle;
       }
     }
   }

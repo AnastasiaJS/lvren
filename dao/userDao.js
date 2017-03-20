@@ -419,6 +419,9 @@ function getOrder(req,res,uid) {
     if(req.query.order==1){
         sql=$sql.getOrder1;
     }
+    if(req.query.otype==-1){
+        type='%'
+    }
     pool.getConnection(function (err,connection) {
         connection.query(sql,[uid,type],function (err,result) {
             if (err) {

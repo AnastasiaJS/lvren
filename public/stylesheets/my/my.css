@@ -21,7 +21,7 @@
         top: -20%; }
         #my .top .header .img-header img {
           position: relative;
-          top: -5%;
+          top: -2rem;
           left: 10%;
           width: 8rem;
           height: 8rem;
@@ -36,7 +36,7 @@
         padding: 0 0.8rem;
         height: 2rem;
         line-height: 2rem;
-        background: linear-gradient(#fafafa, #f2f2f2);
+        background: linear-gradient(#FAFAFA, #F2F2F2);
         border: 1px solid #D9D9D9;
         cursor: pointer;
         text-decoration: none;
@@ -201,10 +201,67 @@
                 line-height: 30px;
                 border-radius: 5px;
                 display: inline-block;
-                margin-top: 10px; }
+                margin-top: 10px;
+                cursor: pointer; }
               #my .main #order-list .order-main .order .ord_bottom .ord_r .delete_order {
                 color: #999;
                 background: #eee; }
               #my .main #order-list .order-main .order .ord_bottom .ord_r .comment_order {
                 background-color: #ffa800;
                 color: #fff; }
+
+#order-man {
+  width: 800px; }
+  #order-man .man {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: solid 1px #ddd; }
+    #order-man .man dt {
+      flex: 1; }
+      #order-man .man dt img {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 50%; }
+    #order-man .man dd {
+      flex: 4; }
+    #order-man .man > div {
+      flex: 1;
+      display: flex;
+      flex-flow: column;
+      justify-content: flex-start; }
+    #order-man .man .btn {
+      width: 116px;
+      height: 30px;
+      text-align: center;
+      line-height: 30px;
+      border-radius: 5px;
+      display: inline-block;
+      margin-top: 10px;
+      cursor: pointer; }
+    #order-man .man .delete_order {
+      color: #999;
+      background: #eee; }
+    #order-man .man .comment_order {
+      background-color: #ffa800;
+      color: #fff; }
+    #order-man .man .contact {
+      font-size: 1rem;
+      color: #9A0000;
+      font-weight: 700;
+      cursor: pointer;
+      flex: 2;
+      margin-bottom: 4rem; }
+      #order-man .man .contact i {
+        background: url("/icon/connect.png") no-repeat;
+        width: 32px;
+        height: 30px;
+        display: inline-block;
+        margin-right: 10px;
+        vertical-align: middle; }
+
+/*# sourceMappingURL=my.css.map */
