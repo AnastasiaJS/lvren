@@ -307,7 +307,7 @@ body {
       line-height: 30px;
       border-radius: 5px;
       display: inline-block;
-      margin-top: 10px;
+      margin-bottom: 10px;
       cursor: pointer;
     }
     .delete_order{
@@ -317,6 +317,7 @@ body {
     .comment_order{
       background-color: #ffa800;
       color: #fff;
+      margin-bottom: 1rem;
     }
 
     .contact{
@@ -325,7 +326,7 @@ body {
       font-weight: 700;
       cursor: pointer;
       flex: 2;
-      margin-bottom: 4rem;
+      margin-bottom: 3rem;
       i{
         background: url("/icon/connect.png") no-repeat;
         width:32px;

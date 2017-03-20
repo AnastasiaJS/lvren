@@ -167,7 +167,7 @@ else{
             $("#order-man").html('');
             for (var i = 0; i < order.length; i++) {
                 if (order[i].State == '0') {
-                    btn = `<a class="btn comment_order">确认</a>`;
+                    btn = `<a class="btn comment_order" href="/users/changeState?oid=${order[i].Oid}&state=1">确认</a>`;
                     queren = "";
                 } else if (order[i].State == '1') {
                     btn = '';
@@ -183,7 +183,7 @@ else{
                     btn = '';
                     queren = `<span class="font_c">已取消</span>`
                 }
-                $("#order-man").append(`<dl class="man">
+                $("#order-man").append(`<dl class="man" id="order${order[i].Oid}">
                 <dt>
                     <a href="/"><img src="${order[i].HeadPic}" >
                     </a>
@@ -196,8 +196,10 @@ else{
                 </dd>
                 <div>
                     <div class="contact" title="联系Ta"onclick="alert('对方微信号：${order[i].Wechat};暗号：${order[i].Anhao}')"><i></i>联系Ta</div>
-                ${btn}
+                
                 ${queren}
+                ${btn}
+                <a class="btn delete_order">删除订单</a>
                 </div>
             </dl>`)
             }

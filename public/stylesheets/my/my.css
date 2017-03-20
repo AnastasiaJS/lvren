@@ -241,21 +241,22 @@
       line-height: 30px;
       border-radius: 5px;
       display: inline-block;
-      margin-top: 10px;
+      margin-bottom: 10px;
       cursor: pointer; }
     #order-man .man .delete_order {
       color: #999;
       background: #eee; }
     #order-man .man .comment_order {
       background-color: #ffa800;
-      color: #fff; }
+      color: #fff;
+      margin-bottom: 1rem; }
     #order-man .man .contact {
       font-size: 1rem;
       color: #9A0000;
       font-weight: 700;
       cursor: pointer;
       flex: 2;
-      margin-bottom: 4rem; }
+      margin-bottom: 3rem; }
       #order-man .man .contact i {
         background: url("/icon/connect.png") no-repeat;
         width: 32px;

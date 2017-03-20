@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Anastasia的个人主页———旅人</title>
+    <title><%=card.Name%>的个人主页———旅人</title>
     <%- include layoutCss.html%>
     <link rel="stylesheet" href="/stylesheets/my/my.css">
     <link rel="stylesheet" href="/stylesheets/my/setting.css">
@@ -17,12 +17,12 @@
     <div class="top">
         <div class="header">
             <div class="img-header">
-                <img src="http://p3.music.126.net/IAZKcW9XEAD-3Ce7xscrWA==/3264450024529041.jpg?param=200y200" alt="">
+                <img src="<%=card.HeadPic%>" alt="">
             </div>
             <div id="name">
-                <h1>Anstasia</h1>
+                <h1><%=card.Name%></h1>
                 <p class="introduce">
-                    个人简介
+                    <%=card.Intro%>
                 </p>
             </div>
             <a class="setting" href="/users/setting">个人设置</a>

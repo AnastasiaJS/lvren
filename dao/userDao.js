@@ -408,6 +408,7 @@ function my(req,res,uid,callback) {
                     }else{
                         callback({haveCard:false,order0:order0})
                     }
+                    connection.release();
                 })
             } 
         });
@@ -451,16 +452,31 @@ function order(req,res,uid) {
         })
     })
 }
-exports.getCards = getCards;
-exports.card_inner = card_inner;
-exports.updateCard = updateCard;
-exports.addCard = addCard;
-exports.login = login;
-exports.register = register;
-exports.isLogin = isLogin;
-exports.logout = logout;
-exports.my = my;
-exports.setting = setting;
-exports.getSetting = getSetting;
-exports.order = order;
-exports.getOrder = getOrder;
+function changeState(req,res) {
+    pool.getConnection(function (err,connection) {
+        connection.query($sql.changeState,[req.query.state,req.query.oid],function (err,result) {
+            if (err) {
+                console.log('changeState>>>>>>>', err);
+                res.json({code: 500, msg: err});
+            }
+            else if (result.affectedRows > 0) {
+                res.json({code: 200})
+            }
+            connection.release();
+        })
+    })
+}
+exports.getCards = getCards;/*more card分页*/
+exports.card_inner = card_inner;/*获取card详情*/
+exports.updateCard = updateCard;/*用户更新card*/
+exports.addCard = addCard;/*用户发布card*/
+exports.login = login;/*用户登录*/
+exports.register = register;/*用户注册*/
+exports.isLogin = isLogin;/*判断用户是否登录*/
+exports.logout = logout;/*退出登录*/
+exports.my = my;/*获取我的个人主页*/
+exports.setting = setting;/*修改个人设置*/
+exports.getSetting = getSetting;/*获取个人设置信息*/
+exports.order = order;/*用户下单*/
+exports.getOrder = getOrder;/*订单查询*/
+exports.changeState = changeState;/*改变订单状态*/

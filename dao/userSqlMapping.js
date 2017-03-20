@@ -16,7 +16,8 @@ var card = {
     updateCard:'UPDATE tourcard SET Title=?,About=?,Addr=?,Price=?,CanCut=?,Play=?,Other=?,AppointTime=?,AboutPrice=?,Face=?,Photos=? WHERE Uid=?',
     updateUser:'UPDATE `user` SET `Name`=?,Gender=?,Birthday=?,IDCard=?,Job=?,Tellphone=?,Wechat=?,Anhao=?,Zhifubao=?,HeadPic=?,Intro=? WHERE Uid=?',
     addOrder:'INSERT INTO `order`(Tid,Uid,State,Appointment) VALUES(?,?,?,?)',
-    getOrder0:'SELECT date_format(OrderTime," %Y-%c-%d %H:%i") OrderTime,State,Oid,Tid,Anhao,Wechat,`Name`,tourcard.Uid Uid,Face,Title,Addr,Appointment FROM `order`,tourcard,`user` WHERE `order`.Tid=tourcard.Uid AND tourcard.Uid=`user`.Uid AND `order`.Uid=? AND State LIKE ?',
-    getOrder1:'SELECT date_format(OrderTime," %Y-%c-%d %H:%i") OrderTime,State,Oid,Tid,Anhao,Wechat,`Name`,HeadPic,`user`.Uid,Appointment FROM `order`,`user` WHERE `order`.Uid=`user`.Uid AND `order`.Tid=? AND State LIKE ?',
+    getOrder0:'SELECT date_format(OrderTime," %Y-%c-%d %H:%i") OrderTime,State,Oid,Tid,Anhao,Wechat,`Name`,tourcard.Uid Uid,Face,Title,Addr,Appointment FROM `order`,tourcard,`user` WHERE `order`.Tid=tourcard.Uid AND tourcard.Uid=`user`.Uid AND `order`.Uid=? AND State LIKE ? ORDER BY Oid DESC',
+    getOrder1:'SELECT date_format(OrderTime," %Y-%c-%d %H:%i") OrderTime,State,Oid,Tid,Anhao,Wechat,`Name`,HeadPic,`user`.Uid,Appointment FROM `order`,`user` WHERE `order`.Uid=`user`.Uid AND `order`.Tid=? AND State LIKE ? ORDER BY Oid DESC',
+    changeState:'UPDATE `order` SET State=? WHERE Oid=?',
 };
 module.exports = card;

@@ -19,6 +19,10 @@ router.get('/getOrder', function (req, res, next) {
         res.render('my',data)
     })
 });
+router.get('/changeState', function (req, res, next) {
+    let uid = req.session.uid ? req.session.uid : 2;
+    userDao.changeState(req,res,uid);
+});
 
 router.route('/setting').get(function (req,res) {
     let uid = req.session.uid ? req.session.uid : '2';
