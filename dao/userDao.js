@@ -156,7 +156,6 @@ function updateCard(req, res, uid) {
                     }
                     else {
                         reject({code: 500, msg: '封面文件上传出错！'});
-                        // res.json({code: 500, msg: '封面文件上传出错！'})
                     }
                 });
             }

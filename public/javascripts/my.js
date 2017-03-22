@@ -88,7 +88,7 @@ function changeOrder(n) {
 }
 function fliterOrder(n) {
     sessionStorage.otype = n;
-    let queren = '', btn = '';
+    let queren = '', btn = '',appointment='';
     for (let i = -1; i < 4; i++) {
         $("#filter-order" + i).removeClass('on');
     }
@@ -157,33 +157,45 @@ function fliterOrder(n) {
             }
         })
     }
-else{
-    $("#order-filter").html('');
-    $.get(`/users/getOrder?order=${sessionStorage.order}&otype=${sessionStorage.otype}`, function (data) {
+    else {
+        $("#order-filter").html('');
+        $.get(`/users/getOrder?order=${sessionStorage.order}&otype=${sessionStorage.otype}`, function (data) {
 
-        if (200 === data.code) {
-            let order = data.order;
-            $("#order-default").css("display", "none");
-            $("#order-man").html('');
-            for (var i = 0; i < order.length; i++) {
-                if (order[i].State == '0') {
-                    btn = `<a class="btn comment_order" href="/users/changeState?oid=${order[i].Oid}&state=1">确认</a>`;
-                    queren = "";
-                } else if (order[i].State == '1') {
-                    btn = '';
-                    queren = `<span class="font_c" style="color: green">等待对方付款</span>`
-                } else if (order[i].State == '2') {
-                    btn = '';
-                    queren = `<span class="font_c" style="color: green">在约定的时间地点和对方见面吧</span>>`
-                } else if (order[i].State == '3') {
-                    btn = `<a class="btn comment_order">评价</a>`;
-                    queren = `<span class="font_c" style="color: green">已完成</span>`
-                }
-                if (order[i].State == '4') {
-                    btn = '';
-                    queren = `<span class="font_c">已取消</span>`
-                }
-                $("#order-man").append(`<dl class="man" id="order${order[i].Oid}">
+            if (200 === data.code) {
+                let order = data.order;
+                $("#order-default").css("display", "none");
+                $("#order-man").html('');
+                for (var i = 0; i < order.length; i++) {
+                    appointment=`<p class="orderTime">预约时间：${order[i].Appointment} </p>`
+                    if (order[i].State == '0') {
+                        btn = `<a class="btn comment_order" href="/users/changeState?oid=${order[i].Oid}&state=1">确认</a>`;
+                        queren = "";
+                        appointment=`<form action="javascript:;" id="frm-changeTime"> 预约时间：
+                        <input id="changeTime" onclick="laydate({
+                            istime:true,
+                            format: 'YYYY-MM-DD hh:mm', // 分隔符可以任意定义，该例子表示只显示年月
+                            festival: true, //显示节日
+                            min: laydate.now(),
+                            choose: function(datas){ //选择日期完毕的回调
+//                            alert('得到：'+datas);
+                } })"  
+                name="appointment" value="${order[i].Appointment}"/>
+                    </form>`
+                    } else if (order[i].State == '1') {
+                        btn = '';
+                        queren = `<span class="font_c" style="color: green">等待对方付款</span>`
+                    } else if (order[i].State == '2') {
+                        btn = '';
+                        queren = `<span class="font_c" style="color: green">在约定的时间地点和对方见面吧</span>>`
+                    } else if (order[i].State == '3') {
+                        btn = `<a class="btn comment_order">评价</a>`;
+                        queren = `<span class="font_c" style="color: green">已完成</span>`
+                    }
+                    if (order[i].State == '4') {
+                        btn = '';
+                        queren = `<span class="font_c">已取消</span>`
+                    }
+                    $("#order-man").append(`<dl class="man" id="order${order[i].Oid}">
                 <dt>
                     <a href="/"><img src="${order[i].HeadPic}" >
                     </a>
@@ -192,7 +204,8 @@ else{
                     <h2><a href="/">Ta:${order[i].Name}</a></h2>
                     <p class="address"><i></i>旅游地点：${order[i].Addr}</p>
                     <p class="orderTime">下单时间：${order[i].OrderTime} </p>
-                    <p class="appointment">预约时间：${order[i].Appointment}</p>
+                    ${appointment}
+                    
                 </dd>
                 <div>
                     <div class="contact" title="联系Ta"onclick="alert('对方微信号：${order[i].Wechat};暗号：${order[i].Anhao}')"><i></i>联系Ta</div>
@@ -202,12 +215,12 @@ else{
                 <a class="btn delete_order">删除订单</a>
                 </div>
             </dl>`)
+                }
+            } else {
+                alert("服务器连接失败，请稍后~")
             }
-        } else {
-            alert("服务器连接失败，请稍后~")
-        }
-    })
-}
+        });
+    }
 
 }
 

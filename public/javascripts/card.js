@@ -4,7 +4,6 @@
 
 /*下单时间控件*/
 laydate({
-
     elem: '#appointment',
     istime:true,
     format: 'YYYY-MM-DD hh:mm', // 分隔符可以任意定义，该例子表示只显示年月
