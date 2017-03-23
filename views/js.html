@@ -20,6 +20,7 @@
 <script src="/javascripts/model/cssParser.js"></script>
 <!--时间控件-->
 <script type="text/javascript" src="/datepicker/laydate.dev.js"></script>
+<script type="text/javascript" src="/layer/layer.js"></script>
 <!--多彩图标-->
 <script src="/javascripts/iconfont.js"></script>
 <script>
@@ -52,5 +53,11 @@
         }
         return url
     };
+
+    function toClick(id, callback) {
+        //js触发点击事件
+        callback();
+        $(id).click();
+    }
 
 </script>

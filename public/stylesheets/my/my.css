@@ -72,6 +72,11 @@
     width: 100%;
     padding: 4rem 0;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.2); }
+    #my .main .money {
+      color: #9A0000; }
+      #my .main .money b {
+        font-weight: 700;
+        font-size: larger; }
     #my .main #order-list {
       width: 100%;
       min-height: 500px;
@@ -164,7 +169,8 @@
               display: inline-block; }
               #my .main #order-list .order-main .order .ord_bottom dl img {
                 width: 120px;
-                height: 120px; }
+                height: 120px;
+                object-fit: cover; }
               #my .main #order-list .order-main .order .ord_bottom dl dt, #my .main #order-list .order-main .order .ord_bottom dl dd {
                 display: inline-block; }
               #my .main #order-list .order-main .order .ord_bottom dl dd {
@@ -189,26 +195,6 @@
               flex: 1; }
             #my .main #order-list .order-main .order .ord_bottom .ord_r {
               flex: 1; }
-              #my .main #order-list .order-main .order .ord_bottom .ord_r .money {
-                color: #9A0000; }
-                #my .main #order-list .order-main .order .ord_bottom .ord_r .money b {
-                  font-weight: 700;
-                  font-size: larger; }
-              #my .main #order-list .order-main .order .ord_bottom .ord_r .btn {
-                width: 116px;
-                height: 30px;
-                text-align: center;
-                line-height: 30px;
-                border-radius: 5px;
-                display: inline-block;
-                margin-top: 10px;
-                cursor: pointer; }
-              #my .main #order-list .order-main .order .ord_bottom .ord_r .delete_order {
-                color: #999;
-                background: #eee; }
-              #my .main #order-list .order-main .order .ord_bottom .ord_r .comment_order {
-                background-color: #ffa800;
-                color: #fff; }
 
 #order-man {
   width: 800px; }
@@ -234,22 +220,6 @@
       display: flex;
       flex-flow: column;
       justify-content: flex-start; }
-    #order-man .man .btn {
-      width: 116px;
-      height: 30px;
-      text-align: center;
-      line-height: 30px;
-      border-radius: 5px;
-      display: inline-block;
-      margin-bottom: 10px;
-      cursor: pointer; }
-    #order-man .man .delete_order {
-      color: #999;
-      background: #eee; }
-    #order-man .man .comment_order {
-      background-color: #ffa800;
-      color: #fff;
-      margin-bottom: 1rem; }
     #order-man .man .contact {
       font-size: 1rem;
       color: #9A0000;
@@ -264,5 +234,46 @@
         display: inline-block;
         margin-right: 10px;
         vertical-align: middle; }
+
+#order-man input, .input {
+  width: 176px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1px solid #d6d6d6;
+  padding: 6px;
+  line-height: 18px;
+  color: #666;
+  transition: box-shadow .25s linear 0s;
+  display: inline-block;
+  outline: none;
+  text-align: left; }
+  #order-man input [id^='queren'], .input [id^='queren'] {
+    border-radius: 5px;
+    outline: none; }
+
+#querenDiolog {
+  padding: 50px;
+  line-height: 22px;
+  color: #393D49;
+  font-weight: 300; }
+
+.btn {
+  width: 116px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 5px;
+  display: inline-block;
+  margin-bottom: 10px;
+  cursor: pointer; }
+
+.delete_order {
+  color: #999;
+  background: #eee; }
+
+.comment_order {
+  background-color: #ffa800;
+  color: #fff;
+  margin-bottom: 0.5rem; }
 
 /*# sourceMappingURL=my.css.map */

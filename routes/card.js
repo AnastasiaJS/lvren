@@ -24,5 +24,13 @@ router.get('/more', function (req, res, next) {
         res.render('moreCards',{pageAccount:pages,face:result.results})
     });
 });
+/*收藏*/
+router.get('/save',function (req,res) {
+    userDao.addSave(req,res)
+});
+/*取消收藏*/
+router.get('/cancelsave',function (req,res) {
+    userDao.cancelSave(req,res)
+})
 
 module.exports = router;

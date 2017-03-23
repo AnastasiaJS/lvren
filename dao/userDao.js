@@ -135,6 +135,36 @@ function card_inner(req, res, uid, callback) {
         });
     });
 };
+function addSave(req, res) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.addsave, [req.query.tid], function (err, result) {
+            if (err) {
+                console.log('addSave>>>>>>>>>',err.message)
+            }
+            else if(result.affectedRows > 0){
+                res.json({code:200})
+            }else{
+                res.json({code:500})
+            }
+            connection.release();
+        });
+    });
+};
+function cancelSave(req, res) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.delsave, [req.query.tid], function (err, result) {
+            if (err) {
+                console.log('addSave>>>>>>>>>',err.message)
+            }
+            else if(result.affectedRows > 0){
+                res.json({code:200})
+            }else{
+                res.json({code:500})
+            }
+            connection.release();
+        });
+    });
+};
 function updateCard(req, res, uid) {
     let facePic,photos;
 
@@ -439,7 +469,7 @@ function getOrder(req,res,uid) {
 
 function order(req,res,uid) {
     pool.getConnection(function (err,connection) {
-        connection.query($sql.addOrder,[req.body.tid,uid,0,req.body.appointment],function (err,result) {
+        connection.query($sql.addOrder,[req.body.tid,uid,0,req.body.appointment,req.body.price],function (err,result) {
             if (err) {
                 console.log('addOrder>>>>>>>', err);
                 res.json({code: 500, msg: err});
@@ -453,7 +483,7 @@ function order(req,res,uid) {
 }
 function changeState(req,res) {
     pool.getConnection(function (err,connection) {
-        connection.query($sql.changeState,[req.query.state,req.query.oid],function (err,result) {
+        connection.query($sql.changeState,[req.query.state,req.query.appointment,req.query.price,req.query.oid],function (err,result) {
             if (err) {
                 console.log('changeState>>>>>>>', err);
                 res.json({code: 500, msg: err});
@@ -465,8 +495,23 @@ function changeState(req,res) {
         })
     })
 }
+function delOrder(req,res) {
+    pool.getConnection(function (err,connection) {
+        connection.query($sql.deleteOrder,[req.query.oid],function (err,result) {
+            if (err) {
+                console.log('delOrder>>>>>>>', err);
+                res.json({code: 500, msg: err});
+            }
+            else if (result.affectedRows > 0) {
+                res.json({code: 200})
+            }
+            connection.release();
+        })
+    })
+}
 exports.getCards = getCards;/*more card分页*/
 exports.card_inner = card_inner;/*获取card详情*/
+exports.addSave = addSave;/*获取card详情*/
 exports.updateCard = updateCard;/*用户更新card*/
 exports.addCard = addCard;/*用户发布card*/
 exports.login = login;/*用户登录*/
@@ -479,3 +524,4 @@ exports.getSetting = getSetting;/*获取个人设置信息*/
 exports.order = order;/*用户下单*/
 exports.getOrder = getOrder;/*订单查询*/
 exports.changeState = changeState;/*改变订单状态*/
+exports.delOrder = delOrder;/*删除订单*/

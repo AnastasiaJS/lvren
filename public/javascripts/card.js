@@ -28,24 +28,35 @@ var mySwiper = new Swiper ('.swiper-container', {
 });
 
 /*喜欢card===================*/
-function save() {
+function save(tid) {
     let _this=$("#save-img");
     if(_this.attr('src')=="/icon/saved.png"){
-        _this.attr('src','/icon/save.png')
+        /*取消收藏========*/
+        $.get('/card/save',function (data) {
+            if(data.code==200){
+                _this.attr('src','/icon/save.png');
+            }
+        })
     }else{
-        _this.attr('src',"/icon/saved.png")
+        /*收藏============*/
+        $.get('/card/cancelsave',function (data) {
+            if(data.code==200){
+                _this.attr('src','/icon/saved.png');
+            }
+        })
     }
 
 }
 /*提交order*/
 
-function order(tid) {
+function order(tid,price) {
     if($("#appointment").val()==''){
-        alert("请输入预约时间")
+        layer.msg('请输入预约时间');
         return false;
     }
     let formdata=new FormData($("#frm-order")[0]);
     formdata.append("tid",tid)
+    formdata.append("price",price)
     $.ajax({
         url: '/users/order',
         type: 'POST',
@@ -55,7 +66,11 @@ function order(tid) {
         contentType: false,
         processData: false,
         beforeSend: function () {
-            $('#add-tip').text('上传中...');
+            // $('#add-tip').text('上传中...');
+            layer.msg('上传中', {
+                icon: 16
+                ,shade: 0.01
+            });
             // 禁用按钮防止重复提交，发送前响应
             $("#bbtn-sendOrder").attr({ disabled: "disabled" });
 
@@ -63,9 +78,17 @@ function order(tid) {
         success: function (data) {
 
             if (200 === data.code) {
-                alert('订单已提交，可前往个人订单列表与Ta联系')
+                layer.alert('订单已提交，可前往个人订单列表与Ta联系', {
+                    skin: 'layui-layer-molv' //样式类名
+                    ,closeBtn: 0
+                    ,icon:1
+                });
             } else {
-                alert("服务器连接失败，请稍后~")
+                layer.alert('服务器连接失败，请稍后~', {
+                    skin: 'layui-layer-molv' //样式类名
+                    ,closeBtn: 0
+                    ,icon:0
+                });
             }
         },
         complete: function () {//完成响应
@@ -73,7 +96,11 @@ function order(tid) {
             $("#btn-sendOrder").removeAttr("disabled");
         },
         error: function () {
-            alert("与服务器通信发生错误!");
+            layer.alert('与服务器通信发生错误!', {
+                skin: 'layui-layer-molv' //样式类名
+                ,closeBtn: 0
+                ,icon:2
+            });
         }
     });
 }

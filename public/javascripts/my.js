@@ -88,13 +88,13 @@ function changeOrder(n) {
 }
 function fliterOrder(n) {
     sessionStorage.otype = n;
-    let queren = '', btn = '',appointment='';
+    let queren = '', btn = '';
     for (let i = -1; i < 4; i++) {
         $("#filter-order" + i).removeClass('on');
     }
     $("#filter-order" + n).addClass('on');
     if (sessionStorage.order == 0) {
-
+/*我在租谁===========================*/
         $.get(`/users/getOrder?order=${sessionStorage.order}&otype=${n}`, function (data) {
             if (200 === data.code) {
                 let order = data.order;
@@ -106,9 +106,9 @@ function fliterOrder(n) {
                         $("#order-filter").html('');
                         $("#order-default").css("display", "block");
                     } else if (state == 0) {
-                        queren = `<span class="font_c" style="color:red">未付款</span>>`
+                        queren = `<span class="font_c" style="color:red">未付款</span>`
                     } else if (state == 1) {
-                        btn = `<a class="btn comment_order">付款</a>`;
+                        btn = `<a class="btn comment_order" id="fukuan${order[i].Oid}" onclick="alipay('${order[i].Oid}','${order[i].Appointment}','${order[i].Price}')">付款</a>`;
                         queren = ''
                     } else if (state == 2) {
                         queren = `<span class="font_c" style="color: green">已付款</span>`
@@ -122,7 +122,7 @@ function fliterOrder(n) {
             <div class="ord_top">
                 <span class="time">${order[i].OrderTime}</span><span>订单号：${order[i].Oid}</span>
                 <span class="name">当地人：<a href="/rent/detail-9.html">${order[i].Name}</a></span>
-                <span class="contact" title="联系Ta" data-num="mazzysr"><i></i>联系Ta</span>
+                <span class="contact" title="联系Ta"onclick="connectTa('${order[i].Wechat}','${order[i].Anhao}')"><i></i>联系Ta</span>
             </div>
             <div class="ord_bottom">
                 <dl class="pic">
@@ -139,14 +139,14 @@ function fliterOrder(n) {
                     </dd>
                 </dl>
                 <div class="ord_c">
-                      ${queren}      
+                  
                           
                 </div>
                 <div class="ord_r">
                     <div class="price">商议价格 <span class="money">￥ <b>${order[i].Price}</b></span></div>
 
                     ${btn}
-                    <a class="btn delete_order">删除订单</a>
+                    <a class="btn delete_order" onclick="delOrder('${order[i].Oid}')">删除订单</a>
                 </div>
             </div>
         </div>`)
@@ -157,6 +157,7 @@ function fliterOrder(n) {
             }
         })
     }
+        /*我在租谁+++++++++++++++++++++++++++++++++++*/
     else {
         $("#order-filter").html('');
         $.get(`/users/getOrder?order=${sessionStorage.order}&otype=${sessionStorage.otype}`, function (data) {
@@ -166,21 +167,11 @@ function fliterOrder(n) {
                 $("#order-default").css("display", "none");
                 $("#order-man").html('');
                 for (var i = 0; i < order.length; i++) {
-                    appointment=`<p class="orderTime">预约时间：${order[i].Appointment} </p>`
+                    appointment=`<p class="orderTime">预约时间：${order[i].Appointment} </p>`;
+                    price=`<div class="price">商议价格：<span class="money">￥ <b>${order[i].Price}</b></span></div>`
                     if (order[i].State == '0') {
-                        btn = `<a class="btn comment_order" href="/users/changeState?oid=${order[i].Oid}&state=1">确认</a>`;
+                        btn = `<a class="btn comment_order" id="queren${order[i].Oid}" onclick="queren('${order[i].Oid}','${order[i].Price}','${order[i].Appointment}')">确认</a>`;
                         queren = "";
-                        appointment=`<form action="javascript:;" id="frm-changeTime"> 预约时间：
-                        <input id="changeTime" onclick="laydate({
-                            istime:true,
-                            format: 'YYYY-MM-DD hh:mm', // 分隔符可以任意定义，该例子表示只显示年月
-                            festival: true, //显示节日
-                            min: laydate.now(),
-                            choose: function(datas){ //选择日期完毕的回调
-//                            alert('得到：'+datas);
-                } })"  
-                name="appointment" value="${order[i].Appointment}"/>
-                    </form>`
                     } else if (order[i].State == '1') {
                         btn = '';
                         queren = `<span class="font_c" style="color: green">等待对方付款</span>`
@@ -197,7 +188,7 @@ function fliterOrder(n) {
                     }
                     $("#order-man").append(`<dl class="man" id="order${order[i].Oid}">
                 <dt>
-                    <a href="/"><img src="${order[i].HeadPic}" >
+                    <a href="/card?card=${order[i].Uid}"><img src="${order[i].HeadPic}" >
                     </a>
                 </dt>
                 <dd>
@@ -208,20 +199,118 @@ function fliterOrder(n) {
                     
                 </dd>
                 <div>
-                    <div class="contact" title="联系Ta"onclick="alert('对方微信号：${order[i].Wechat};暗号：${order[i].Anhao}')"><i></i>联系Ta</div>
-                
+                    <div class="contact" title="联系Ta" onclick="connectTa('${order[i].Wechat}','${order[i].Anhao}')"><i></i>联系Ta</div>
+                <p>订单号：${order[i].Oid}</p>
+                ${price}
                 ${queren}
                 ${btn}
-                <a class="btn delete_order">删除订单</a>
+                <a class="btn delete_order" id="del${order[i].Oid}" onclick="delOrder('${order[i].Oid}')">删除订单</a>
                 </div>
             </dl>`)
                 }
             } else {
-                alert("服务器连接失败，请稍后~")
+                layer.alert("服务器连接失败，请稍后~", {icon: 5})
             }
         });
     }
 
+}
+/*删除订单*/
+function delOrder(oid) {
+    layer.confirm('确定删除订单？',function () {
+        $.get(`/users/delOrder?oid=${oid}`,function (data) {
+            if(data.code==200){
+                $(`#del${oid}`).attr('disabled',true);
+                $(`#del${oid}`).css('background','#eee').css('color','#999').css('cursor','not-allowed')
+                $(`#del${oid}`).html('订单已删除');
+                layer.alert("订单删除成功", {icon: 1})
+            }else{
+                layer.alert("服务器连接失败，请稍后~", {icon: 5})
+            }
+        })
+    })
+
+}
+/*联系ta*/
+
+ function connectTa(wechat,anhao) {
+     layer.open({
+         type: 1
+         ,title: '马上联系Ta' //不显示标题栏
+         // ,closeBtn: true
+         ,area: '300px;'
+         ,shade: 0.8
+         ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+         ,resize: false
+         ,btn: ['好的','先休息一下']
+         ,btnAlign: 'c'
+         ,moveType: 1 //拖拽模式，0或者1
+         ,content: `<p style="text-align: center">对方微信：${wechat}</p><p style="text-align: center">微信暗号：${anhao}</p>
+                    <p style="text-align: center;color:#f00">(双方沟通约定具体见面时间地点)</p>`
+         ,success: function(layero){
+             var btn = layero.find('.layui-layer-btn');
+             btn.find('.layui-layer-btn0').attr({
+                 href: 'https://wx.qq.com/'//微信网页端
+                 ,target: '_blank'
+             });
+         }
+     });
+ }
+
+/*付款*/
+function alipay(oid,appointment,price) {
+    layer.msg('正跳转支付界面', {
+        icon: 16
+        ,shade: 0.01
+    });
+    setTimeout(function () {
+        $.get(`/users/changeState?oid=${oid}&state=2&appointment=${appointment}&price=${price}`,function(data){
+            if(data.code==200){
+                $(`#fukuan${oid}`).attr('disabled',true);
+                $(`#fukuan${oid}`).css('background','#eee').css('color','#999').css('cursor','not-allowed')
+                $(`#fukuan${oid}`).html('已付款');
+                layer.msg('付款成功，等待与对方见面', {icon: 1});
+            }else{
+                layer.alert('付款出错!', {icon: 5});
+            }
+        })
+    },3000)
+
+}
+/*确认订单*/
+function queren(oid,price,appointment){
+    layer.confirm('确认订单？', {
+        skin: 'layui-layer-molv', //样式类名
+        btn: ['确认','重新选择预约时间'] //按钮
+        ,id: 'querenDiolog' //设定一个id，防止重复弹出
+        ,content: `<small style="color:#393D49;margin-bottom: 1em">提示:根据双方的沟通后的结果填写</small>
+                    <label for="changePrice" style="display: inline-block">预约时间：</label>
+                                    <input id="changeTime" class="input" onclick="laydate({
+                                                istime:true,
+                                                format: 'YYYY-MM-DD hh:mm', // 分隔符可以任意定义，该例子表示只显示年月
+                                                festival: true, //显示节日
+                                                min: laydate.now(),
+                                                choose: function(datas){ //选择日期完毕的回调
+                                    } })"  
+                                    name="appointment" value="${appointment}"/>
+                                    <label for="changePrice" style="display: inline-block">商议价格：</label>
+                                    <input type="number" id='changePrice' class="input"  value="${price}"/>`
+    }, function(){
+        let appointment=$('#changeTime').val(),price=$('#changePrice').val();
+        $.get(`/users/changeState?oid=${oid}&state=1&appointment=${appointment}&price=${price}`,function(data){
+            if(data.code==200){
+                $(`#queren${oid}`).attr('disabled',true);
+                $('#changeTime').css('cursor','not-allowed');
+                $(`#queren${oid}`).css('background','#eee').css('color','#999').css('cursor','not-allowed')
+                $(`#queren${oid}`).html('已确认');
+                layer.msg('已确认', {icon: 1});
+            }else{
+                layer.alert('修改出错!', {icon: 5});
+            }
+        })
+    }, function(){
+        /*取消的callback*/
+    });
 }
 
 function collect(i) {

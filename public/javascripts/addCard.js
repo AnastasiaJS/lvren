@@ -16,11 +16,6 @@ function getObjectURL(file) {
     return url
 };
 
-function toClick(id, callback) {
-    //js触发点击事件
-    callback();
-    $(id).click();
-}
 
 $("#facePic").change(function () {
     var filepath = this.files[0];
@@ -51,7 +46,6 @@ $("#photos").change(function () {
     else {
         //先清空所有photos
         for(let i=0;i<6;i++){
-            console.log(i);
             $(`#li${i}`).html('')
         }
         for (var i = 0; i < this.files.length; i++) {
@@ -83,27 +77,33 @@ $("#update-frm").submit(function (e) {
         contentType: false,
         processData: false,
         beforeSend: function () {
-            $('#update-tip').text('上传中...');
+            // $('#update-tip').text('上传中...');
+            layer.msg('上传中', {
+                icon: 16
+                ,shade: 0.01
+            });
             // 禁用按钮防止重复提交，发送前响应
             $("#btn-updateCard").attr({ disabled: "disabled" });
 
         },
         success: function (data) {
             if (200 === data.code) {
-                toClick("#face-tip",  function () {
-                    $("#modal-tip").text("信息");
-                    $("#face-tip-msg").text("发布成功!");
-                });
+                // toClick("#face-tip",  function () {
+                //     $("#modal-tip").text("信息");
+                //     $("#face-tip-msg").text("发布成功!");
+                // });
+                layer.alert('发布成功!', {icon: 6});
             } else {
-                toClick("#face-tip", function () {
-                    console.log(data)
-                    $("#face-tip-msg").text(data.msg);
-                })
+                // toClick("#face-tip", function () {
+                //     $("#face-tip-msg").text(data.msg);
+                // })
+                layer.alert('发布出错!', {icon: 5});
             }
         },
         complete: function () {//完成响应
             $("#btn-updateCard").removeAttr("disabled");
-            $('#update-tip').text('');
+            // $('#update-tip').text('');
+            layer.closeAll('loading');
         },
         error: function () {
             toClick("#face-tip",function () {

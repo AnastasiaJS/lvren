@@ -30,8 +30,8 @@
         <div class="order">
             <div class="ord_top">
                 <span class="time"><%=order0[i].OrderTime%></span><span>订单号：<%=order0[i].Oid%></span>
-                <span class="name">当地人：<a href="/rent/detail-9.html"><%=order0[i].Name%></a></span>
-                <span class="contact" title="联系Ta" data-num="mazzysr" onclick="alert('对方微信号：<%=order0[i].Wechat%>;暗号：<%=order0[i].Anhao%>')"><i></i>联系Ta</span>
+                <span class="name">当地人：<a href="/card?card=<%=order0[i].Uid%>"><%=order0[i].Name%></a></span>
+                <span class="contact" title="联系Ta" onclick="connectTa('<%=order0[i].Wechat%>','<%=order0[i].Anhao%>')"><i></i>联系Ta</span>
             </div>
             <div class="ord_bottom">
                 <dl class="pic">
@@ -41,7 +41,7 @@
                                 alt="" width="100%"></a>
                     </dt>
                     <dd>
-                        <h2><a href="/rent/detail-9.html"><%=order0[i].Title%></a></h2>
+                        <h2><a href="/card?card=<%=order0[i].Uid%>"><%=order0[i].Title%></a></h2>
                         <p class="address"><i></i><%=order0[i].Addr%></p>
                         <p class="time">预约时间：<%=order0[i].Appointment%></p>
                         <p class="place">见面地点：待确认</p>
@@ -60,14 +60,14 @@
                     <%}%>
                 </div>
                 <div class="ord_r">
-                    <div class="price">商议价格 <span class="money">￥ <b>100</b></span></div>
+                    <div class="price">商议价格 <span class="money">￥ <b><%=order0[i].Price%></b></span></div>
                     <%if(order0[i].State==1){%>
-                    <a class="btn comment_order" >付款</a>
+                    <a class="btn comment_order" onclick="alipay('<%=order0[i].Oid%>','<%=order0[i].Appointment%>','<%=order0[i].Price%>')">付款</a>
                     <%}%>
                     <%if(order0[i].State==3){%>
                     <a class="btn comment_order">评价</a>
                     <%}%>
-                    <a class="btn delete_order">删除订单</a>
+                    <a class="btn delete_order" onclick="delOrder('<%=order0[i].Oid%>')">删除订单</a>
                 </div>
             </div>
         </div>

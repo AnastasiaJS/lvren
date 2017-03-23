@@ -35,7 +35,7 @@
                 <div class="rented">2人租过</div>
                 <div class="remark">6条留言</div>
                 <div class="save">
-                    <button onclick="save()">
+                    <button onclick="save('<%=card.Uid%>')">
                         <img src="/icon/save.png" alt="" id="save-img">
                         喜欢3</button>
                 </div>
@@ -164,7 +164,8 @@
                     </dt>
                     <dd>
                         <h2><a href="#"><%=card.Title%></a></h2>
-                        <p class="address"><i></i><%=card.Addr%></p>
+                        <span class="address"><i></i><%=card.Addr%></span>
+                        <span class="price" style="margin-left: 2rem"><strong>￥</strong><%=card.Price%>元/次</span>
                     </dd>
                 </dl>
             </div>
@@ -178,7 +179,7 @@
                     </li>
                     <li>
                         <button class="md-close">取消</button>
-                        <button id="btn-sendOrder" onclick="order('<%=card.Uid%>')">提交</button></li>
+                        <button id="btn-sendOrder" onclick="order('<%=card.Uid%>','<%=card.Price%>')">提交</button></li>
                 </ul>
             </form>
         </div>
