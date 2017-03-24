@@ -174,6 +174,19 @@
   }
 }
 
+@keyframes zuta
+{
+  0% {top:43%}
+  20% {top:41%}
+  100% {top:43%}
+}
+
+@-webkit-keyframes zuta
+{
+  0% {top:43%}
+  20% {top:41%}
+  100% {top:43%}
+}
 .btn-order{
   position: fixed;
   top:45%;
@@ -181,18 +194,14 @@
   height:4rem;
   left:2rem;
   cursor: pointer;
+  z-index: 3;
+  animation: zuta 1s linear  infinite;
+  :hover{
+    -webkit-animation-play-state: paused;
+    -moz-animation-play-state: paused;
+    animation-play-state:paused
+  }
   .icon{
     font-size: 2rem;
   }
-}
-@keyframes zuta
-{
-  from {top:40%}
-  to {top:45%;}
-}
-
-@-webkit-keyframes zuta
-{
-  from {top:40%}
-  to {top:45%;}
 }

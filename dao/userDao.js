@@ -5,6 +5,10 @@ var $conf = require("./../conf/db");
 var $sql = require('./userSqlMapping');
 var fileuuid = require('./../util/uuidHelper');
 var pwdMd5 = require('./../util/md5Helper');
+//实际使用中可以在应用启动时进行初始化(只需执行一次)
+require('mysql-queries').init($conf);
+//执行多条SQLs
+var mq = require('mysql-queries');
 
 var mysql = require('mysql');
 // var query = require('./../util/DBHelper');
@@ -112,43 +116,29 @@ function getCards(start, acount, res, callback) {
 
 }
 function card_inner(req, res, tid, callback) {
-    pool.getConnection(function (err, connection) {
-        connection.query($sql.sqlContent, [tid], function (err, content) {
-            if (err) {
-                console.log(err.message)
+    let save=false;
+    /*执行多条语句==============*/
+    var sqls = [$sql.sqlContent, $sql.saveNum,$sql.isSave,$sql.orderNum];
+    mq.queries(sqls,
+        [[tid],[tid],[req.session.uid, tid],[tid]], function(err, results){
+            if(err) {
+                console.log(err);
+            } else {
+                //"results"为数组,其为多条SQL的执行结果.
+                if(results[2][0].num>0){
+                    save=true;
+                }
+                callback({
+                    card: results[0][0],
+                    savenum: results[1][0].num,
+                    save: save,
+                    ordernum: results[3][0].num,
+                    // msg: msg,
+                    // rep: reply,
+                    // sessionId: req.session.userId
+                });
             }
-            else {
-                // connection.query($sql.sqlMsg, [tid], function (err, msg) {
-                //     connection.query($sql.sqlReply, [tid], function (err, reply) {
-                connection.query($sql.isSave, [req.session.uid, tid], function (err, issave) {
-                    console.log('save>>>>>', issave[0])
-                    if (err) {
-                        console.log('isSave>>>>', err.message)
-                    } else if (issave[0] > 0) {
-                        callback({
-                            card: content[0],
-                            save: true,
-                            // msg: msg,
-                            // rep: reply,
-                            // sessionId: req.session.userId
-                        });
-                    } else {
-                        callback({
-                            card: content[0],
-                            save: false,
-                            // msg: msg,
-                            // rep: reply,
-                            // sessionId: req.session.userId
-                        });
-                    }
-                    connection.release();
-                })
-                //     })
-                // })
-            }
-
         });
-    });
 };
 function addSave(req, res, uid) {
     pool.getConnection(function (err, connection) {
@@ -157,7 +147,10 @@ function addSave(req, res, uid) {
                 console.log('addSave>>>>>>>>>', err.message)
             }
             else if (result.affectedRows > 0) {
-                res.json({code: 200})
+                connection.query($sql.saveNum,[req.query.tid],function (err,saveNum) {
+                    res.json({code: 200,savenum:saveNum[0].num})
+                });
+               
             } else {
                 res.json({code: 500})
             }
@@ -172,7 +165,9 @@ function cancelSave(req, res, uid) {
                 console.log('cancelSave>>>>>>>>>', err.message)
             }
             else if (result.affectedRows > 0) {
-                res.json({code: 200})
+                connection.query($sql.saveNum,[req.query.tid],function (err,saveNum) {
+                    res.json({code: 200,savenum:saveNum[0].num})
+                });
             } else {
                 res.json({code: 500})
             }
@@ -220,8 +215,8 @@ function updateCard(req, res, uid) {
         }
     });
     getFace.then(function () {
-        console.log('>>>>>>>>>', facePic);
-        console.log('>>>>>>>>>', photos);
+        // console.log('>>>>>>>>>', facePic);
+        // console.log('>>>>>>>>>', photos);
         pool.getConnection(function (err, connection) {
             connection.query($sql.updateCard, [body.title, body.about, body.addr,
                 body.price, canCut, body.play, other, body.appointTime,
@@ -417,7 +412,6 @@ function isLogin(req, res) {
         //todo:判断用户信息填写是否完善
         pool.getConnection(function (err, connection) {
             connection.query($sql.user, [req.session.uid], function (err, result) {
-                connection.release();
                 if (err) {
                     res.render("error");
                 }
@@ -428,7 +422,7 @@ function isLogin(req, res) {
                 else {
                     res.json({code: 500})
                 }
-
+                connection.release();
             });
         })
     } else {

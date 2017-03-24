@@ -25,6 +25,12 @@ router.get('/session', function (req, res, next) {
 router.get('/logout', function (req, res, next) {
     userDao.logout(req, res)
 });
-
+router.get('/isLogin',function (req,res) {
+    if(req.session.uid){
+        res.json({code:200})
+    }else{
+        res.json({code:500})
+    }
+})
 
 module.exports = router;

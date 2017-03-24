@@ -32,7 +32,7 @@
             <div class="tip">
                 <div class="place"><i></i><%=card.Addr%></div>
                 <div class="price">￥ <big><%=card.Price%></big> 元/次</div>
-                <div class="rented">2人租过</div>
+                <div class="rented"><%=ordernum%>人租过</div>
                 <div class="remark">6条留言</div>
                 <div class="save">
                     <button onclick="save('<%=card.Uid%>')">
@@ -43,10 +43,10 @@
                           url="/icon/saved.png"
                         }%>
                         <img src="<%=url%>" alt="" id="save-img">
-                        喜欢 3</button>
+                        喜欢 <span id="save-num"><%=savenum%></span></button>
                 </div>
                 <div class="rent">
-                    <button>
+                    <button onclick="orderDiolog('<%=card.Face%>','<%=card.Title%>','<%=card.Addr%>','<%=card.Price%>','<%=card.Uid%>')">
                         租ta
                     </button>
                 </div>
@@ -155,56 +155,23 @@
     </aside>
 </div>
 
-<!--添加下订单的模态框-->
-
-<div class="md-modal md-effect-15" id="modal-order">
-    <div class="md-content">
-        <h3>租 Ta</h3>
-        <div>
-            <div class="order-content">
-                <dl class="pic">
-                    <dt>
-                        <a href="#"><img
-                                src="<%=card.Face%>"
-                                alt="<%=card.Title%>"></a>
-                    </dt>
-                    <dd>
-                        <h2><a href="#"><%=card.Title%></a></h2>
-                        <span class="address"><i></i><%=card.Addr%></span>
-                        <span class="price" style="margin-left: 2rem"><strong>￥</strong><%=card.Price%>元/次</span>
-                    </dd>
-                </dl>
-            </div>
-            <form action="javascript:;" id="frm-order">
-                <ul>
-                    <li>
-                        <label for="appointment">预约时间：</label>
-                        <input id="appointment" name="appointment" required placeholder="选择准确时间"/></li>
-                    <li>
-                        <small>温馨提示：下单成功，双方沟通达成一致后，方可见面</small>
-                    </li>
-                    <li>
-                        <button class="md-close">取消</button>
-                        <button id="btn-sendOrder" onclick="order('<%=card.Uid%>','<%=card.Price%>')">提交</button></li>
-                </ul>
-            </form>
-        </div>
-    </div>
-</div>
 <!--触发div-->
-<div class="md-trigger btn-order" data-modal="modal-order">
+<div class="btn-order" onclick="orderDiolog('<%=card.Face%>','<%=card.Title%>','<%=card.Addr%>','<%=card.Price%>','<%=card.Uid%>')">
     <svg class="icon" aria-hidden="true">
            <use xlink:href="#icon-reqiqiu"></use>
     </svg>
     <img src="/icon/zuta.png" alt="">
 </div>
 
-<div class="md-overlay order-overlay"></div>
+<!--页面引导-->
+
 </body>
 <%-include js.html%>
 
 
 <script src="/javascripts/card.js"></script>
 
+<script>
 
+</script>
 </html>

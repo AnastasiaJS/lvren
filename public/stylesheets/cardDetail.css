@@ -131,26 +131,34 @@
     text-align: left;
     line-height: 1.5em; }
 
+@keyframes zuta {
+  0% {
+    top: 43%; }
+  20% {
+    top: 41%; }
+  100% {
+    top: 43%; } }
+@-webkit-keyframes zuta {
+  0% {
+    top: 43%; }
+  20% {
+    top: 41%; }
+  100% {
+    top: 43%; } }
 .btn-order {
   position: fixed;
   top: 45%;
   width: 4rem;
   height: 4rem;
   left: 2rem;
-  cursor: pointer; }
+  cursor: pointer;
+  z-index: 3;
+  animation: zuta 1s linear  infinite; }
+  .btn-order :hover {
+    -webkit-animation-play-state: paused;
+    -moz-animation-play-state: paused;
+    animation-play-state: paused; }
   .btn-order .icon {
     font-size: 2rem; }
 
-@keyframes zuta {
-  from {
-    top: 40%; }
-
-  to {
-    top: 45%; } }
-
-@-webkit-keyframes zuta {
-  from {
-    top: 40%; }
-
-  to {
-    top: 45%; } }
+/*# sourceMappingURL=cardDetail.css.map */

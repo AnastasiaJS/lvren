@@ -9,7 +9,9 @@ var card = {
     sqltotal: 'select count(*) total from tourcard',
     sqllimit: 'select tourcard.Uid,face,Title,Price,Name from tourcard,`user` WHERE  tourcard.Uid=`user`.Uid ORDER BY Uptime desc LIMIT ?,?',
     sqlContent: 'select *,year(NOW())-year(Birthday) Age from tourcard,`user` where tourcard.Uid=? and tourcard.Uid=user.Uid ',
-    isSave: 'SELECT COUNT(*) from save WHERE Uid=? AND Tid=?',
+    isSave: 'SELECT COUNT(*) num from save WHERE Uid=? AND Tid=?',
+    saveNum: 'SELECT COUNT(*) num from save WHERE Tid=?',
+    orderNum: 'SELECT COUNT(*) num from `order` WHERE Tid=?',
     getSetting: 'select *,date_format(Birthday,"%Y-%m-%d") Birthday from `user` where Uid=?',
     // sqlMsg: 'SELECT *,date_format(message.Time,"%h:%i %Y-%c-%d") Time  FROM `user`, message,tourcard WHERE message.Uid=`user`.Uid AND tourcard.Uid=? AND tourcard.Uid=message.Uid order by message.Time desc',
     // sqlReply: 'SELECT *,date_format(Time,"%h:%i %Y-%c-%d") Time FROM `reply` where Cid=? order by Time desc',
@@ -22,6 +24,6 @@ var card = {
     changeState:'UPDATE `order` SET State=?,Appointment=?,Price=? WHERE Oid=?',
     deleteOrder:'DELETE FROM `order` WHERE Oid=?',
     addsave:'INSERT INTO `save`(Uid,Tid) VALUES(?,?)',
-    delsave:'DELETE FROM `save` WHERE Tid=?,Uid=?',
+    delsave:'DELETE FROM `save` WHERE Uid=? AND Tid=?',
 };
 module.exports = card;
