@@ -9,6 +9,7 @@ var card = {
     sqltotal: 'select count(*) total from tourcard',
     sqllimit: 'select tourcard.Uid,face,Title,Price,Name from tourcard,`user` WHERE  tourcard.Uid=`user`.Uid ORDER BY Uptime desc LIMIT ?,?',
     sqlContent: 'select *,year(NOW())-year(Birthday) Age from tourcard,`user` where tourcard.Uid=? and tourcard.Uid=user.Uid ',
+    isSave: 'SELECT COUNT(*) from save WHERE Uid=? AND Tid=?',
     getSetting: 'select *,date_format(Birthday,"%Y-%m-%d") Birthday from `user` where Uid=?',
     // sqlMsg: 'SELECT *,date_format(message.Time,"%h:%i %Y-%c-%d") Time  FROM `user`, message,tourcard WHERE message.Uid=`user`.Uid AND tourcard.Uid=? AND tourcard.Uid=message.Uid order by message.Time desc',
     // sqlReply: 'SELECT *,date_format(Time,"%h:%i %Y-%c-%d") Time FROM `reply` where Cid=? order by Time desc',
@@ -20,7 +21,7 @@ var card = {
     getOrder1:'SELECT date_format(OrderTime," %Y-%c-%d %H:%i") OrderTime,State,Oid,`order`.Price Price,Tid,Addr,Anhao,Wechat,`Name`,HeadPic,`user`.Uid,Appointment FROM `order`,`user`,tourcard WHERE `order`.Uid=`user`.Uid AND tourcard.Uid=`order`.Tid AND `order`.Tid=? AND State LIKE ? ORDER BY Oid DESC',
     changeState:'UPDATE `order` SET State=?,Appointment=?,Price=? WHERE Oid=?',
     deleteOrder:'DELETE FROM `order` WHERE Oid=?',
-    addsave:'INSERT INTO `save`(Uid) VALUES(?)',
-    delsave:'DELETE FROM `save` WHERE Uid=?',
+    addsave:'INSERT INTO `save`(Uid,Tid) VALUES(?,?)',
+    delsave:'DELETE FROM `save` WHERE Tid=?,Uid=?',
 };
 module.exports = card;

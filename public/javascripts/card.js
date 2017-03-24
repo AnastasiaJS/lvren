@@ -30,18 +30,33 @@ var mySwiper = new Swiper ('.swiper-container', {
 /*喜欢card===================*/
 function save(tid) {
     let _this=$("#save-img");
-    if(_this.attr('src')=="/icon/saved.png"){
-        /*取消收藏========*/
-        $.get('/card/save',function (data) {
+    console.log(_this.attr('src'));
+    if(_this.attr('src')=="/icon/save.png"){
+        /*收藏============*/
+        $.get(`/card/save?tid=${tid}`,function (data) {
             if(data.code==200){
-                _this.attr('src','/icon/save.png');
+                layer.msg('收藏成功',{icon:1,time:500});
+                _this.attr('src','/icon/saved.png');
+            }else if(data.code==300){
+                layer.msg('您尚未登录',{icon:0,time:500})
+            }else{
+                layer.msg('服务器连接出错，请稍后',{
+                    icon:2,time:1000
+                })
             }
         })
     }else{
-        /*收藏============*/
-        $.get('/card/cancelsave',function (data) {
+        /*取消收藏========*/
+        $.get(`/card/cancelsave?tid=${tid}`,function (data) {
             if(data.code==200){
-                _this.attr('src','/icon/saved.png');
+                _this.attr('src','/icon/save.png');
+                layer.msg('取消收藏',{icon:1,time:500});
+            }else if(data.code==300){
+                layer.msg('您尚未登录',{icon:0,time:500})
+            }else{
+                layer.msg('服务器连接出错，请稍后',{
+                    icon:2,time:1000
+                })
             }
         })
     }

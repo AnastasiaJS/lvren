@@ -31,7 +31,6 @@ router.get('/delOrder',function (req,res) {
 router.route('/setting').get(function (req,res) {
     let uid = req.session.uid ? req.session.uid : '3';
     userDao.getSetting(req,res,uid)
-   
 }).post(multipart(),function (req,res) {
     let uid = req.session.uid ? req.session.uid : '3';
     userDao.setting(req, res, uid)

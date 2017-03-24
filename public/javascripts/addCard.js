@@ -65,7 +65,7 @@ $("#photos").change(function () {
     }
 });
 
-$("#update-frm").submit(function (e) {
+$("#btn-updateCard").click(function (e) {
     e.preventDefault();
     var formData = new FormData($("#update-frm")[0]);
     $.ajax({
@@ -87,6 +87,7 @@ $("#update-frm").submit(function (e) {
 
         },
         success: function (data) {
+            console.log(data)
             if (200 === data.code) {
                 // toClick("#face-tip",  function () {
                 //     $("#modal-tip").text("信息");
@@ -97,7 +98,7 @@ $("#update-frm").submit(function (e) {
                 // toClick("#face-tip", function () {
                 //     $("#face-tip-msg").text(data.msg);
                 // })
-                layer.alert('发布出错!', {icon: 5});
+                layer.alert(data.msg, {icon: 5});
             }
         },
         complete: function () {//完成响应
@@ -106,9 +107,10 @@ $("#update-frm").submit(function (e) {
             layer.closeAll('loading');
         },
         error: function () {
-            toClick("#face-tip",function () {
-                $("#face-tip-msg").text("与服务器通信发生错误!");
-            })
+            // toClick("#face-tip",function () {
+            //     $("#face-tip-msg").text("与服务器通信发生错误!");
+            // })
+            layer.alert('与服务器通信发生错误!', {icon: 2});
         }
     });
 });

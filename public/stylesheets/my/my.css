@@ -27,7 +27,8 @@
           height: 8rem;
           border: solid 8px #fff;
           border-radius: 8px;
-          box-shadow: 0 0 4px rgba(0, 0, 0, 0.2); }
+          box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+          background-color: #fff; }
       #my .top .header #name {
         flex: 4; }
       #my .top .header .setting {
@@ -273,6 +274,11 @@
 
 .comment_order {
   background-color: #ffa800;
+  color: #fff;
+  margin-bottom: 0.5rem; }
+
+.submit {
+  background-color: #9A0000;
   color: #fff;
   margin-bottom: 0.5rem; }
 

@@ -111,23 +111,38 @@ function getCards(start, acount, res, callback) {
     })
 
 }
-function card_inner(req, res, uid, callback) {
+function card_inner(req, res, tid, callback) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.sqlContent, [uid], function (err, content) {
+        connection.query($sql.sqlContent, [tid], function (err, content) {
             if (err) {
                 console.log(err.message)
             }
             else {
                 // connection.query($sql.sqlMsg, [tid], function (err, msg) {
                 //     connection.query($sql.sqlReply, [tid], function (err, reply) {
-
-                callback({
-                    card: content[0],
-                    // msg: msg,
-                    // rep: reply,
-                    // sessionId: req.session.userId
-                });
-                connection.release();
+                connection.query($sql.isSave, [req.session.uid, tid], function (err, issave) {
+                    console.log('save>>>>>', issave[0])
+                    if (err) {
+                        console.log('isSave>>>>', err.message)
+                    } else if (issave[0] > 0) {
+                        callback({
+                            card: content[0],
+                            save: true,
+                            // msg: msg,
+                            // rep: reply,
+                            // sessionId: req.session.userId
+                        });
+                    } else {
+                        callback({
+                            card: content[0],
+                            save: false,
+                            // msg: msg,
+                            // rep: reply,
+                            // sessionId: req.session.userId
+                        });
+                    }
+                    connection.release();
+                })
                 //     })
                 // })
             }
@@ -135,102 +150,99 @@ function card_inner(req, res, uid, callback) {
         });
     });
 };
-function addSave(req, res) {
+function addSave(req, res, uid) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.addsave, [req.query.tid], function (err, result) {
+        connection.query($sql.addsave, [uid, req.query.tid], function (err, result) {
             if (err) {
-                console.log('addSave>>>>>>>>>',err.message)
+                console.log('addSave>>>>>>>>>', err.message)
             }
-            else if(result.affectedRows > 0){
-                res.json({code:200})
-            }else{
-                res.json({code:500})
+            else if (result.affectedRows > 0) {
+                res.json({code: 200})
+            } else {
+                res.json({code: 500})
             }
             connection.release();
         });
     });
 };
-function cancelSave(req, res) {
+function cancelSave(req, res, uid) {
     pool.getConnection(function (err, connection) {
-        connection.query($sql.delsave, [req.query.tid], function (err, result) {
+        connection.query($sql.delsave, [uid, req.query.tid], function (err, result) {
             if (err) {
-                console.log('addSave>>>>>>>>>',err.message)
+                console.log('cancelSave>>>>>>>>>', err.message)
             }
-            else if(result.affectedRows > 0){
-                res.json({code:200})
-            }else{
-                res.json({code:500})
+            else if (result.affectedRows > 0) {
+                res.json({code: 200})
+            } else {
+                res.json({code: 500})
             }
             connection.release();
         });
     });
 };
 function updateCard(req, res, uid) {
-    let facePic,photos;
+    let facePic, photos;
 
     let body = req.body;
     let canCut = body.canCut ? "是" : "否";
     let other = body.other ? req.body.other : "";
 
     /*以下使用promise，使得face和photos依次上传完图片后插入数据库*/
-    let getFace = function() {
-        let promise = new Promise(function(resolve, reject){
-            if(req.files.facePic.originalFilename==''){
-                facePic=req.session.face;
-                resolve(facePic);
-            }else {
-                uploadImg(req.files.facePic, function (data) {
-                    if (data.code == 200) {
-                        facePic = data.url;
-                        resolve(facePic);
-                    }
-                    else {
-                        reject({code: 500, msg: '封面文件上传出错！'});
-                    }
-                });
-            }
-        });
-        return promise;
-    };
-    let getPhotos = function() {
-        let promise = new Promise(function(resolve, reject){
-            if(req.files.photos.originalFilename==''){
-                photos=req.session.photos;
-                resolve(photos);
-            }else{
-                uploadImgs(req.files.photos, function (datas) {
-                    if (datas.code == 200) {
-                        photos=datas.photos.join(',');
-                        resolve(photos);
-                    } else {
-                        reject({code: 500, msg: '说明图片上传出错！'});
-                    }
-                });
-            }
-        });
-        return promise;
-    };
-    getFace().then(function (facePic) {
-        /*这里getFace 成功后再调用另一个promise*/
-        getPhotos().then(function (photos) {
-            console.log('>>>>>>>>>',facePic);
-            console.log('>>>>>>>>>',photos);
-            pool.getConnection(function (err, connection) {
-                connection.query($sql.updateCard, [body.title, body.about, body.addr,
-                    body.price, canCut, body.play, other, body.appointTime,
-                    body.aboutPrice, facePic, photos,uid+''], function (err, result) {
-                    if (err) {
-                        console.log(err.message)
-                    }
-                    else if(result.changedRows==1) {
-                        res.json({code: 200})
-                    }
-                    connection.release();
-                });
+    let getPhotos = new Promise(function (resolve, reject) {
+        if (req.files.photos.originalFilename == '') {
+            photos = req.session.photos;
+            resolve();
+        } else {
+            uploadImgs(req.files.photos, function (datas) {
+                if (datas.code == 200) {
+                    photos = datas.photos.join(',');
+                    resolve();
+                } else {
+                    reject({code: 500, msg: '说明图片上传出错！'})
+                }
             });
-        }).catch(function (err) {
-            res.json(err)
-        })
+        }
+    });
+    let getFace = new Promise(function (resolve, reject) {
+        if (req.files.facePic.originalFilename == '') {
+            facePic = req.session.face;
+            resolve(getPhotos);
+        } else {
+            uploadImg(req.files.facePic, function (data) {
+                if (data.code == 200) {
+                    facePic = data.url;
+                    resolve(getPhotos);
+                }
+                else {
+                    reject({code: 500, msg: '封面文件上传出错！'})
+                }
+            });
+        }
+    });
+    getFace.then(function () {
+        console.log('>>>>>>>>>', facePic);
+        console.log('>>>>>>>>>', photos);
+        pool.getConnection(function (err, connection) {
+            connection.query($sql.updateCard, [body.title, body.about, body.addr,
+                body.price, canCut, body.play, other, body.appointTime,
+                body.aboutPrice, facePic, photos, uid + ''], function (err, result) {
+                if (err) {
+                    console.log(err.message)
+                }
+                else if (result.affectedRows == 1) {
+                    res.json({code: 200})
+                }else{
+                    res.json({code: 500})
+                }
+                connection.release();
+            });
+        });
+        /*这里getFace 成功后再调用另一个promise*/
+        // getPhotos.then(function (photos) {
+        //
+        // }).catch(function (err) {
+        //     res.json(err)
+        // })
     }).catch(function (err) {
         res.json(err)
     });
@@ -238,7 +250,7 @@ function updateCard(req, res, uid) {
 };
 
 
-function addCard(req, res,uid) {
+function addCard(req, res, uid) {
     uploadImg(req.files.facePic, function (data) {
         let body = req.body;
 
@@ -273,50 +285,60 @@ function addCard(req, res,uid) {
     });
 }
 
-function setting(req, res,uid) {
+function setting(req, res, uid) {
     let body = req.body;
     console.log(body);
     let headPic;
-    if(req.session.HeadPic){
-        headPic=req.session.HeadPic
-    }else {
-        uploadImg(req.files.headPic, function (data) {
-            if (data.code == 200) {
-                headPic=data.url;
-                pool.getConnection(function (err, connection) {
-                    connection.query($sql.updateUser, [body.name, body.gender, body.birthday, body.IDcard,
-                        body.job, body.tel, body.wechat, body.anhao, body.zhifubao,
-                        headPic,body.intro,uid], function (err, result) {
-                        if (err) {
-                            console.log(err.message)
-                        }
-                        else {
-                            res.json({code: 200})
-                        }
-                        connection.release();
-                    });
-                });
-            }
-            else {
-                res.json({code: 500})
-            }
-        });  
-    }
-   
+    let promise = new Promise((resolve, reject)=> {
+        console.log("req.files.HeadPic>>>>>>", req.files.HeadPic)
+        if (req.files.HeadPic) {
+            headPic = req.session.HeadPic;
+            resolve(headPic)
+        } else {
+            uploadImg(req.files.headPic, function (data) {
+                if (data.code == 200) {
+                    headPic = data.url;
+                    resolve(headPic)
+                }
+                else {
+                    reject();
+                }
+            });
+        }
+    });
+    promise.then((headPic)=> {
+        pool.getConnection(function (err, connection) {
+            connection.query($sql.updateUser, [body.name, body.gender, body.birthday, body.IDcard,
+                body.job, body.tel, body.wechat, body.anhao, body.zhifubao,
+                headPic, body.intro, uid], function (err, result) {
+                if (err) {
+                    console.log(err.message)
+                }
+                else {
+                    res.json({code: 200})
+                }
+                connection.release();
+            });
+        });
+    }).catch(()=> {
+        res.json({code: 500})
+    })
+
+
 }
-function getSetting(req, res,uid) {
+function getSetting(req, res, uid) {
     pool.getConnection(function (err, connection) {
         connection.query($sql.getSetting, [uid], function (err, result) {
             if (err) {
                 console.log(err.message)
             }
             else {
-                if(result[0].HeadPic){
-                    req.session.HeadPic=result[0].HeadPic;
-                    console.log('req.session.HeadPic>>>>>>',req.session.HeadPic)
+                if (result[0].HeadPic) {
+                    req.session.HeadPic = result[0].HeadPic;
+                    console.log('req.session.HeadPic>>>>>>', req.session.HeadPic)
                 }
-                res.render('my/setting',{
-                    user:result[0]
+                res.render('my/setting', {
+                    user: result[0]
                 })
             }
             connection.release();
@@ -418,58 +440,58 @@ function logout(req, res) {
     res.redirect('/');
 }
 
-function my(req,res,uid,callback) {
+function my(req, res, uid, callback) {
 
     pool.getConnection(function (err, connection) {
-        connection.query($sql.getOrder0,[uid,'%'],function (err,order0) {
+        connection.query($sql.getOrder0, [uid, '%'], function (err, order0) {
             if (err) {
                 //todo:错误处理
-                console.log('getOrder>>>>>>',err.message)
-            }else{
-                connection.query($sql.sqlContent,[uid],function (err,card) {
+                console.log('getOrder>>>>>>', err.message)
+            } else {
+                connection.query($sql.sqlContent, [uid], function (err, card) {
                     if (err) {
                         //todo:错误处理
                         console.log(err.message)
-                    }else if(card.length>0){
-                        req.session.face=card[0].Face;
-                        req.session.photos=card[0].Photos;
-                        callback({card:card[0],haveCard:true,order0:order0})
-                    }else{
-                        callback({haveCard:false,order0:order0})
+                    } else if (card.length > 0) {
+                        req.session.face = card[0].Face;
+                        req.session.photos = card[0].Photos;
+                        callback({card: card[0], haveCard: true, order0: order0})
+                    } else {
+                        callback({haveCard: false, order0: order0})
                     }
                     connection.release();
                 })
-            } 
+            }
         });
     });
 }
 
-function getOrder(req,res,uid) {
-    let type=req.query.otype,sql=$sql.getOrder0;
-    if(req.query.order==1){
-        sql=$sql.getOrder1;
+function getOrder(req, res, uid) {
+    let type = req.query.otype, sql = $sql.getOrder0;
+    if (req.query.order == 1) {
+        sql = $sql.getOrder1;
     }
-    if(req.query.otype==-1){
-        type='%'
+    if (req.query.otype == -1) {
+        type = '%'
     }
-    pool.getConnection(function (err,connection) {
-        connection.query(sql,[uid,type],function (err,result) {
+    pool.getConnection(function (err, connection) {
+        connection.query(sql, [uid, type], function (err, result) {
             if (err) {
                 console.log('getOrder>>>>>>>', err);
                 res.json({code: 500, msg: err});
             }
-            else{
-                console.log('result[0]>>>>',result)
-                res.json({code: 200,order:result})
+            else {
+                console.log('result[0]>>>>', result)
+                res.json({code: 200, order: result})
             }
             connection.release();
         })
     })
 }
 
-function order(req,res,uid) {
-    pool.getConnection(function (err,connection) {
-        connection.query($sql.addOrder,[req.body.tid,uid,0,req.body.appointment,req.body.price],function (err,result) {
+function order(req, res, uid) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.addOrder, [req.body.tid, uid, 0, req.body.appointment, req.body.price], function (err, result) {
             if (err) {
                 console.log('addOrder>>>>>>>', err);
                 res.json({code: 500, msg: err});
@@ -481,9 +503,9 @@ function order(req,res,uid) {
         })
     })
 }
-function changeState(req,res) {
-    pool.getConnection(function (err,connection) {
-        connection.query($sql.changeState,[req.query.state,req.query.appointment,req.query.price,req.query.oid],function (err,result) {
+function changeState(req, res) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.changeState, [req.query.state, req.query.appointment, req.query.price, req.query.oid], function (err, result) {
             if (err) {
                 console.log('changeState>>>>>>>', err);
                 res.json({code: 500, msg: err});
@@ -495,9 +517,9 @@ function changeState(req,res) {
         })
     })
 }
-function delOrder(req,res) {
-    pool.getConnection(function (err,connection) {
-        connection.query($sql.deleteOrder,[req.query.oid],function (err,result) {
+function delOrder(req, res) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.deleteOrder, [req.query.oid], function (err, result) {
             if (err) {
                 console.log('delOrder>>>>>>>', err);
                 res.json({code: 500, msg: err});
@@ -509,19 +531,37 @@ function delOrder(req,res) {
         })
     })
 }
-exports.getCards = getCards;/*more card分页*/
-exports.card_inner = card_inner;/*获取card详情*/
-exports.addSave = addSave;/*获取card详情*/
-exports.updateCard = updateCard;/*用户更新card*/
-exports.addCard = addCard;/*用户发布card*/
-exports.login = login;/*用户登录*/
-exports.register = register;/*用户注册*/
-exports.isLogin = isLogin;/*判断用户是否登录*/
-exports.logout = logout;/*退出登录*/
-exports.my = my;/*获取我的个人主页*/
-exports.setting = setting;/*修改个人设置*/
-exports.getSetting = getSetting;/*获取个人设置信息*/
-exports.order = order;/*用户下单*/
-exports.getOrder = getOrder;/*订单查询*/
-exports.changeState = changeState;/*改变订单状态*/
-exports.delOrder = delOrder;/*删除订单*/
+exports.getCards = getCards;
+/*more card分页*/
+exports.card_inner = card_inner;
+/*获取card详情*/
+exports.addSave = addSave;
+/*收藏*/
+exports.cancelSave = cancelSave;
+/*取消收藏*/
+exports.updateCard = updateCard;
+/*用户更新card*/
+exports.addCard = addCard;
+/*用户发布card*/
+exports.login = login;
+/*用户登录*/
+exports.register = register;
+/*用户注册*/
+exports.isLogin = isLogin;
+/*判断用户是否登录*/
+exports.logout = logout;
+/*退出登录*/
+exports.my = my;
+/*获取我的个人主页*/
+exports.setting = setting;
+/*修改个人设置*/
+exports.getSetting = getSetting;
+/*获取个人设置信息*/
+exports.order = order;
+/*用户下单*/
+exports.getOrder = getOrder;
+/*订单查询*/
+exports.changeState = changeState;
+/*改变订单状态*/
+exports.delOrder = delOrder;
+/*删除订单*/

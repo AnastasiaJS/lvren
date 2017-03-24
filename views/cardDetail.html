@@ -36,8 +36,14 @@
                 <div class="remark">6条留言</div>
                 <div class="save">
                     <button onclick="save('<%=card.Uid%>')">
-                        <img src="/icon/save.png" alt="" id="save-img">
-                        喜欢3</button>
+                        <%
+                        let url="/icon/save.png"
+                        console.log(save)
+                        if(save){
+                          url="/icon/saved.png"
+                        }%>
+                        <img src="<%=url%>" alt="" id="save-img">
+                        喜欢 3</button>
                 </div>
                 <div class="rent">
                     <button>
