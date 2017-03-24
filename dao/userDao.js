@@ -397,7 +397,7 @@ function register(req, res) {
                     }
                     else if (result.affectedRows > 0) {
                         req.session.uid = param.uid;
-                        res.json({code: 200, msg: "注册成功,跳转至首页..."})
+                        res.json({code: 200, msg: "注册成功,去填写信息..."})
                     }
                     connection.release();
                 });
@@ -435,8 +435,12 @@ function logout(req, res) {
 }
 
 function my(req, res, uid, callback) {
-
     pool.getConnection(function (err, connection) {
+        connection.query($sql.completeInfo,[uid],function (err,info) {
+            if(!info[0].name){
+                res.render('/users/setting')
+            }
+        })
         connection.query($sql.getOrder0, [uid, '%'], function (err, order0) {
             if (err) {
                 //todo:错误处理

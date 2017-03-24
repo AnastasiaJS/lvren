@@ -156,4 +156,41 @@ footer {
       background: rgba(253, 211, 211, 0.5);
       cursor: pointer; }
 
+[id^='md-'] {
+  width: 100%;
+  text-align: center; }
+  [id^='md-'] input {
+    width: 306px;
+    height: 28px;
+    border: 1px solid #d8d8d8;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #666;
+    line-height: 28px;
+    padding: 6px 0 6px 12px;
+    box-shadow: 0 0 5px #fff;
+    outline: none;
+    transition: box-shadow 0.25s linear 0s;
+    -webkit-transition: box-shadow 0.25s linear 0s;
+    margin-bottom: 1rem; }
+  [id^='md-'] #log-tip, [id^='md-'] #reg-tip {
+    color: #ff3c00; }
+    [id^='md-'] #log-tip i, [id^='md-'] #reg-tip i {
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 0.2em;
+      background: url(/icon/tip.png) no-repeat #fff; }
+  [id^='md-'] #frm-logo {
+    color: #9A0000;
+    width: 5rem;
+    height: 5rem;
+    line-height: 5rem;
+    margin: 1rem auto;
+    border: solid 2px #9A0000;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 1.5rem; }
+
 /*# sourceMappingURL=nav.css.map */

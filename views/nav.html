@@ -1,29 +1,3 @@
-<!--登录注册模态框-->
-
-<div class="md-modal md-effect-12" id="modal-12">
-    <div class="md-content">
-        <h3 id="modal-tip">旅人</h3>
-        <p id="frm-tip"></p>
-        <div>
-            <form action="javascript:;" id="frm-login">
-                <input type="text" placeholder="邮箱" name="uid" required><br>
-                <input type="password" name="password" placeholder="密码" required><br>
-                <input type="submit" id="btn-login" value="登录"><a onclick="goRegister()">马上注册</a>
-            </form>
-            <form action="javascript:;" id="frm-register" style="display: none">
-                <input type="email" placeholder="邮箱" name="uid" required><br>
-                <input type="password" pattern="[a-z0-9_-]{6,18}" title="输入6~18位字符" name="password" placeholder="密码"
-                       required><br>
-                <input type="password" name="password2" placeholder="确认密码" required><br>
-                <input type="submit" id="btn-register" value="注册"><a onclick="goLogin()">去登录</a>
-            </form>
-
-        </div>
-        <div class="md-close">x</div>
-    </div>
-</div>
-
-<!--登录注册模态框结束-->
 
 <header id="menu">
     <div class="nav">
@@ -34,7 +8,7 @@
                 <!--<li id="nav-send"><a href="/addCard">发布</a></li>-->
             </ul>
         </div>
-        <button class="md-trigger" data-modal="modal-12" style="display: none" id="not-login">登录</button>
+        <button  style="display: none" id="not-login" onclick="openLogin()">登录</button>
         <div class="user">
             <a href="/users" id="logined" style="display: none">
                 <img src="http://p3.music.126.net/IAZKcW9XEAD-3Ce7xscrWA==/3264450024529041.jpg?param=200y200" alt="">
@@ -58,96 +32,21 @@
             $("#not-login").css("display", "none");
             $("#logined").css("display", "block");
             $("#nav-nickname").text(data.nickname);
-//            $("#headpic").attr('src','/upload/'+data.he   adPic)
         } else {
             $("#logined").css("display", "none");
             $("#not-login").css("display", "block");
         }
     })
 
-    function goRegister() {
-        $('#frm-tip').text('');
-        $("#frm-register").css('display', 'block');
-        $("#frm-login").css('display', 'none');
-    }
-    function goLogin() {
-        $('#frm-tip').text('');
-        $("#frm-register").css('display', 'none');
-        $("#frm-login").css('display', 'block');
-    }
+//    function goRegister() {
+//        $('#frm-tip').text('');
+//        $("#frm-register").css('display', 'block');
+//        $("#frm-login").css('display', 'none');
+//    }
+//    function goLogin() {
+//        $('#frm-tip').text('');
+//        $("#frm-register").css('display', 'none');
+//        $("#frm-login").css('display', 'block');
+//    }
 
-
-    $("#frm-login").submit(function () {
-        $.ajax({
-            url: '/login',
-            type: 'POST',
-            data: $("#frm-login").serialize(),
-            dataType: 'json',
-            beforeSend: function () {
-                $('#frm-tip').text('正在登录...');
-                // 禁用按钮防止重复提交，发送前响应
-                $("#btn-login").attr({disabled: "disabled"});
-
-            },
-            success: function (data) {
-                if (data.code == 200) {
-                    $("#frm-tip").text(data.msg);
-                    location.href = '/'
-                }
-                else {
-                    $("#frm-tip").text(data.msg);
-                    return false;
-                }
-            },
-            complete: function () {//完成响应
-                $("#btn-login").removeAttr("disabled");
-//                $('#frm-tip').text('');
-            },
-            error: function () {
-                $("#frm-tip").text(data.msg);
-                return false;
-            }
-        });
-    })
-    $("#frm-register").submit(function () {
-        let _this = document.getElementById('frm-register');
-        if (_this.elements['password'].value != _this.elements['password2'].value) {
-            $('#frm-tip').text('两次密码输入不一致！');
-        } else {
-            $('#frm-tip').text('');
-            $.ajax({
-                url: '/register',
-                type: 'POST',
-                data: $("#frm-register").serialize(),
-                dataType: 'json',
-                beforeSend: function () {
-                    $('#frm-tip').text('正在注册...');
-                    // 禁用按钮防止重复提交，发送前响应
-                    $("#btn-register").attr({disabled: "disabled"});
-
-                },
-                success: function (data) {
-                    console.log('success>>',data);
-
-                    if (data.code == 200) {
-                        $("#frm-tip").text(data.msg);
-                        location.href = '/'
-                    }
-                    else {
-                        $("#frm-tip").text(data.msg);
-                        return false;
-                    }
-                },
-                complete: function () {//完成响应
-                    $("#btn-register").removeAttr("disabled");
-//                $('#frm-tip').text('');
-                },
-                error: function (data) {
-                    console.log('error>>',data)
-                    $("#frm-tip").text(data.msg);
-                    return false;
-                }
-            });
-        }
-    })
 </script>

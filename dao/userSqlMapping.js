@@ -7,7 +7,7 @@ var card = {
     login_judge: "select * from `user` where Uid=? and Password=?",
     user: "select * from `user` where Uid=?",
     sqltotal: 'select count(*) total from tourcard',
-    sqllimit: 'select tourcard.Uid,face,Title,Price,Name from tourcard,`user` WHERE  tourcard.Uid=`user`.Uid ORDER BY Uptime desc LIMIT ?,?',
+    sqllimit: 'select tourcard.Uid,face,Title,Price,Name,Addr from tourcard,`user` WHERE  tourcard.Uid=`user`.Uid ORDER BY Uptime desc LIMIT ?,?',
     sqlContent: 'select *,year(NOW())-year(Birthday) Age from tourcard,`user` where tourcard.Uid=? and tourcard.Uid=user.Uid ',
     isSave: 'SELECT COUNT(*) num from save WHERE Uid=? AND Tid=?',
     saveNum: 'SELECT COUNT(*) num from save WHERE Tid=?',
@@ -25,5 +25,6 @@ var card = {
     deleteOrder:'DELETE FROM `order` WHERE Oid=?',
     addsave:'INSERT INTO `save`(Uid,Tid) VALUES(?,?)',
     delsave:'DELETE FROM `save` WHERE Uid=? AND Tid=?',
+    completeInfo:'SELECT `Name` from `user` WHERE Uid=?',
 };
 module.exports = card;

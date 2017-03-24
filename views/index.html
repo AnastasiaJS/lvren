@@ -6,14 +6,6 @@
     <%- include layoutCss.html%>
 </head>
 <body>
-
-<!--<form id="upload" method="post" enctype="multipart/form-data">-->
-<!--<input type="file" name="logo" multiple id="input-upload">-->
-<!--<input type="text" name="text">-->
-<!--</form>-->
-<!--<button onclick="uploadFile()">上传</button>-->
-<!--<div id="showPhoto">-->
-<!--</div>-->
 <%- include nav.html%>
 <!--todo:上传七牛404图片-->
 <div class="main">
@@ -136,9 +128,7 @@
                     </div>
                     <div class="place">
                         <img src="/icon/local.png" alt="">
-                    </div>
-                    <div class="goto">
-
+                        <span ><%=face[i].Addr%></span>
                     </div>
                 </div>
             </div>

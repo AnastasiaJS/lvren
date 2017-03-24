@@ -215,7 +215,8 @@
       .popular .main .card .card-footer div, .articles .main .card .card-footer div {
         margin: 0.5em; }
       .popular .main .card .card-footer .place, .articles .main .card .card-footer .place {
-        flex: 1; }
+        float: right;
+        padding-right: 1.5rem; }
         .popular .main .card .card-footer .place img, .articles .main .card .card-footer .place img {
           vertical-align: middle; }
       .popular .main .card .card-footer .price, .articles .main .card .card-footer .price {
