@@ -114,14 +114,53 @@
             <p id="aboutOther">
                 【其他】<%= card.Other %>
             </p>
+            <div class="comment">
+                <div class="comment-top">
+                    <h3>留言板</h3>
+                </div>
+                <div class="div-form">
+                    <form action="#" id="frm-commen">
+                        <div></div>
+                        <input type="text" name="text">
+                    </form>
+                    <a href="javascript:;" class="btn submit" id="btn-comment" onclick="comment('<%=card.Uid%>')" style="float: right;">评论</a>
+                </div>
+                <div id="commen">
+                    <%for(let i=0;i< msgs.length;i++){%>
+                    <div class="comment-main">
+                        <div class="comment-hd">
+                            <a target="_blank" href="/">
+                                <img alt="<%=msgs[i].Name%>" src="<%=msgs[i].HeadPic%>">
+                            </a>
+                        </div>
+                        <div class="comment-text" >
+                            <strong><%=msgs[i].Name%>:</strong>
+                            <%=msgs[i].Text%>
+                            <div class="time"><%=msgs[i].Time%></div>
+                            <%if(reps.length>0){
+                                reps.map(function(rep){
+                                    if(rep.Mid==msgs[i].Mid){
+                            %>
+                            <div class="reply">
+                                <strong><%=rep.Name%>:</strong>
+                                <%=rep.Reply%>
+                                <div class="time"><%=rep.Time%></div>
+                            </div>
+                            <%}})
+                            }%>
+                        </div>
+                    </div>
+                    <%}%>
+                </div>
+            </div>
         </section>
     </article>
     <aside>
         <div class="header">
             <img src="<%=card.HeadPic%>" alt="">
             <div class="name"><%= card.Name %></div>
-            <p class=" wow  pulse">
-                <cite>&ldquo;如果心无处可栖，到哪都是流浪。如果心无处可栖，到哪都是流浪到哪都是流浪。&rdquo;</cite>
+            <p class="wow  pulse">
+                <cite>&ldquo;<%= card.Intro%>&rdquo;</cite>
             </p>
             <div class="resume">
                 <span><%= card.Job %></span>
@@ -155,7 +194,7 @@
     </aside>
 </div>
 
-<!--触发div-->
+<!--租Tadiv-->
 <div class="btn-order" onclick="orderDiolog('<%=card.Face%>','<%=card.Title%>','<%=card.Addr%>','<%=card.Price%>','<%=card.Uid%>')">
     <svg class="icon" aria-hidden="true">
            <use xlink:href="#icon-reqiqiu"></use>
@@ -163,11 +202,8 @@
     <img src="/icon/zuta.png" alt="">
 </div>
 
-<!--页面引导-->
-
 </body>
 <%-include js.html%>
-
 
 <script src="/javascripts/card.js"></script>
 

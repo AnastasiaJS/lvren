@@ -98,7 +98,7 @@ function orderDiolog(face,title,addr,price,tid) {
             </form>
         </div>
     </div> `;
-            layer.open({
+            let index=layer.open({
                 type: 1
                 ,title: false //不显示标题栏
                 // ,closeBtn: true
@@ -110,8 +110,8 @@ function orderDiolog(face,title,addr,price,tid) {
                 ,btnAlign: 'c'
                 ,moveType: 1 //拖拽模式，0或者1
                 ,content: content
-                ,yes: function(){
-                    order(tid,price)
+                ,yes: function(index){
+                    order(tid,price);
                 }
             });
         }else{
@@ -147,12 +147,14 @@ function order(tid,price) {
         },
         success: function (data) {
             if (200 === data.code) {
+                layer.closeAll();
                 layer.alert('订单已提交，可前往个人订单列表与Ta联系', {
                     skin: 'layui-layer-molv' //样式类名
                     ,closeBtn: 0
                     ,icon:1
                 });
             } else {
+                layer.closeAll();
                 layer.alert('服务器连接失败，请稍后~', {
                     skin: 'layui-layer-molv' //样式类名
                     ,closeBtn: 0
@@ -161,7 +163,7 @@ function order(tid,price) {
             }
         },
         complete: function () {//完成响应
-            layer.closeAll('loading');
+            layer.closeAll();
             $("#btn-sendOrder").removeAttr("disabled");
         },
         error: function () {
@@ -170,6 +172,59 @@ function order(tid,price) {
                 ,closeBtn: 0
                 ,icon:2
             });
+        }
+    });
+}
+/*评论*/
+function comment(tid) {
+    if($("#frm-commen").get(0).text.value==''){
+        layer.msg('输入内容不能为空，写点什么吧',{time:1000});
+        return false;
+    }
+    let formdata=new FormData($("#frm-commen")[0]);
+    formdata.append('tid',tid);
+    $.ajax({
+        url: '/card/comment',
+        type: 'POST',
+        data: formdata,
+        async: true,
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend: function () {
+            layer.load();
+            // 禁用按钮防止重复提交，发送前响应
+            $("#btn-comment").attr({ disabled: "disabled" });
+
+        },
+        success: function (data) {
+            if (200 === data.code) {
+                layer.alert('评论成功！');
+                let content=`<div class="comment-main">
+                        <div class="comment-hd">
+                            <a href="javascript:;">
+                                <img alt="${data.newMsg.Name}" src="${data.newMsg.HeadPic}">
+                            </a>
+                        </div>
+                        <div class="comment-text" >
+                            <strong>${data.newMsg.Name}:</strong>
+                            ${data.newMsg.Text}
+                            <div class="time">${data.newMsg.Time}</div>
+                        </div>
+                    </div>`;
+                $('#commen').prepend(content)
+            } else if(data.code==300){
+                layer.alert('请先登录')
+            }else{
+                layer.alert('与服务器通信发生错误')
+            }
+        },
+        complete: function () {//完成响应
+            layer.closeAll('loading');
+            $("#btn-comment").removeAttr("disabled");
+        },
+        error: function () {
+            layer.alert('与服务器通信发生错误')
         }
     });
 }

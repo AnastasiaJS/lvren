@@ -5,7 +5,7 @@
     <meta http-equiv="Expires" CONTENT="0">
     <meta http-equiv="Cache-Control" CONTENT="no-cache">
     <meta http-equiv="Pragma" CONTENT="no-cache">
-    <title><%=card.Name%>的个人主页———旅人</title>
+    <title><%=user.Name%>的个人主页———旅人</title>
     <%- include layoutCss.html%>
     <link rel="stylesheet" href="/stylesheets/my/my.css">
     <link rel="stylesheet" href="/stylesheets/my/setting.css">
@@ -20,12 +20,12 @@
     <div class="top">
         <div class="header">
             <div class="img-header">
-                <img src="<%=card.HeadPic%>" alt="">
+                <img src="<%=user.HeadPic%>" alt="">
             </div>
             <div id="name">
-                <h1><%=card.Name%></h1>
+                <h1><%=user.Name%></h1>
                 <p class="introduce">
-                    <%=card.Intro%>
+                    <%=user.Intro%>
                 </p>
             </div>
             <a class="setting" href="/users/setting">个人设置</a>
@@ -58,7 +58,6 @@
     </div>
 </div>
 <!--添加消息提醒的模态框-->
-<%- include ./Message.html%>
 <%- include ./js.html%>
 <!--<script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>-->
 

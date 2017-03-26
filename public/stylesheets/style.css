@@ -1,14 +1,19 @@
 @keyframes music {
   0% {
     height: 40px; }
+
   25% {
     height: 35px; }
+
   50% {
     height: 28px; }
+
   75% {
     height: 22px; }
+
   100% {
     height: 15px; } }
+
 .carousel {
   position: relative;
   height: 700px;
@@ -199,7 +204,7 @@
       height: 2.5em;
       border-radius: 50%;
       vertical-align: middle;
-      margin-right: 0.5em; }
+      margi-right: 0.5em; }
     .popular .main .card > img, .articles .main .card > img {
       width: 100%;
       height: 180px;
@@ -355,5 +360,3 @@
   .card {
     width: 180px;
     height: 280px; } }
-
-/*# sourceMappingURL=style.css.map */

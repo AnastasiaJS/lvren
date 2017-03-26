@@ -222,6 +222,7 @@ function delOrder(oid) {
             if(data.code==200){
                 $(`#del${oid}`).attr('disabled',true);
                 $(`#del${oid}`).css('background','#eee').css('color','#999').css('cursor','not-allowed')
+                
                 $(`#del${oid}`).html('订单已删除');
                 layer.alert("订单删除成功", {icon: 1})
             }else{
@@ -283,7 +284,7 @@ function queren(oid,price,appointment){
         skin: 'layui-layer-molv', //样式类名
         btn: ['确认','重新选择预约时间'] //按钮
         ,id: 'querenDiolog' //设定一个id，防止重复弹出
-        ,content: `<small style="color:#393D49;margin-bottom: 1em">提示:根据双方的沟通后的结果填写</small>
+        ,content: `<small style="color:#393D49;margin-bottom: 1em">提示:根据双方的沟通后的结果填写</small><br>
                     <label for="changePrice" style="display: inline-block">预约时间：</label>
                                     <input id="changeTime" class="input" onclick="laydate({
                                                 istime:true,
@@ -312,29 +313,59 @@ function queren(oid,price,appointment){
         /*取消的callback*/
     });
 }
-
-function collect(i) {
-    let _this = $(`#collect${i} img`);
+/*收藏*/
+function collect(tid) {
+    let _this = $(`#collect${tid} img`);
     if (_this.attr('src') == "/icon/collection2.png") {
-        _this.attr('src', '/icon/collection.png');
-        $("#collect small").text('喜欢')
-    } else {
-        _this.attr('src', "/icon/collection2.png")
-        $("#collect small").text('不喜欢')
 
+        $.get('/card/save?tid='+tid,function (data) {
+                if(data.code==200){
+                    _this.attr('src', '/icon/collection.png');
+                    $("#collect small").text('喜欢')
+                }else{
+                    layer.alert('与服务器连接出错！')
+                }
+        })
+    } else {
+        let index=layer.confirm('确定取消收藏？',function (index) {
+            $.get('/card/cancelsave?tid='+tid,function (data) {
+                if(data.code==200){
+                    _this.attr('src', "/icon/collection2.png")
+                    $("#collect small").text('不喜欢')
+                }else{
+                    layer.alert('与服务器连接出错！')
+                }
+            })
+            layer.close(index)
+        })
     }
 }
 
+/*消息类型切换*/
 $("#msg .title a").click(function () {
     let siblings = $(this).siblings();
     $(siblings).removeClass('on');
-    $(this).addClass('on')
+    $(this).addClass('on');
+    if($(this).text()==='订单'){
+        $('#msg .inner-news').css('display','none');
+        $('#msg .reply-news').css('display','none');
+        $('#msg .user-news').css('display','block');
+    }else if($(this).text()==='回复'){
+        $('#msg .reply-news').css('display','block');
+        $('#msg .inner-news').css('display','none');
+        $('#msg .user-news').css('display','none');
+    }else {
+        $('#msg .reply-news').css('display','none');
+        $('#msg .inner-news').css('display','block');
+        $('#msg .user-news').css('display','none');
+    }
 });
 
 /*账号设置=========begin*/
 $("#show-hd").click(function () {
     $("#input-hd input").click()
 });
+/*设置头像预览*/
 $("#input-hd input").change(function () {
     var filepath = this.files[0];
     var ext = filepath.type.toUpperCase();
@@ -349,8 +380,8 @@ $("#input-hd input").change(function () {
     $("#show-hd").attr('src', srcs);
 
 });
-$("#setting-frm").submit(function (e) {
-    e.preventDefault();
+/*提交设置*/
+function setting() {
     var formData = new FormData($("#setting-frm")[0]);
     $.ajax({
         url: '/users/setting',
@@ -364,23 +395,27 @@ $("#setting-frm").submit(function (e) {
             $('#tip-setting').html('保存中...');
             // 禁用按钮防止重复提交，发送前响应
             $("#btn-set").attr({disabled: "disabled"});
-
         },
         success: function (data) {
             if (200 === data.code) {
-                $("#tip-setting").text("保存成功!");
+                layer.confirm('保存成功!', {
+                    btn: ['个人主页','去首页'] //按钮
+                }, function(){
+                    location.href='/users'
+                },function () {
+                    location.href='/'
+                });
             } else {
-                toClick("#face-tip", function () {
-                    $("#tip-setting").text("设置失败,网络速度不佳!");
-                })
+                layer.alert("设置失败,网络速度不佳!")
             }
         },
         complete: function () {//完成响应
             $("#btn-set").removeAttr("disabled");
-            // $('#tip-setting').text('');
+            $('#tip-setting').text('');
         },
         error: function () {
-            $("#tip-setting").text("与服务器通信发生错误!");
+            layer.alert("与服务器通信发生错误!")
         }
     });
-});
+}
+

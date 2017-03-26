@@ -1,24 +1,23 @@
 <ul class="collection" id="collection" style="display: none">
     <%
-    for(let i=0;i<3;i++){
+    for(let i=0;i< save.length;i++){
     %>
     <li data-order="2" data-top="1">
         <dl>
             <dt>
-                <a href="/i/5325636.html" target="_blank">
+                <a href="/card?card=<%=save[i].Tid%>" target="_blank">
                     <img
-                        src="http://b2-q.mafengwo.net/s8/M00/05/D1/wKgBpVYYXm2AfQhMABMRvHrtEKE25.jpeg?imageMogr2%2Fthumbnail%2F%21680x400r%2Fgravity%2FCenter%2Fcrop%2F%21680x400%2Fquality%2F90"
+                        src="<%=save[i].Face%>"
                         alt="封面" height="400" width="680">
                 </a>
                 <div class="hover_item">
                     <div class="description">
-                        <strong>纽约州/</strong>
-                        <span>纽约/</span>
-                        <span>09月</span>
+                        <strong>中国/</strong>
+                        <span><%=save[i].Addr%></span>
                     </div>
                     <div class="description des-footer">
                         <span>旅人：</span>
-                        <span>李有里离</span>
+                        <span><%=save[i].Name%></span>
                     </div>
                 </div>
             </dt>
@@ -26,24 +25,18 @@
                 <div class="note_title">
                     <div class="note_info">
                         <h3>
-                            <a href="/i/5325636.html" target="_blank" title="纽约曼哈顿地铁怪咖奇遇记 八天深度探索(持续更新）">纽约曼哈顿地铁怪咖奇遇记
-                                八天深度探索(持续更新）</a>
+                            <a href="/card?card=<%=save[i].Tid%>" target="_blank" title="<%=save[i].Title%>"><%=save[i].Title%></a>
                         </h3>
                         <div class="note_more">
-                            <span class="time">2015-11-03 17:52:45</span>
+                            <span class="time"><%=save[i].Uptime%></span>
                         </div>
                     </div>
-                    <div class="btn-collection" id="collect<%=i%>" onclick="collect('<%=i%>')">
+                    <div class="btn-collection" id="collect<%=save[i].Tid%>" onclick="collect('<%=save[i].Tid%>')">
                         <img src="/icon/collection.png" alt=""><small>喜欢</small>
                     </div>
                 </div>
                 <div class="note_word">
-                    2015年09月11日，我向自己预约了这篇游记，当时我说：
-                    9月25日-10月3日，
-                    我计划去纽约，
-                    出发前，我敲下了这些文字：
-                    去感受资本主义糖衣炮弹，解救水深火热的纽约人民
-                    平时太忙根本没有时间做攻略，定完机票和酒店就出发了，对我来说整个东海岸只有纽约...
+                    <%=save[i].About%>
                 </div>
             </dd>
         </dl>

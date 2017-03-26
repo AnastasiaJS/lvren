@@ -134,17 +134,23 @@
 @keyframes zuta {
   0% {
     top: 43%; }
+
   20% {
     top: 41%; }
+
   100% {
     top: 43%; } }
+
 @-webkit-keyframes zuta {
   0% {
     top: 43%; }
+
   20% {
     top: 41%; }
+
   100% {
     top: 43%; } }
+
 .btn-order {
   position: fixed;
   top: 45%;
@@ -161,4 +167,42 @@
   .btn-order .icon {
     font-size: 2rem; }
 
-/*# sourceMappingURL=cardDetail.css.map */
+.comment {
+  text-align: left;
+  padding: 2rem; }
+  .comment p {
+    text-indent: 0;
+    margin: 0; }
+  .comment .div-form {
+    margin-bottom: 4rem; }
+  .comment #frm-commen {
+    display: flex;
+    flex-flow: row nowrap; }
+    .comment #frm-commen div {
+      flex: 1; }
+    .comment #frm-commen input {
+      flex: 8; }
+  .comment .comment-main {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+    margin-top: 2rem; }
+    .comment .comment-main .comment-hd {
+      flex: 1;
+      overflow: hidden; }
+      .comment .comment-main .comment-hd img {
+        width: 50px;
+        height: 50px;
+        vertical-align: top;
+        object-fit: cover; }
+    .comment .comment-main .comment-text {
+      flex: 8; }
+      .comment .comment-main .comment-text strong {
+        color: #9A0000; }
+      .comment .comment-main .comment-text .time {
+        margin-top: 0.5rem;
+        color: #999; }
+      .comment .comment-main .comment-text .reply {
+        background: #F2F2F5;
+        padding: 0.3rem;
+        margin-top: 0.5rem; }

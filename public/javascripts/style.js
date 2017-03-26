@@ -81,7 +81,13 @@ function openLogin() {
                 success: function (data) {
                     if (data.code == 200) {
                         $("#log-tip").text(data.msg);
-                        location.href = '/'
+                        console.log(data.url);
+                        /*若登录前在某个card详情页则前往该页，否则到首页*/
+                        if(data.url){
+                            location.href=data.url;
+                            return;
+                        }
+                        location.href = '/';
                     }
                     else {
                         $("#log-tip").text(data.msg);
@@ -167,11 +173,9 @@ function openRegister() {
 
                     },
                     success: function (data) {
-                        console.log('success>>', data);
-
                         if (data.code == 200) {
                             $("#reg-tip").text(data.msg);
-                            /*todo:去填写信息，必须填写*/
+                            /*done:去填写信息，必须填写*/
                             location.href = '/users/setting'
                         }
                         else {

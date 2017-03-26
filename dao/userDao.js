@@ -117,10 +117,17 @@ function getCards(start, acount, res, callback) {
 }
 function card_inner(req, res, tid, callback) {
     let save=false;
+    req.session.url='/card?card='+tid;
     /*执行多条语句==============*/
-    var sqls = [$sql.sqlContent, $sql.saveNum,$sql.isSave,$sql.orderNum];
+    var sqls = [$sql.getDetail, 
+        $sql.saveNum,
+        $sql.isSave,
+        $sql.orderNum,
+        $sql.getCommens,
+        $sql.getReplies
+    ];
     mq.queries(sqls,
-        [[tid],[tid],[req.session.uid, tid],[tid]], function(err, results){
+        [[tid],[tid],[req.session.uid, tid],[tid],[tid],[tid]], function(err, results){
             if(err) {
                 console.log(err);
             } else {
@@ -133,9 +140,9 @@ function card_inner(req, res, tid, callback) {
                     savenum: results[1][0].num,
                     save: save,
                     ordernum: results[3][0].num,
-                    // msg: msg,
-                    // rep: reply,
-                    // sessionId: req.session.userId
+                    url:req.session.url,
+                    msgs:  results[4],
+                    reps: results[5],
                 });
             }
         });
@@ -174,6 +181,92 @@ function cancelSave(req, res, uid) {
             connection.release();
         });
     });
+};
+function comment(req, res) {
+    let sqls=[$sql.addCommen,$sql.getCommen,$sql.addNews];
+
+    mq.queries(sqls,[
+            [req.session.uid, req.body.tid, req.body.text],
+            [''],
+            ['',req.session.uid,req.body.tid,0]],
+        {
+            skip:function(i, arg, results) {//skip判断是否忽略当前SQL的执行,返回true忽略,false不忽略
+                /*arg为当前sql的参数*/
+                let skip=false;
+                console.log(results)
+                switch (i){
+                    case 1:{
+                        skip=results[0].affectedRows?false:true;
+                        if(results[0].affectedRows){/*如果第一条sql被执行，第一条的结果id作为第二条的参数*/
+                            arg[0]=results[0].insertId;
+                        }
+                        break;
+                    }
+                    case 2:{
+                        skip=results[0].affectedRows?false:true;
+                        if(results[0].affectedRows){/*如果第一条sql被执行，第一条的结果id作为第二条的参数*/
+                            arg[0]='M'.concat(results[0].insertId);
+                        }
+                        break;
+                    }
+                }
+                return skip;
+            }
+        }, function(err, results){
+            if (err) {
+                console.log('addCommen>>>>>>>', err);
+                res.json({code: 500, msg: err});
+            }
+            else if (results[0].affectedRows > 0) {
+                res.json({
+                    code: 200,
+                    newMsg:results[1][0]
+                })
+            }
+        });
+};
+function reply(req, res) {
+    let sqls=[$sql.addReply,$sql.getReply,$sql.addNews];
+
+    mq.queries(sqls,[
+            [req.session.uid, req.body.mid, req.body.reply],
+            [''],
+            ['',req.session.uid,req.body.tid,1]],
+        {
+            skip:function(i, arg, results) {//skip判断是否忽略当前SQL的执行,返回true忽略,false不忽略
+                /*arg为当前sql的参数*/
+                let skip=false;
+                console.log(results)
+                switch (i){
+                    case 1:{
+                        skip=results[0].affectedRows?false:true;
+                        if(results[0].affectedRows){/*如果第一条sql被执行，第一条的结果id作为第二条的参数*/
+                            arg[0]=results[0].insertId;
+                        }
+                        break;
+                    }
+                    case 2:{
+                        skip=results[0].affectedRows?false:true;
+                        if(results[0].affectedRows){/*如果第一条sql被执行，第一条的结果id作为第二条的参数*/
+                            arg[0]='R'.concat(results[0].insertId);
+                        }
+                        break;
+                    }
+                }
+                return skip;
+            }
+        }, function(err, results){
+            if (err) {
+                console.log('addReply>>>>>>>', err);
+                res.json({code: 500, msg: err});
+            }
+            else if (results[0].affectedRows > 0) {
+                res.json({
+                    code: 200,
+                    newRep:results[1][0]
+                })
+            }
+        });
 };
 function updateCard(req, res, uid) {
     let facePic, photos;
@@ -264,7 +357,7 @@ function addCard(req, res, uid) {
                                 console.log(err.message)
                             }
                             else {
-                                res.json({code: 200})
+                                res.json({code: 200,url:'/card?card='+uid})
                             }
 
                         });
@@ -287,9 +380,6 @@ function setting(req, res, uid) {
     let promise = new Promise((resolve, reject)=> {
         console.log("req.files.HeadPic>>>>>>", req.files.HeadPic)
         if (req.files.HeadPic) {
-            headPic = req.session.HeadPic;
-            resolve(headPic)
-        } else {
             uploadImg(req.files.headPic, function (data) {
                 if (data.code == 200) {
                     headPic = data.url;
@@ -299,6 +389,9 @@ function setting(req, res, uid) {
                     reject();
                 }
             });
+        } else {
+            headPic = req.session.HeadPic;
+            resolve(headPic);
         }
     });
     promise.then((headPic)=> {
@@ -332,7 +425,7 @@ function getSetting(req, res, uid) {
                     req.session.HeadPic = result[0].HeadPic;
                     console.log('req.session.HeadPic>>>>>>', req.session.HeadPic)
                 }
-                res.render('my/setting', {
+                res.render('setting', {
                     user: result[0]
                 })
             }
@@ -361,7 +454,12 @@ function login(req, res) {
                         if (result.length > 0) {
                             req.session.uid = result[0].Uid;
                             console.log('login ok')
-                            res.json({code: 200, msg: "登录成功", nickname: result[0].Uid})
+                            res.json({
+                                code: 200,
+                                msg: "登录成功",
+                                nickname: result[0].Uid,
+                                url:req.session.url
+                            })
                         }
                         else {
                             res.json({code: 500, msg: "账号或密码错误！"})
@@ -435,33 +533,43 @@ function logout(req, res) {
 }
 
 function my(req, res, uid, callback) {
+
+    let sqls=[$sql.getOrder0,$sql.getDetail,$sql.getSetting,$sql.saveContent,$sql.getNewsListO,$sql.getNewsListM,$sql.getNewsListR]
+        ,haveCard=false;
+
     pool.getConnection(function (err, connection) {
         connection.query($sql.completeInfo,[uid],function (err,info) {
-            if(!info[0].name){
-                res.render('/users/setting')
+            if(!info[0].Name){
+                res.redirect('/users/setting')
             }
-        })
-        connection.query($sql.getOrder0, [uid, '%'], function (err, order0) {
-            if (err) {
-                //todo:错误处理
-                console.log('getOrder>>>>>>', err.message)
-            } else {
-                connection.query($sql.sqlContent, [uid], function (err, card) {
-                    if (err) {
-                        //todo:错误处理
-                        console.log(err.message)
-                    } else if (card.length > 0) {
-                        req.session.face = card[0].Face;
-                        req.session.photos = card[0].Photos;
-                        callback({card: card[0], haveCard: true, order0: order0})
-                    } else {
-                        callback({haveCard: false, order0: order0})
-                    }
-                    connection.release();
-                })
-            }
+            connection.release();
         });
     });
+    mq.queries(sqls,[[uid, '%'], [uid],[uid],[uid],[uid],[uid],[uid]],function (err,results) {
+        if (err) {
+            //todo:错误处理
+            console.log('getOrder>>>>>>', err.message)
+        } else {
+            if(results[1].length>0){
+                req.session.face = results[1][0].Face;
+                req.session.photos = results[1][0].Photos;
+                haveCard=true;
+            }else{
+                haveCard=false;
+            }
+        }
+        console.log(results[5])
+        callback({
+            card: results[1][0], 
+            haveCard: haveCard,
+            order0: results[0],
+            user:results[2][0],
+            save:results[3],
+            newsO:results[4],
+            newsM:results[5],
+            newsR:results[6],
+        })
+    })
 }
 
 function getOrder(req, res, uid) {
@@ -488,18 +596,50 @@ function getOrder(req, res, uid) {
 }
 
 function order(req, res, uid) {
-    pool.getConnection(function (err, connection) {
-        connection.query($sql.addOrder, [req.body.tid, uid, 0, req.body.appointment, req.body.price], function (err, result) {
+    let sqls=[$sql.addOrder,$sql.addNews];
+
+    mq.queries(sqls,[
+        [req.body.tid, uid, 0, req.body.appointment, req.body.price],
+        ['',uid,req.body.tid,2]],
+        {
+            skip:function(i, arg, results) {//skip判断是否忽略当前SQL的执行,返回true忽略,false不忽略
+                /*arg为当前sql的参数*/
+                let skip=false;
+                switch (i){
+                    case 1:{
+                        skip=results[0].affectedRows?false:true;
+                        if(results[0].affectedRows){/*如果第一条sql被执行，第一条的结果id作为第二条的参数*/
+                            arg[0]='O'.concat(results[0].insertId);
+                        }
+                        break;
+                    }
+                    case 2:{
+
+                    }
+                }
+                return skip;
+            }
+        }, function(err, results){
             if (err) {
                 console.log('addOrder>>>>>>>', err);
                 res.json({code: 500, msg: err});
             }
-            else if (result.affectedRows > 0) {
+            else if (results[0].affectedRows > 0) {
                 res.json({code: 200})
             }
-            connection.release();
-        })
-    })
+        });
+    // pool.getConnection(function (err, connection) {
+    //     connection.query($sql.addOrder, [req.body.tid, uid, 0, req.body.appointment, req.body.price], function (err, result) {
+    //         if (err) {
+    //             console.log('addOrder>>>>>>>', err);
+    //             res.json({code: 500, msg: err});
+    //         }
+    //         else if (result.affectedRows > 0) {
+    //             res.json({code: 200})
+    //         }
+    //         connection.release();
+    //     })
+    // })
 }
 function changeState(req, res) {
     pool.getConnection(function (err, connection) {
@@ -529,6 +669,56 @@ function delOrder(req, res) {
         })
     })
 }
+function newsDetail(req, res) {
+    let sql,id,type;
+    switch (req.query.type){
+        case '0':
+            id=req.query.nid.split('M')[1];
+            type=0;
+            sql=$sql.getNewsMsg;
+            break;
+        case '1':
+            id=req.query.nid.split('R')[1];
+            type=1;
+            sql=$sql.getNewsRep;
+            break;
+        case '2':
+            sql=$sql.getNewsOrder1;
+            id=req.query.nid.split('O')[1];
+            type=2;
+            break;
+    }
+    let sqls=[sql,$sql.setFlag];
+    mq.queries(sqls,[[id],[req.query.nid]],{
+        skip:function(i, arg, results) {//skip判断是否忽略当前SQL的执行,返回true忽略,false不忽略
+            /*arg为当前sql的参数*/
+            let skip=false;
+            // console.log(results[0])
+            // switch (i){
+            //     case 1:{
+            //         skip=results[0].length?false:true;
+            //         break;
+            //     }
+            //     case 2:{
+            //
+            //     }
+            // }
+            // return skip;
+        }
+    }, function(err, results){
+        if (err) {
+            console.log('newsDetail>>>>>>>', err);
+            res.json({code: 500, msg: err});
+        }
+        else {
+            res.render('newsDetail',{
+                code: 200,
+                news:results[0][0],
+                type:type  //0留言、1回复、2谁在租我、3订单确认
+            })
+        }
+    });
+}
 exports.getCards = getCards;
 /*more card分页*/
 exports.card_inner = card_inner;
@@ -537,6 +727,10 @@ exports.addSave = addSave;
 /*收藏*/
 exports.cancelSave = cancelSave;
 /*取消收藏*/
+exports.comment = comment;
+/*留言*/
+exports.reply = reply;
+/*回复留言*/
 exports.updateCard = updateCard;
 /*用户更新card*/
 exports.addCard = addCard;
@@ -563,3 +757,5 @@ exports.changeState = changeState;
 /*改变订单状态*/
 exports.delOrder = delOrder;
 /*删除订单*/
+exports.newsDetail = newsDetail;
+/*获取消息详情*/

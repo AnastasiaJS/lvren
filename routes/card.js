@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var multipart = require('connect-multiparty');
 var userDao = require('./../dao/userDao');
 
 /* GET users listing. */
@@ -40,5 +41,18 @@ router.get('/cancelsave',function (req,res) {
         res.json({code:300});//未登录
     }
 })
-
+router.post('/comment',multipart(),function (req,res) {
+    if(req.session.uid){
+        userDao.comment(req,res)
+    }else{
+        res.json({code:300});//未登录
+    }
+})
+router.post('/reply',multipart(),function (req,res) {
+    if(req.session.uid){
+        userDao.reply(req,res)
+    }else{
+        res.json({code:300});//未登录
+    }
+})
 module.exports = router;

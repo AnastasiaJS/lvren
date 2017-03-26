@@ -89,27 +89,16 @@ $("#btn-updateCard").click(function (e) {
         success: function (data) {
             console.log(data)
             if (200 === data.code) {
-                // toClick("#face-tip",  function () {
-                //     $("#modal-tip").text("信息");
-                //     $("#face-tip-msg").text("发布成功!");
-                // });
                 layer.alert('发布成功!', {icon: 6});
             } else {
-                // toClick("#face-tip", function () {
-                //     $("#face-tip-msg").text(data.msg);
-                // })
                 layer.alert(data.msg, {icon: 5});
             }
         },
         complete: function () {//完成响应
             $("#btn-updateCard").removeAttr("disabled");
-            // $('#update-tip').text('');
             layer.closeAll('loading');
         },
         error: function () {
-            // toClick("#face-tip",function () {
-            //     $("#face-tip-msg").text("与服务器通信发生错误!");
-            // })
             layer.alert('与服务器通信发生错误!', {icon: 2});
         }
     });
@@ -126,32 +115,32 @@ $("#add-frm").submit(function (e) {
         contentType: false,
         processData: false,
         beforeSend: function () {
-            $('#add-tip').text('上传中...');
+            layer.msg('上传中', {
+                icon: 16
+                ,shade: 0.01
+            });
             // 禁用按钮防止重复提交，发送前响应
             $("#btn-addCard").attr({ disabled: "disabled" });
 
         },
         success: function (data) {
             if (200 === data.code) {
-                toClick("#face-tip",  function () {
-                    $("#modal-tip").text("信息");
-                    $("#face-tip-msg").text("发布成功!");
+                layer.confirm('发布成功!',{
+                    btn:['去看看','留在个人主页']
+                },function () {
+                    location.href=data.url;
+                },function () {
+                    layer.closeAll();
                 });
-                // location.href='/'
             } else {
-                toClick("#face-tip", function () {
-                    $("#face-tip-msg").text("发布失败,网络速度不佳!");
-                })
+                layer.alert("发布失败,网络速度不佳!")
             }
         },
         complete: function () {//完成响应
             $("#btn-addCard").removeAttr("disabled");
-            $('#add-tip').text('');
         },
-        error: function () {
-            toClick("#face-tip",function () {
-                $("#face-tip-msg").text("与服务器通信发生错误!");
-            })
+        error: function () { 
+            layer.alert("与服务器通信发生错误!")
         }
     });
 });

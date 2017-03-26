@@ -6,7 +6,7 @@ var userDao = require('./../dao/userDao');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-
+    req.url='/'
     userDao.getCards(0, 6, res, function (result) {
         res.render('index', {face: result.results})
     });

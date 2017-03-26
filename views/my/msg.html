@@ -1,11 +1,15 @@
 <div id="msg" style="display: none">
     <div class="title">
-        <a href="javascript:void(0);" class="on">站内通知</a>
-        <a href="#">消息</a>
+        <a href="javascript:void(0);" class="on">留言</a>
+        <a href="javascript:void(0);">回复</a>
+        <a href="javascript:void(0);">订单</a>
     </div>
 
-    <div class="content">
-        <a href="http://699pic.com/match/12/" target="_blank" class="msg-hover">
+    <div class="content inner-news">
+        <% let t,msg;
+        for(let i=0;i< newsM.length;i++){
+        %>
+        <a href="/users/newsDetail?type=0&nid=<%=newsM[i].Nid%>" target="_blank" class="msg-hover">
             <dl class="dongtai" style="margin-left: 10px;">
                 <dt class="people">
                 <div style="width:63px;height:63px;border-radius:31px;background:url('http://static.699pic.com/images/news.png') 0 0;"></div>
@@ -13,88 +17,75 @@
                 <dd>
                     <div class="dongtai_infor">
                         <div class="one">
-                            <span class="name"> 系统公告 - </span>
-                            <span class="time_ly">1周前</span>
+                            <span class="name"> 用户消息 - </span>
+                            <span class="time_ly"><%=newsM[i].Ntime%></span>
                         </div>
                         <div class="two">
-                            <span data="yaoqing">你有一张1500元的校园返程票请查收。</span>
+                            <span data="yaoqing">你有一条新留言</span>
                         </div>
                     </div>
                 </dd>
             </dl>
         </a>
-        <a href="http://699pic.com/photography/winning/#anchor" target="_blank" class="msg-hover">
-            <dl class="dongtai clearfix" style="margin-left: 10px;">
-                <dt class="people fl">
-                <div style="width:63px;height:63px;border-radius:31px;background:url('http://static.699pic.com/images/news.png') 0 0;"></div>
-                </dt>
-                <dd class="fl">
-                    <div class="dongtai_infor">
-                        <div class="one">
-                            <span class="name"> 系统公告 - </span>
-                            <span class="time_ly">1月前</span>
-                        </div>
-                        <div class="two">
-                            <span data="yaoqing">亲爱的会员们，经过为期一个月之久的作品征集，创意生活摄影大赛收到了近千张优秀作品，现邀请您一起看见美好~</span>
-                        </div>
-                    </div>
-                </dd>
-            </dl>
-        </a>
-        <a href="http://699pic.com/gonggao/detail-27" target="_blank" class="msg-hover">
-            <dl class="dongtai clearfix" style="margin-left: 10px;">
-                <dt class="people fl">
-                <div style="width:63px;height:63px;border-radius:31px;background:url('http://static.699pic.com/images/news.png') 0 0;"></div>
-                </dt>
-                <dd class="fl">
-                    <div class="dongtai_infor">
-                        <div class="one">
-                            <span class="name"> 系统公告 - </span>
-                            <span class="time_ly">1月前</span>
-                        </div>
-                        <div class="two">
-                            <span data="yaoqing">亲爱的摄图网用户，请查收一份2017年摄图网春节放假通知，具体放假安排点击公告查看详情。</span>
-                        </div>
-                    </div>
-                </dd>
-            </dl>
-        </a>
-        <a href="http://699pic.com/vip/popularizeRank" target="_blank" class="msg-hover">
-            <dl class="dongtai clearfix" style="margin-left: 10px;">
-                <dt class="people fl">
-                <div style="width:63px;height:63px;border-radius:31px;background:url('http://static.699pic.com/images/news.png') 0 0;"></div>
-                </dt>
-                <dd class="fl">
-                    <div class="dongtai_infor">
-                        <div class="one">
-                            <span class="name"> 系统公告 - </span>
-                            <span class="time_ly">6月前</span>
-                        </div>
-                        <div class="two">
-                            <span data="yaoqing">第四期推广活动结束啦，即将开启第五期，获奖的小伙伴快点Q小七领奖哦。</span>
-                        </div>
-                    </div>
-                </dd>
-            </dl>
-        </a>
-        <a href="http://699pic.com/jx/rule" target="_blank" class="msg-hover">
-            <dl class="dongtai clearfix" style="margin-left: 10px;">
-                <dt class="people fl">
-                <div style="width:63px;height:63px;border-radius:31px;background:url('http://static.699pic.com/images/news.png') 0 0;"></div>
-                </dt>
-                <dd class="fl">
-                    <div class="dongtai_infor">
-                        <div class="one">
-                            <span class="name"> 系统公告 - </span>
-                            <span class="time_ly">6月前</span>
-                        </div>
-                        <div class="two">
-                            <span data="yaoqing">上传使用摄图网图片的设计作品，并留下想对摄影师说的话，免费领取VIP</span>
-                        </div>
-                    </div>
-                </dd>
-            </dl>
-        </a>
-
+        <%}%>
     </div>
+
+    <div class="content reply-news">
+        <%
+        for(let i=0;i< newsR.length;i++){
+        %>
+        <a href="/users/newsDetail?type=1&nid=<%=newsR[i].Nid%>" target="_blank" class="msg-hover">
+            <dl class="dongtai" style="margin-left: 10px;">
+                <dt class="people">
+                <div style="width:63px;height:63px;border-radius:31px;background:url('http://static.699pic.com/images/news.png') 0 0;"></div>
+                </dt>
+                <dd>
+                    <div class="dongtai_infor">
+                        <div class="one">
+                            <span class="name"> 用户消息 - </span>
+                            <span class="time_ly"><%=newsR[i].Ntime%></span>
+                        </div>
+                        <div class="two">
+                            <span data="yaoqing"><%=newsR[i].Reply%></span>
+                        </div>
+                    </div>
+                </dd>
+            </dl>
+        </a>
+        <%}%>
+    </div>
+
+    <div class="content user-news"  style="display: none;">
+        <% let m='公告',type=2;
+        for(let i=0;i< newsO.length;i++){
+            switch(newsO[i].Type){
+                case '2':
+                m='你有一个新订单';
+                break;
+                case '3':
+                m='你的订单被确认了';
+                break;
+        }
+        %>
+        <a href="/users/newsDetail?type=<%=type%>&nid=<%=newsO[i].Nid%>" target="_blank" class="msg-hover">
+            <dl class="dongtai" style="margin-left: 10px;">
+                <dt class="people">
+                <div style="width:63px;height:63px;border-radius:31px;background:url('http://static.699pic.com/images/news.png') 0 0;"></div>
+                </dt>
+                <dd>
+                    <div class="dongtai_infor">
+                        <div class="one">
+                            <span class="name"> 用户消息 - </span>
+                            <span class="time_ly"><%=newsO[i].Ntime%></span>
+                        </div>
+                        <div class="two">
+                            <span data="yaoqing"><%=m%></span>
+                        </div>
+                    </div>
+                </dd>
+            </dl>
+        </a>
+        <%}%>
+    </div>
+    
 </div>

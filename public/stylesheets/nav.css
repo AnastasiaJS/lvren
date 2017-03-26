@@ -156,10 +156,10 @@ footer {
       background: rgba(253, 211, 211, 0.5);
       cursor: pointer; }
 
-[id^='md-'] {
+[id^='md-'], form {
   width: 100%;
   text-align: center; }
-  [id^='md-'] input {
+  [id^='md-'] input, form input {
     width: 306px;
     height: 28px;
     border: 1px solid #d8d8d8;
@@ -173,16 +173,16 @@ footer {
     transition: box-shadow 0.25s linear 0s;
     -webkit-transition: box-shadow 0.25s linear 0s;
     margin-bottom: 1rem; }
-  [id^='md-'] #log-tip, [id^='md-'] #reg-tip {
+  [id^='md-'] #log-tip, [id^='md-'] #reg-tip, form #log-tip, form #reg-tip {
     color: #ff3c00; }
-    [id^='md-'] #log-tip i, [id^='md-'] #reg-tip i {
+    [id^='md-'] #log-tip i, [id^='md-'] #reg-tip i, form #log-tip i, form #reg-tip i {
       width: 16px;
       height: 16px;
       display: inline-block;
       vertical-align: middle;
       margin-right: 0.2em;
-      background: url(/icon/tip.png) no-repeat #fff; }
-  [id^='md-'] #frm-logo {
+      background: url(/icon/tip.png) no-repeat white; }
+  [id^='md-'] #frm-logo, form #frm-logo {
     color: #9A0000;
     width: 5rem;
     height: 5rem;
@@ -193,4 +193,27 @@ footer {
     text-align: center;
     font-size: 1.5rem; }
 
-/*# sourceMappingURL=nav.css.map */
+.btn {
+  width: 116px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 5px;
+  display: inline-block;
+  margin-bottom: 10px;
+  cursor: pointer; }
+
+.delete_order {
+  color: #999;
+  background: #eee; }
+
+.comment_order {
+  background-color: #ffa800;
+  color: #fff;
+  margin-bottom: 0.5rem; }
+
+.submit {
+  background-color: #9A0000;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  border: none; }
