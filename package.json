@@ -17,6 +17,7 @@
     "mysql": "^2.13.0",
     "mysql-queries": "^0.2.0",
     "node-gyp": "^3.5.0",
+    "node-sass-middleware": "0.9.8",
     "node-uuid": "^1.4.7",
     "nodemailer": "^3.1.8",
     "qiniu": "^6.1.13",
