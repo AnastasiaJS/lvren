@@ -14,16 +14,13 @@
 <script src="/javascripts/swiper/swiper.min.js"></script>
 <script src="/javascripts/swiper/swiper.animate1.0.2.min.js"></script>
 <script src="/javascripts/style.js"></script>
-<!--模态框相关-->
-<script src="/javascripts/model/classie.js"></script>
-<script src="/javascripts/model/modalEffects.js"></script>
-<script src="/javascripts/model/cssParser.js"></script>
 <!--时间控件-->
 <script type="text/javascript" src="/datepicker/laydate.dev.js"></script>
 <script type="text/javascript" src="/layer/layer.js"></script>
 <!--多彩图标-->
 <script src="/javascripts/iconfont.js"></script>
 <script>
+    /*回到顶部*/
     function goTop() {
         $('html,body').animate({
             scrollTop:0
@@ -41,7 +38,7 @@
         $("#nav-guangchang").css("borderBottom","solid 2px lightcoral")
     }
 
-
+/*获取本地图片路径*/
     function getObjectURL(file) {
         var url = null;
         if (window.createObjectURL != undefined) {

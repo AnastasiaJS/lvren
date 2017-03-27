@@ -12,17 +12,6 @@
     padding: 4em; }
     #addCard form .add-about, #addCard form .add-project, #addCard form .add-time, #addCard form .about-price, #addCard form .add-other {
       text-align: left; }
-      #addCard form .add-about textarea, #addCard form .add-project textarea, #addCard form .add-time textarea, #addCard form .about-price textarea, #addCard form .add-other textarea {
-        border: solid 1px #ddd;
-        width: 100%;
-        height: 100%;
-        outline: none;
-        resize: none;
-        color: #555;
-        text-indent: 2em;
-        letter-spacing: 0.2em;
-        line-height: 1.5em;
-        margin: 2em auto; }
   #addCard aside {
     width: 15%;
     position: fixed;

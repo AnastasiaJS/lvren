@@ -5,6 +5,7 @@ var card = {
     register_insert: 'INSERT INTO `user`(Uid,Password) VALUES(?,?)',
     reg_search:'select * from `user` where Uid=?',
     login_judge: "select * from `user` where Uid=? and Password=?",
+    resetPwd: "UPDATE `user` SET `Password`=? WHERE Uid=?",
     user: "select * from `user` where Uid=?",
     sqltotal: 'select count(*) total from tourcard',
     sqllimit: 'select tourcard.Uid,face,Title,Price,Name,Addr from tourcard,`user` WHERE  tourcard.Uid=`user`.Uid ORDER BY Uptime desc LIMIT ?,?',
@@ -34,7 +35,7 @@ var card = {
     getNewsOrder1:'SELECT *,date_format(OrderTime,"%Y-%c-%d %H:%i") OrderTime FROM `order`,`user` WHERE `order`.Oid=? AND `user`.Uid=`order`.Tid',//租我的消息
     getNewsOrder2:'SELECT *,date_format(OrderTime,"%Y-%c-%d %H:%i") OrderTime FROM `order`,news WHERE Nid=Oid AND `order`.Uid=?',//订单确认信息
     getNewsMsg:'SELECT *,date_format(message.Mtime,"%Y-%c-%d %H:%i") Mtime FROM message,tourcard,`user` WHERE tourcard.Uid=message.Tid AND `user`.Uid=message.Uid AND message.Mid=?',
-    getNewsRep:'SELECT *,date_format(reply.Rtime,"%Y-%c-%d %H:%i") Rtime FROM reply,`user`,message WHERE reply.Mid=message.Mid and reply.Rid=? AND reply.Uid=`user`.Uid',
+    getNewsRep:'SELECT *,date_format(message.Mtime,"%Y-%c-%d %H:%i") Mtime,date_format(reply.Rtime,"%Y-%c-%d %H:%i") Rtime FROM reply,`user`,message WHERE reply.Mid=message.Mid and reply.Rid=? AND reply.Uid=`user`.Uid',
     setFlag:'UPDATE news SET Flag=1 WHERE Nid=?',//标记信息已读状态
     addCommen:'INSERT INTO message(Uid,Tid,Text) VALUES(?,?,?)',//新增评论
     addReply:'INSERT INTO reply(Uid,Mid,Reply) VALUES(?,?,?)',//新增评论

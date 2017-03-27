@@ -4,6 +4,21 @@
     <title>lvren</title>
     <link rel='stylesheet' href='/stylesheets/style.css'/>
     <%- include layoutCss.html%>
+    <style type="text/css">
+        .icon {
+            /* 通过设置 font-size 来改变图标大小 */
+            font-size: 1em;
+            width: 2em; height: 2em;
+            /* 图标和文字相邻时，垂直对齐 */
+            vertical-align: -0.15em;
+            /* 通过设置 color 来改变 SVG 的颜色/fill */
+            fill: currentColor;
+            /* path 和 stroke 溢出 viewBox 部分在 IE 下会显示
+               normalize.css 中也包含这行 */
+            overflow: hidden;
+        }
+
+    </style>
 </head>
 <body>
 <%- include nav.html%>
@@ -32,7 +47,10 @@
                     <div class="swiper-lazy-preloader"></div>
             <span class="ani" swiper-animate-effect="bounceInLeft" swiper-animate-duration="2s"
                   swiper-animate-delay="0.1s">
-                22222
+                <!--飞机-->
+                <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-feiji"></use>
+                    </svg>
             </span>
                 </div>
                 <div class="swiper-slide ">
@@ -58,7 +76,8 @@
     <div class="type">
         <div class="title">
             <div class="wow bounceInLeft title-big">主题精选</div>
-            <p class="wow bounce small-sentence">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite>
+            <p class="wow bounce small-sentence">&ldquo;不同的旅人不同的玩法，选一个你喜欢的。&rdquo; <cite class="author">
+                <!--&mdash;--> </cite>
             </p>
         </div>
         <div class="main">
@@ -104,7 +123,8 @@
     <div class="popular">
         <div class="title">
             <div class="wow bounceInLeft title-big">最受欢迎旅人</div>
-            <p class="wow bounce small-sentence">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite>
+            <p class="wow bounce small-sentence">&ldquo;生命中的全部偶然，其实都是命中注定。&rdquo; <cite class="author">&mdash;
+                东野圭吾</cite>
             </p>
             <div class="title-tip" onclick="location.href='/card/more/?index=1'">更多</div>
         </div>
@@ -115,7 +135,8 @@
             <% for(let i=0;i< face.length;i++){%>
             <div class="card" onclick="openCard('<%=face[i].Uid%>')">
                 <div class="header">
-                    <img src="http://p3.music.126.net/IAZKcW9XEAD-3Ce7xscrWA==/3264450024529041.jpg?param=200y200" alt="">
+                    <img src="http://p3.music.126.net/IAZKcW9XEAD-3Ce7xscrWA==/3264450024529041.jpg?param=200y200"
+                         alt="">
                     <span><%=face[i].Name%></span>
                 </div>
                 <img src="<%=face[i].face%>" alt="">
@@ -128,7 +149,7 @@
                     </div>
                     <div class="place">
                         <img src="/icon/local.png" alt="">
-                        <span ><%=face[i].Addr%></span>
+                        <span><%=face[i].Addr%></span>
                     </div>
                 </div>
             </div>
@@ -164,7 +185,8 @@
             <img src="/images/slide3.jpg" alt="">
             <div class="article-more">
                 Story
-                <p class="wow bounce small-sentence" style="font-size: 1rem;width: 12rem;margin:0.5em auto;">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite>
+                <p class="wow bounce small-sentence" style="font-size: 1rem;width: 12rem;margin:0.5em auto;">&ldquo;我来到,你的城市,走过你来时的路。&rdquo;
+                    <cite class="author">&mdash; 《好久不见》</cite>
                 <div class="more">
                     -more-
                 </div>
@@ -178,7 +200,9 @@
                     </div>
                     <div class="article-right" onclick="location.href='#'">
                         <h1>高密行</h1>
-                        <div><small>莫言莫言</small>--
+                        <div>
+                            <small>莫言莫言</small>
+                            --
                             G字头的速度，果然不同凡响，没等回过神，站台已经消失得无影无踪。
                             呼啸着向前，似一把出鞘的利刃，飞快地割切着堡垒密布的城市。锋芒所向，一簇簇一层层缠绕的楼群被分断、撕裂，然后毫无顾惜地抛向身后，一骑绝尘般杀出雾霾笼罩的包围圈。
                             凭如此速度我似乎该兴奋，或者乘着如此的气势而燃起激情

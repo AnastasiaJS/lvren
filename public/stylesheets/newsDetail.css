@@ -50,6 +50,8 @@
             object-fit: cover; }
         #newsDetail .news-msg .comment-main .reply .rep-text, #newsDetail .news-reply .comment-main .reply .rep-text {
           flex: 8; }
+    #newsDetail .news-msg .div-form, #newsDetail .news-reply .div-form {
+      width: 100%; }
   #newsDetail #look {
     margin: 2rem;
     float: right; }
@@ -156,3 +158,5 @@
         display: inline-block;
         margin-right: 10px;
         vertical-align: middle; }
+
+/*# sourceMappingURL=newsDetail.css.map */

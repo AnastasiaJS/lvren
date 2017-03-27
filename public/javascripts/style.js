@@ -33,7 +33,7 @@ function aud_pause() {
 function openCard(uid) {
     location.href = '/card?card=' + uid;
 }
-
+/*打开登录窗口*/
 function openLogin() {
     let login = `<div class="md-content">
         <h3 id="frm-logo">旅人</h3>
@@ -41,7 +41,8 @@ function openLogin() {
         <div>
             <form action="javascript:;" id="frm-login">
                 <input type="text" placeholder="邮箱" name="uid"><br>
-                <input type="password" name="password" placeholder="密码">
+                <input type="password" name="password" placeholder="密码"><br>
+                <i id="forgetPsw" onclick="openForget()">忘记密码？</i>
             </form>
         </div>
     </div>`;
@@ -57,12 +58,13 @@ function openLogin() {
         , moveType: 1 //拖拽模式，0或者1
         , content: login
         , yes: function () {
-            let data=$('#frm-login').get(0);
-            if(!data.uid.value){
+            let data = $('#frm-login').get(0);
+            if (!data.uid.value) {
                 // $('#log-tip').addClass('err-tip');
                 $('#log-tip').html('<i></i>账号不能为空');
                 return false;
-            }if(!data.password.value){
+            }
+            if (!data.password.value) {
                 // $('#log-tip').addClass('err-tip');
                 $('#log-tip').html('<i></i>密码不能为空');
                 return false;
@@ -83,8 +85,8 @@ function openLogin() {
                         $("#log-tip").text(data.msg);
                         console.log(data.url);
                         /*若登录前在某个card详情页则前往该页，否则到首页*/
-                        if(data.url){
-                            location.href=data.url;
+                        if (data.url) {
+                            location.href = data.url;
                             return;
                         }
                         location.href = '/';
@@ -109,6 +111,7 @@ function openLogin() {
         }
     });
 }
+/*打开注册窗口*/
 function openRegister() {
 
     let register = `<div class="md-content">
@@ -135,22 +138,22 @@ function openRegister() {
         , moveType: 1 //拖拽模式，0或者1
         , content: register
         , yes: function () {
-            let data=$('#frm-register').get(0);
-            let pattPsw=/^[a-z0-9_-]{6,18}$/;
-            let pattEm=/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-            if(!data.uid.value){
+            let data = $('#frm-register').get(0);
+            let pattPsw = /^[a-z0-9_-]{6,18}$/;
+            let pattEm = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+            if (!data.uid.value) {
                 $('#reg-tip').html('<i></i>账号不能为空');
                 return false;
             }
-            if(!pattEm.test(data.uid.value)){
+            if (!pattEm.test(data.uid.value)) {
                 $('#reg-tip').html('<i></i>邮箱格式错误');
                 return false;
             }
-            if(!data.password.value){
+            if (!data.password.value) {
                 $('#reg-tip').html('<i></i>密码不能为空');
                 return false;
             }
-            if(!pattPsw.test(data.password.value)){
+            if (!pattPsw.test(data.password.value)) {
                 $('#reg-tip').html('<i></i>密码为6-18位字符');
                 return false;
             }
@@ -169,7 +172,7 @@ function openRegister() {
                     beforeSend: function () {
                         $('#frm-tip').text('正在注册...');
                         // 禁用按钮防止重复提交，发送前响应
-                        $("#btn-register").attr({disabled: "disabled"});
+                        // $("#btn-register").attr({disabled: "disabled"});
 
                     },
                     success: function (data) {
@@ -184,7 +187,7 @@ function openRegister() {
                         }
                     },
                     complete: function () {//完成响应
-                        $("#btn-register").removeAttr("disabled");
+                        // $("#btn-register").removeAttr("disabled");
 //                $('#frm-tip').text('');
                     },
                     error: function (data) {
@@ -200,4 +203,167 @@ function openRegister() {
             openLogin();
         }
     });
+}
+/*打开发送邮件窗口*/
+
+
+function openForget() {
+    layer.closeAll();
+    let register = `<div class="md-content">
+        <h3 id="frm-logo">旅人</h3>
+        <p id="forget-tip"></p>
+        <div>
+            <form action="javascript:;" id="frm-forget">
+                <input type="text" placeholder="注册邮箱" name="uid"><br>
+                <button class="btn submit" id="btn-forget" style="margin-bottom: 2rem">立即找回</button>
+            </form>
+        </div>
+    </div>`;
+    layer.open({
+        type: 1
+        , title: false //不显示标题栏
+        , area: '500px'
+        , shade: 0.8
+        , id: 'md-forget' //设定一个id，防止重复弹出
+        , resize: false
+        // , btn: ['立即找回']
+        , btnAlign: 'c'
+        , moveType: 1 //拖拽模式，0或者1
+        , content: register
+        , yes: function () {
+
+        }
+    });
+    $("#btn-forget").click(function () {
+        let data = $('#frm-forget').get(0);
+        if (!data.uid.value) {
+            $('#forget-tip').html('<i></i>账号不能为空');
+            return false;
+        }
+        $('#forget-tip').text('');
+        $.ajax({
+            url: '/forget',
+            type: 'POST',
+            data: $("#frm-forget").serialize(),
+            dataType: 'json',
+            beforeSend: function () {
+                $('#forget-tip').text('发送中...');
+                // 禁用按钮防止重复提交，发送前响应
+                // $("#btn-forget").attr({disabled: "disabled"});
+
+            },
+            success: function (data) {
+                $('#forget-tip').text('');
+                if (data.code == 200) {
+                    layer.confirm('验证码已发送，前往邮箱查看',{
+                        btn:'确认'
+                    },function (index) {
+                        layer.close(index);
+                        openReset();
+                    });
+                    
+                }else if(data.code==300){
+                    $("#forget-tip").text('该邮箱尚未注册！');
+                }
+                else {
+                    $("#forget-tip").text("服务器连接出错");
+                    return false;
+                }
+            },
+            complete: function () {//完成响应
+                // $("#btn-forget").removeAttr({disabled: "disabled"});
+            },
+            error: function (data) {
+                console.log('error>>', data)
+                $("#forget-tip").text(data.msg);
+                return false;
+            }
+        });
+    })
+}
+function openReset() {
+    layer.closeAll();
+    let register = `<div class="md-content">
+        <h3 id="frm-logo">旅人</h3>
+        <p id="reset-tip"></p>
+        <div>
+            <form action="javascript:;" id="frm-reset">
+                <input type="password" placeholder="密码" name="psw"><br>
+                <input type="password" placeholder="确认密码" name="psw2"><br>
+                <input type="text" placeholder="验证码" name="code"><br>
+                <button class="btn submit" id="btn-reset" style="margin-bottom: 2rem">完成</button>
+            </form>
+        </div>
+    </div>`;
+    layer.open({
+        type: 1
+        , title: false //不显示标题栏
+        , area: '500px'
+        , shade: 0.8
+        , id: 'md-reset' //设定一个id，防止重复弹出
+        , resize: false
+        // , btn: ['立即找回']
+        , btnAlign: 'c'
+        , moveType: 1 //拖拽模式，0或者1
+        , content: register
+        , yes: function () {
+
+        }
+    });
+    $("#btn-reset").click(function () {
+        let data = $('#frm-reset').get(0);
+        if (!data.psw.value) {
+            $('#reset-tip').html('<i></i>账号不能为空');
+            return false;
+        }
+        let pattPsw = /^[a-z0-9_-]{6,18}$/;
+        if (!pattPsw.test(data.psw.value)) {
+            $('#reset-tip').html('<i></i>密码为6-18位字符');
+            return false;
+        }
+        if(data.psw.value!=data.psw2.value){
+            $('#reset-tip').html('<i></i>两次密码输入不一致');
+            return false;
+        }
+        if(!data.code.value){
+            $('#reset-tip').html('<i></i>请输入验证码');
+            return false;
+        }
+        $('#reset-tip').text('');
+        $.ajax({
+            url: '/reset',
+            type: 'POST',
+            data: $("#frm-reset").serialize(),
+            dataType: 'json',
+            beforeSend: function () {
+                $('#reset-tip').text('发送中...');
+                // 禁用按钮防止重复提交，发送前响应
+                // $("#btn-reset").attr({disabled: "disabled"});
+
+            },
+            success: function (data) {
+                if (data.code == 200) {
+                    layer.confirm('密码修改成功',{
+                        btn: ['去首页','重新修改']
+                    },function () {
+                        location.href='/'
+                    })
+                }else if(data.code==300){
+                    $("#reset-tip").text(data.msg);
+                }
+                else {
+                    $("#reset-tip").text('修改未成功，请稍后重试');
+                    return false;
+                }
+            },
+            complete: function () {//完成响应
+                // $("#btn-reset").removeAttr({disabled: "disabled"});
+            },
+            error: function (data) {
+                console.log('error>>', data)
+                $("#reset-tip").text(data.msg);
+                return false;
+            }
+        });
+    })
 }

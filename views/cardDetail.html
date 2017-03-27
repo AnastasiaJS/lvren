@@ -33,7 +33,7 @@
                 <div class="place"><i></i><%=card.Addr%></div>
                 <div class="price">￥ <big><%=card.Price%></big> 元/次</div>
                 <div class="rented"><%=ordernum%>人租过</div>
-                <div class="remark">6条留言</div>
+                <div class="remark"><%=msgs.length%>条留言</div>
                 <div class="save">
                     <button onclick="save('<%=card.Uid%>')">
                         <%

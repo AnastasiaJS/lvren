@@ -1,6 +1,6 @@
 #card {
   width: 960px;
-  margin: 12em auto;
+  margin: 0.5em auto 12em;
   padding: 0;
   display: flex;
   flex-flow: wrap row;
@@ -134,23 +134,17 @@
 @keyframes zuta {
   0% {
     top: 43%; }
-
   20% {
     top: 41%; }
-
   100% {
     top: 43%; } }
-
 @-webkit-keyframes zuta {
   0% {
     top: 43%; }
-
   20% {
     top: 41%; }
-
   100% {
     top: 43%; } }
-
 .btn-order {
   position: fixed;
   top: 45%;
@@ -206,3 +200,5 @@
         background: #F2F2F5;
         padding: 0.3rem;
         margin-top: 0.5rem; }
+
+/*# sourceMappingURL=cardDetail.css.map */

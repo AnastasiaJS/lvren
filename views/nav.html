@@ -3,10 +3,6 @@
     <div class="nav">
         <div class="logo">
             <a href="/">旅人</a>
-            <ul>
-                <li id="nav-guangchang"><a href="#">广场</a></li>
-                <!--<li id="nav-send"><a href="/addCard">发布</a></li>-->
-            </ul>
         </div>
         <button  style="display: none" id="not-login" onclick="openLogin()">登录</button>
         <div class="user">
@@ -16,6 +12,7 @@
             </a>
             <div class="dropdown-content">
                 <ul>
+                    <li><a href="/users">个人主页</a></li>
                     <li><a href="/logout">退出</a></li>
                 </ul>
             </div>
@@ -23,7 +20,6 @@
     </div>
 </header>
 
-<div class="md-overlay"></div>
 <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
 
 <script>
@@ -37,16 +33,5 @@
             $("#not-login").css("display", "block");
         }
     })
-
-//    function goRegister() {
-//        $('#frm-tip').text('');
-//        $("#frm-register").css('display', 'block');
-//        $("#frm-login").css('display', 'none');
-//    }
-//    function goLogin() {
-//        $('#frm-tip').text('');
-//        $("#frm-register").css('display', 'none');
-//        $("#frm-login").css('display', 'block');
-//    }
 
 </script>

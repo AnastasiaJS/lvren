@@ -87,7 +87,6 @@ $("#btn-updateCard").click(function (e) {
 
         },
         success: function (data) {
-            console.log(data)
             if (200 === data.code) {
                 layer.alert('发布成功!', {icon: 6});
             } else {

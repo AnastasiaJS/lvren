@@ -15,6 +15,12 @@ router.get('/', function (req, res, next) {
 router.post('/login', function (req, res, next) {
     userDao.login(req, res)
 });
+router.post('/forget', function (req, res, next) {
+    userDao.forget(req, res)
+});
+router.post('/reset', function (req, res, next) {
+    userDao.reset(req, res)
+});
 router.post('/register', function (req, res, next) {
     userDao.register(req, res)
 });

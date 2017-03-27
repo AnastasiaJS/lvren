@@ -5,6 +5,7 @@ var $conf = require("./../conf/db");
 var $sql = require('./userSqlMapping');
 var fileuuid = require('./../util/uuidHelper');
 var pwdMd5 = require('./../util/md5Helper');
+var mailer = require('./../util/mail');
 //实际使用中可以在应用启动时进行初始化(只需执行一次)
 require('mysql-queries').init($conf);
 //执行多条SQLs
@@ -56,14 +57,7 @@ function uploadImgs(original, callback) {
     original.map((item, index)=> {
         uploadImg(item, function (data) {
             photos[index] = data.url;
-            // console.log('url>>>>>', photos[index]);
             newData = Object.assign({}, {code: data.code, err: data.err});
-            // if(index==original.length-1){
-            //     console.log('photos>>>>', photos);
-            //     console.log('newData>>>>', newData);
-            //     callback(Object.assign({}, {code: newData.code, photos}));
-            //
-            // }
         });
     });
     setTimeout(function () {
@@ -75,6 +69,17 @@ function uploadImgs(original, callback) {
 
 /*七牛云相关服务的应用 =====end*/
 
+/*生成随机验证码*/
+function createCode(){
+    let code = "";
+    var codeLength = 6;//验证码的长度  
+    var random = new Array(0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');//随机数  
+    for(var i = 0; i < codeLength; i++) {//循环操作  
+        var index = Math.floor(Math.random()*36);//取得随机数的索引（0~35）  
+        code += random[index];//根据索引取得随机数加到code上  
+    }
+    return code;//把code值赋给验证码  
+}
 /*判断账户是否已注册=== begin========*/
 function isReg(uid, callback) {
     pool.getConnection(function (err, connection) {
@@ -476,6 +481,61 @@ function login(req, res) {
     })
 }
 
+/*发送邮件，验证码*/
+function forget(req, res) {
+    var uid = req.body.uid;
+
+    isReg(uid, function (data) {
+        if(data.code==0){//邮箱尚未注册
+            res.json({code:300})
+        }
+        else if (data.code == 1) {
+            req.session.code=createCode();
+            req.session.mail=uid;
+            console.log('req.session.code>>>>',req.session.code)
+            mailer.mail(uid,req.session.code,function (data) {
+                if(data.state){
+                    res.json({
+                        code:200
+                    })
+                }else{
+                    res.json({code:500})
+                }
+            });
+
+        } else {
+            res.json({code:500})
+        }
+
+    })
+}
+function reset(req,res) {
+    console.log('req.body.code>>>',req.body.code)
+    if(req.body.code!=req.session.code){
+        res.json({code:300,msg:'验证码错误'})
+    }else{
+        let psw=pwdMd5.pwdMd5(req.body.psw);
+        pool.getConnection(function (err,connection) {
+            connection.query($sql.resetPwd,[psw,req.session.mail],function (err,result) {
+                if (err) {
+                    console.log("resetPwd>>>>",err)
+                    res.json({code: 500})
+                }else{
+                    if(result.affectedRows==1){
+                        req.session.uid=req.session.mail;
+                        req.session.mail=null;
+                        res.json({code:200})
+                    }else{
+                        res.json({code:500})
+                    }
+                }
+                connection.release()
+            })
+        })
+    }
+        
+}
+
 function register(req, res) {
     var param = req.body;
     console.log(param);
@@ -693,17 +753,8 @@ function newsDetail(req, res) {
         skip:function(i, arg, results) {//skip判断是否忽略当前SQL的执行,返回true忽略,false不忽略
             /*arg为当前sql的参数*/
             let skip=false;
-            // console.log(results[0])
-            // switch (i){
-            //     case 1:{
-            //         skip=results[0].length?false:true;
-            //         break;
-            //     }
-            //     case 2:{
-            //
-            //     }
-            // }
-            // return skip;
+          
+            return skip;
         }
     }, function(err, results){
         if (err) {
@@ -737,6 +788,10 @@ exports.addCard = addCard;
 /*用户发布card*/
 exports.login = login;
 /*用户登录*/
+exports.forget = forget;
+/*忘记密码*/
+exports.reset = reset;
+/*重新设置密码*/
 exports.register = register;
 /*用户注册*/
 exports.isLogin = isLogin;
