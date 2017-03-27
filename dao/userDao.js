@@ -734,7 +734,7 @@ function changeState(req, res) {
         })
     })
 }
-function delOrder(req, res) {
+function delOrder(req, res,uid) {
     pool.getConnection(function (err, connection) {
         connection.query($sql.deleteOrder, [req.query.oid], function (err, result) {
             if (err) {

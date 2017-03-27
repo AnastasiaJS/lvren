@@ -248,6 +248,8 @@ function delOrder(oid) {
         $.get(`/users/delOrder?oid=${oid}`,function (data) {
             if(data.code==200){
                 $(`#del${oid}`).attr('disabled',true);
+                $(`#fukuan${oid}`).attr('disabled',true);
+                $(`#queren${oid}`).attr('disabled',true);
                 $(`#del${oid}`).css('background','#eee').css('color','#999').css('cursor','not-allowed')
                 
                 $(`#del${oid}`).html('订单已删除');

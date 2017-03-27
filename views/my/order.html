@@ -62,12 +62,12 @@
                 <div class="ord_r">
                     <div class="price">商议价格 <span class="money">￥ <b><%=order0[i].Price%></b></span></div>
                     <%if(order0[i].State==1){%>
-                    <a class="btn comment_order" onclick="alipay('<%=order0[i].Oid%>','<%=order0[i].Appointment%>','<%=order0[i].Price%>')">付款</a>
+                    <a class="btn comment_order" id="fukuan<%=order0[i].Oid%>" onclick="alipay('<%=order0[i].Oid%>','<%=order0[i].Appointment%>','<%=order0[i].Price%>')">付款</a>
                     <%}%>
                     <%if(order0[i].State==3){%>
                     <a class="btn comment_order">评价</a>
                     <%}%>
-                    <a class="btn delete_order" onclick="delOrder('<%=order0[i].Oid%>')">删除订单</a>
+                    <a class="btn delete_order"id="del<%=order0[i].Oid%>" onclick="delOrder('<%=order0[i].Oid%>')">删除订单</a>
                 </div>
             </div>
         </div>
