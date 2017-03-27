@@ -327,7 +327,7 @@ function updateCard(req, res, uid) {
         pool.getConnection(function (err, connection) {
             connection.query($sql.updateCard, [body.title, body.about, body.addr,
                 body.price, canCut, body.play, other, body.appointTime,
-                body.aboutPrice, facePic, photos, uid + ''], function (err, result) {
+                body.aboutPrice, facePic, photos,body.sort, uid + ''], function (err, result) {
                 if (err) {
                     console.log(err.message)
                 }
@@ -365,7 +365,7 @@ function addCard(req, res, uid) {
                     pool.getConnection(function (err, connection) {
                         connection.query($sql.addCard, [uid, body.title, body.about, body.addr,
                             body.price, canCut, body.play, other, body.appointTime,
-                            body.aboutPrice, data.url, datas.photos.join(',')], function (err, result) {
+                            body.aboutPrice, data.url, datas.photos.join(','),body.sort], function (err, result) {
                             connection.release();
                             if (err) {
                                 console.log(err.message)

@@ -19,6 +19,35 @@
                 </label>
                 <input type="text" id="add-addr" name="addr" required value="<%=card.Addr%>">
             </div>
+            <div class="add-sort">
+                <label for="add-addr">
+                    项目分类：
+                </label>
+                <%
+                    let s0='',s1='',s2='',s3='',s4='',s5='';
+                %>
+                <select type="text" id="add-sort" name="sort">
+                    <%if(card.Sort==0)
+                            s0='selected';
+                            else if(card.Sort==1)
+                            s1='selected';
+                            else if(card.Sort==2)
+                            s2='selected';
+                            else if(card.Sort==3)
+                            s3='selected';
+                            else if(card.Sort==4)
+                            s4='selected';
+                            else
+                            s5='selected';
+                    %>
+                    <option value="0" <%=s0%>>自然</option>
+                    <option value="1" <%=s1%>>人文</option>
+                    <option value="2" <%=s2%>>传统饮食</option>
+                    <option value="3" <%=s3%>>都市</option>
+                    <option value="4" <%=s4%>>田园风光</option>
+                    <option value="5" <%=s5%>>文化与工艺</option>
+                </select>
+            </div>
             <div class="add-canCut">
                 <label for="add-canCut">
                     是否可以砍价：

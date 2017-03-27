@@ -59,7 +59,23 @@
 
   }
 }
+#add-sort{
 
+    width: 306px;
+    height: 30px;
+    border: 1px solid #d8d8d8;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #666;
+    line-height: 28px;
+    padding: 6px 0 6px 12px;
+    box-shadow: 0 0 5px #fff;
+    outline: none;
+    transition: box-shadow 0.25s linear 0s;
+    -webkit-transition: box-shadow 0.25s linear 0s;
+    margin-bottom: 1rem;
+
+}
 #face-tip {
   position: relative;
   z-index: -2;
