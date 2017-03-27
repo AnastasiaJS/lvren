@@ -160,6 +160,9 @@ footer {
 #frm-reset, #frm-forget, #frm-register, #frm-login, #frm-commen {
   text-align: center; }
 
+[id$='-tip'] {
+  text-align: center; }
+
 [id^='md-'], #frm-reset, #frm-forget, #frm-register, #frm-login, #frm-commen {
   width: 100%; }
   [id^='md-'] input, #frm-reset input, #frm-forget input, #frm-register input, #frm-login input, #frm-commen input {

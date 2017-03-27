@@ -210,6 +210,10 @@ footer {
 #frm-reset,#frm-forget,#frm-register,#frm-login,#frm-commen{
   text-align: center;
 }
+
+  [id$='-tip']{
+    text-align: center;
+  }
 [id^='md-'],#frm-reset,#frm-forget,#frm-register,#frm-login,#frm-commen{
     width: 100%;
 

@@ -22,8 +22,8 @@ var nodemailer = require('nodemailer');
             // to: '939783694@qq.com', // list of receivers
             // cc: '836470765@qq.com',
             // bcc: '23190784@qq.com',
-            subject: '重置密码', // Subject line
-            text: '重置密码', // plaintext body
+            subject: '验证码', // Subject line
+            text: '验证码', // plaintext body
             // html:'点击以下网址进入密码修改页 <br>http://'+host+'/user/editPwd?Uid='+e,
             html: `<p><h3>尊敬的旅人网用户：</h3>
                         您本次的验证码为：${code}

@@ -123,9 +123,12 @@ function openRegister() {
                 <input type="password" name="password" placeholder="密码(6-18位)"
                        required><br>
                 <input type="password" name="password2" placeholder="确认密码" ><br>
+                <input type="text"  name="code" placeholder="验证码" style="width: 6rem;" >
+                <a class="btn delete_order" id="btn-code">获取验证码</a><br>
             </form>
         </div>
     </div>`;
+
     layer.open({
         type: 1
         , title: false //不显示标题栏
@@ -138,6 +141,7 @@ function openRegister() {
         , moveType: 1 //拖拽模式，0或者1
         , content: register
         , yes: function () {
+
             let data = $('#frm-register').get(0);
             let pattPsw = /^[a-z0-9_-]{6,18}$/;
             let pattEm = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
@@ -157,7 +161,10 @@ function openRegister() {
                 $('#reg-tip').html('<i></i>密码为6-18位字符');
                 return false;
             }
-
+            if (!data.code.value) {
+                $('#reg-tip').html('<i></i>请输入验证码');
+                return false;
+            }
             // return false;
             let _this = document.getElementById('frm-register');
             if (_this.elements['password'].value != _this.elements['password2'].value) {
@@ -203,7 +210,49 @@ function openRegister() {
             openLogin();
         }
     });
+    // document.getElementById("btn-code").addEventListener('click',getCode($('#frm-register').get(0).uid.value))
+    // function getCode(uid) {
+
+
+    // }
+
+    $('#btn-code').click(function () {
+        let data=$('#frm-register').get(0)
+        $.ajax({
+            url: '/getcode',
+            type: 'POST',
+            data: {uid:data.uid.value},
+            dataType: 'json',
+            beforeSend: function () {
+
+                // 禁用按钮防止重复提交，发送前响应
+                // document.getElementById("btn-code").removeEventListener('click',getCode);
+                $("#btn-code").text('发送中');
+
+            },
+            success: function (data) {
+                if (data.code == 200) {
+                    layer.alert('验证码已发送至邮箱')
+                }
+                else {
+                    layer.alert('验证码获取失败，稍后重试');
+                    return false;
+                }
+            },
+            complete: function () {//完成响应
+
+                // document.getElementById("btn-code").addEventListener('click',getCode)
+                $("#btn-code").text('获取验证码');
+            },
+            error: function (data) {
+                console.log('error>>', data)
+                layer.alert('验证码获取失败，稍后重试');
+                return false;
+            }
+        });
+    })
 }
+
 /*打开发送邮件窗口*/
 
 
@@ -313,7 +362,7 @@ function openReset() {
     $("#btn-reset").click(function () {
         let data = $('#frm-reset').get(0);
         if (!data.psw.value) {
-            $('#reset-tip').html('<i></i>账号不能为空');
+            $('#reset-tip').html('<i></i>密码不能为空');
             return false;
         }
         let pattPsw = /^[a-z0-9_-]{6,18}$/;

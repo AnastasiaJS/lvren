@@ -21,6 +21,9 @@ router.post('/forget', function (req, res, next) {
 router.post('/reset', function (req, res, next) {
     userDao.reset(req, res)
 });
+router.post('/getcode', function (req, res, next) {
+    userDao.getcode(req, res)
+});
 router.post('/register', function (req, res, next) {
     userDao.register(req, res)
 });

@@ -544,7 +544,16 @@ function reset(req,res) {
     }
         
 }
-
+function getcode(req,res) {
+    req.session.code=createCode();
+    mailer.mail(req.body.uid,req.session.code,function (data) {
+        if(data.state){
+            res.json({code:200})
+        }else{
+            res.json({code:500})
+        }
+    })
+}
 function register(req, res) {
     var param = req.body;
     console.log(param);
@@ -553,8 +562,12 @@ function register(req, res) {
     var encode = pwdMd5.pwdMd5(param.password);
     isReg(param.uid, function (data) {
         if (data.code == 1) {
-            res.json({code: 300, msg: data.msg})
+            res.json({code: 300, msg: data.msg});
+            return false;
         } else {
+            if(req.body.code!=req.session.code){
+                res.json({code:300,msg:'验证码错误'})
+            }
             pool.getConnection(function (err, connection) {
                 connection.query($sql.register_insert, [param.uid, encode], function (err, result) {
 
@@ -826,6 +839,8 @@ exports.reset = reset;
 /*重新设置密码*/
 exports.register = register;
 /*用户注册*/
+exports.getcode = getcode;
+/*获得验证码*/
 exports.isLogin = isLogin;
 /*判断用户是否登录*/
 exports.logout = logout;
