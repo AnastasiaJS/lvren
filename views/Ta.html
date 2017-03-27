@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ta的主页———旅人</title>
+    <%- include layoutCss.html%>
+    <link rel="stylesheet" href="/stylesheets/my/my.css">
+    <link rel="stylesheet" href="/stylesheets/my/collection.css">
+    <link rel="stylesheet" href="/stylesheets/my/ta.css">
+    <style>
+        #menu{
+            background: #fff;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2)
+        }
+        .icon {
+            /* 通过设置 font-size 来改变图标大小 */
+            font-size: 1em;
+            width: 2em; height: 2em;
+            /* 图标和文字相邻时，垂直对齐 */
+            vertical-align: -0.15em;
+            /* 通过设置 color 来改变 SVG 的颜色/fill */
+            fill: currentColor;
+            /* path 和 stroke 溢出 viewBox 部分在 IE 下会显示
+               normalize.css 中也包含这行 */
+            overflow: hidden;
+            margin-right: 0.2rem;
+        }
+    </style>
+</head>
+<body>
+<%- include ./nav.html%>
+<div id="ta">
+    <div class="top">
+        <div class="header">
+            <div class="img-header">
+                <img src="<%=user.HeadPic%>" alt="">
+            </div>
+            <div id="name">
+                <h1><%=user.Name%></h1>
+                <p class="introduce">
+                    <%=user.Intro%>
+                </p>
+            </div>
+        </div>
+        <div class="tab">
+            <ul onclick="changeTa(event)">
+                <li class="active" id="tabT1">个人信息</li>
+                <li id="tabT2">Ta在租谁</li>
+                <li id="tabT3">喜欢</li>
+            </ul>
+        </div>
+    </div>
+    <div class="main">
+        <div id="Tuser">
+            <h2>WELCOME</h2>
+            <ul>
+                <li>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-feiji"></use>
+                    </svg>
+                    Ta:<%=user.Name%></li>
+                <li>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-xiaoqiche"></use>
+                    </svg>
+                    性别:<%=user.Gender?'男':'女'%></li>
+                <li>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-tianxiandaba"></use>
+                    </svg>
+                    生日:<%=user.Birthday%></li>
+                <li>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-keche"></use>
+                    </svg>
+                    职业:<%=user.Job%></li>
+                <li>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-zihangche"></use>
+                    </svg>
+                    Ta说:&ldquo;<%=user.Intro%>&rdquo;</li>
+            </ul>
+        </div>
+        <div id="Torder" style="display: none">
+            <%if(order0.length==0){
+            %>
+            <div  style="margin: 4rem;">Ta暂时还没有租的人</div>
+            <%}%>
+            <%
+            for(let i=0;i< order0.length;i++){
+            %>
+            <div class="order">
+                <div class="ord_top">
+                    <span class="time"><%=order0[i].OrderTime%></span>
+                    <span class="name">当地人：<a href="/card?card=<%=order0[i].Uid%>"><%=order0[i].Name%></a></span>
+                </div>
+                <div class="ord_bottom">
+                    <dl class="pic">
+                        <dt>
+                            <a href="/card?card=<%=order0[i].Uid%>"><img
+                                    src="<%=order0[i].Face%>"
+                                    alt="" width="100%"></a>
+                        </dt>
+                        <dd>
+                            <h2><a href="/card?card=<%=order0[i].Uid%>"><%=order0[i].Title%></a></h2>
+                            <p class="address"><i></i><%=order0[i].Addr%></p>
+                            <p class="time">预约时间：<%=order0[i].Appointment%></p>
+                            <p class="place">见面地点：<%=order0[i].Addr%></p>
+                        </dd>
+                    </dl>
+                    <div class="ord_c">
+                        <%if(order0[i].State==4){%>
+                            <span class="font_c">
+
+                            </span>             已取消
+                        <%}%>
+                        <%if(order0[i].State==3){%>
+                            <span class="font_c" style="color: green">
+
+                            </span>             已完成
+                        <%}%>
+                    </div>
+                    <div class="ord_r">
+                        <div class="price">价格 <span class="money">￥ <b><%=order0[i].Price%></b></span></div>
+                    </div>
+                </div>
+            </div>
+            <%}%>
+        </div>
+        <ul class="collection" id="Tcollection" style="display: none">
+            <%
+            for(let i=0;i< save.length;i++){
+            %>
+            <li>
+                <dl>
+                    <dt>
+                        <a href="/card?card=<%=save[i].Tid%>" target="_blank">
+                            <img
+                                    src="<%=save[i].Face%>"
+                                    alt="封面" height="400" width="680">
+                        </a>
+                    <div class="hover_item">
+                        <div class="description">
+                            <strong>中国/</strong>
+                            <span><%=save[i].Addr%></span>
+                        </div>
+                        <div class="description des-footer">
+                            <span>旅人：</span>
+                            <span><%=save[i].Name%></span>
+                        </div>
+                    </div>
+                    </dt>
+                    <dd>
+                        <div class="note_title">
+                            <div class="note_info">
+                                <h3>
+                                    <a href="/card?card=<%=save[i].Tid%>" target="_blank" title="<%=save[i].Title%>"><%=save[i].Title%></a>
+                                </h3>
+                                <div class="note_more">
+                                    <span class="time"><%=save[i].Uptime%></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="note_word">
+                            <%=save[i].About%>
+                        </div>
+                    </dd>
+                </dl>
+            </li>
+            <%}%>
+        </ul>
+    </div>
+</div>
+<%- include ./js.html%>
+
+<script src="/javascripts/my.js"></script>
+<!--card部分 js  -->
+<script src="/javascripts/addCard.js"></script>
+</body>
+
+</html>

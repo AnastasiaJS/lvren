@@ -79,32 +79,33 @@
             <p class="wow bounce small-sentence">&ldquo;不同的旅人不同的玩法，选一个你喜欢的。&rdquo; <cite class="author">
                 <!--&mdash;--> </cite>
             </p>
+            <div class="title-tip" onclick="location.href='/card/more/?index=1'">全部</div>
         </div>
         <div class="main">
             <div class="main-row">
-                <div class="part">
+                <div class="part" onclick="location.href='/card/more?index=1&sort=0'">
                     <img src="/images/ziran.jpg" alt="">
                     <p>自然</p>
                 </div>
-                <div class="part">
+                <div class="part" onclick="location.href='/card/more?index=1&sort=1'">
                     <img src="/images/renwen.jpg" alt="">
                     <p>人文</p>
                 </div>
-                <div class="part">
+                <div class="part" onclick="location.href='/card/more?index=1&sort=2'">
                     <img src="/images/yinshi.jpg" alt="">
                     <p>传统饮食</p>
                 </div>
             </div>
-            <div class="main-row">
+            <div class="main-row" onclick="location.href='/card/more?index=1&sort=3'">
                 <div class="part">
                     <img src="/images/dushi.jpg" alt="">
                     <p>都市</p>
                 </div>
-                <div class="part">
+                <div class="part" onclick="location.href='/card/more?index=1&sort=4'">
                     <img src="/images/tianyuan.jpg" alt="">
                     <p>田园风光</p>
                 </div>
-                <div class="part">
+                <div class="part" onclick="location.href='/card/more?index=1&sort=5'">
                     <img src="/images/gongyi.jpg" alt="">
                     <p>文化与工艺</p>
                 </div>
@@ -177,9 +178,9 @@
     <div class="articles">
         <div class="title">
             <div class="wow bounceInLeft title-big">我的城市故事</div>
-            <!--<p class="wow bounce small-sentence">&ldquo;我来到,你的城市,走过你来时的路。&rdquo; <cite class="author">&mdash; 《好久不见》</cite>-->
-            <!--</p>-->
-            <!--<div class="title-tip">更多</div>-->
+            <p class="wow bounce small-sentence"></cite>
+            </p>
+            <div class="title-tip">更多</div>
         </div>
         <div class="article-main">
             <img src="/images/slide3.jpg" alt="">
@@ -193,22 +194,20 @@
             </div>
             <div class="article-list">
 
-                <% for(let i=0;i<4;i++){%>
-                <article>
+                <% for(let i=0;i< articles.length;i++){%>
+                <a href='<%=articles[i].Article%>' target="_blank">
                     <div class="article-left">
-                        <img src="/images/gaomi.jpg" alt="高密">
+                        <img src="<%=articles[i].Pic%>" alt="<%=articles[i].Title%>">
                     </div>
                     <div class="article-right" onclick="location.href='#'">
-                        <h1>高密行</h1>
+                        <h1><%=articles[i].Title%></h1>
                         <div>
-                            <small>莫言莫言</small>
+                            <small><%=articles[i].Author%></small>
                             --
-                            G字头的速度，果然不同凡响，没等回过神，站台已经消失得无影无踪。
-                            呼啸着向前，似一把出鞘的利刃，飞快地割切着堡垒密布的城市。锋芒所向，一簇簇一层层缠绕的楼群被分断、撕裂，然后毫无顾惜地抛向身后，一骑绝尘般杀出雾霾笼罩的包围圈。
-                            凭如此速度我似乎该兴奋，或者乘着如此的气势而燃起激情
+                            <%=articles[i].Summary%>
                         </div>
                     </div>
-                </article>
+                </a>
                 <%}%>
             </div>
         </div>

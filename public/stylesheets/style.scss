@@ -400,7 +400,7 @@
     .article-list {
       width: 65%;
     }
-    article {
+    a {
       display: -webkit-flex; /* Safari */
       display: flex;
       height: 12em;
@@ -416,7 +416,7 @@
           width: 100px;
           position: relative;
           top: -50px;
-          margin-top: 50%;
+          margin-top: 70%;
           border-radius: 50%;
           object-fit: cover;
           vertical-align: middle;

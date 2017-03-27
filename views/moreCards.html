@@ -5,22 +5,45 @@
     <title>moreCards</title>
     <%- include layoutCss.html%>
     <link rel="stylesheet" href="/stylesheets/moreCard.css">
+    <style>
+        #menu{
+            background: #fff;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2)
+        }
+    </style>
 </head>
 <body>
 <%- include nav.html%>
 
 <div id="more-cards">
     <div class="nav">
-        现在位置>所有旅人
+        <%
+        let s='所有旅人'
+        switch(sort){
+        case '0':
+        s='自然';break;
+        case '1':
+        s='人文';break;
+        case '2':
+        s='传统饮食';break;
+        case '3':
+        s='都市';break;
+        case '4':
+        s='田园风光';break;
+        case '5':
+        s='文化与工艺';break;
+        }
+        %>
+        现在位置><%=s%>
     </div>
     <section class="main">
         <% for(let i=0;i< face.length;i++){%>
         <div class="card" onclick="openCard('<%=face[i].Uid%>')">
             <div class="header">
-                <img src="http://p3.music.126.net/IAZKcW9XEAD-3Ce7xscrWA==/3264450024529041.jpg?param=200y200" alt="">
+                <img src="<%=face[i].HeadPic%>" alt="">
                 <sapn><%=face[i].Name%></sapn>
             </div>
-            <img src="/images/slide2.jpg" alt="">
+            <img src="<%=face[i].face%>" alt="">
             <h3>
                 <%=face[i].Title%>
             </h3>

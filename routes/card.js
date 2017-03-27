@@ -11,17 +11,17 @@ router.get('/', function (req, res, next) {
     });
 });
 router.get('/more', function (req, res, next) {
-    var index = 1;
-    var account = 9;//没一页的显示数量
-    var pages = 1;//初始化页数=1
-    
+    let index = 1;
+    let account = 9;//没一页的显示数量
+    let pages = 1;//初始化页数=1
     if (req.query.index) {
         index = req.query.index;
     }
+    let sort=req.query.sort?req.query.sort:'%'
     var start = (index - 1) * account;
-    userDao.getCards(start, account, res, function (result) {
+    userDao.getCards(start, account,sort, res, function (result) {
         pages = Math.ceil(result.totals.total / account);
-        res.render('moreCards',{pageAccount:pages,face:result.results})
+        res.render('moreCards',{pageAccount:pages,face:result.results,sort:result.sort})
     });
 });
 /*收藏*/

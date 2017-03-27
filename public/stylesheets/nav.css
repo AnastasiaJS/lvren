@@ -157,12 +157,12 @@ footer {
       background: rgba(253, 211, 211, 0.5);
       cursor: pointer; }
 
-#frm-reset, #frm-forget, #frm-register, #frm-login {
+#frm-reset, #frm-forget, #frm-register, #frm-login, #frm-commen {
   text-align: center; }
 
-[id^='md-'], #frm-reset, #frm-forget, #frm-register, #frm-login {
+[id^='md-'], #frm-reset, #frm-forget, #frm-register, #frm-login, #frm-commen {
   width: 100%; }
-  [id^='md-'] input, #frm-reset input, #frm-forget input, #frm-register input, #frm-login input {
+  [id^='md-'] input, #frm-reset input, #frm-forget input, #frm-register input, #frm-login input, #frm-commen input {
     width: 306px;
     height: 28px;
     border: 1px solid #d8d8d8;
@@ -176,16 +176,16 @@ footer {
     transition: box-shadow 0.25s linear 0s;
     -webkit-transition: box-shadow 0.25s linear 0s;
     margin-bottom: 1rem; }
-  [id^='md-'] #log-tip, [id^='md-'] #reg-tip, #frm-reset #log-tip, #frm-reset #reg-tip, #frm-forget #log-tip, #frm-forget #reg-tip, #frm-register #log-tip, #frm-register #reg-tip, #frm-login #log-tip, #frm-login #reg-tip {
+  [id^='md-'] #log-tip, [id^='md-'] #reg-tip, #frm-reset #log-tip, #frm-reset #reg-tip, #frm-forget #log-tip, #frm-forget #reg-tip, #frm-register #log-tip, #frm-register #reg-tip, #frm-login #log-tip, #frm-login #reg-tip, #frm-commen #log-tip, #frm-commen #reg-tip {
     color: #ff3c00; }
-    [id^='md-'] #log-tip i, [id^='md-'] #reg-tip i, #frm-reset #log-tip i, #frm-reset #reg-tip i, #frm-forget #log-tip i, #frm-forget #reg-tip i, #frm-register #log-tip i, #frm-register #reg-tip i, #frm-login #log-tip i, #frm-login #reg-tip i {
+    [id^='md-'] #log-tip i, [id^='md-'] #reg-tip i, #frm-reset #log-tip i, #frm-reset #reg-tip i, #frm-forget #log-tip i, #frm-forget #reg-tip i, #frm-register #log-tip i, #frm-register #reg-tip i, #frm-login #log-tip i, #frm-login #reg-tip i, #frm-commen #log-tip i, #frm-commen #reg-tip i {
       width: 16px;
       height: 16px;
       display: inline-block;
       vertical-align: middle;
       margin-right: 0.2em;
       background: url(/icon/tip.png) no-repeat #fff; }
-  [id^='md-'] #frm-logo, #frm-reset #frm-logo, #frm-forget #frm-logo, #frm-register #frm-logo, #frm-login #frm-logo {
+  [id^='md-'] #frm-logo, #frm-reset #frm-logo, #frm-forget #frm-logo, #frm-register #frm-logo, #frm-login #frm-logo, #frm-commen #frm-logo {
     color: #9A0000;
     width: 5rem;
     height: 5rem;

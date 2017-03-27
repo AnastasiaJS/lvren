@@ -7,8 +7,8 @@ var card = {
     login_judge: "select * from `user` where Uid=? and Password=?",
     resetPwd: "UPDATE `user` SET `Password`=? WHERE Uid=?",
     user: "select * from `user` where Uid=?",
-    sqltotal: 'select count(*) total from tourcard',
-    sqllimit: 'select tourcard.Uid,face,Title,Price,Name,Addr from tourcard,`user` WHERE  tourcard.Uid=`user`.Uid ORDER BY Uptime desc LIMIT ?,?',
+    sqltotal: 'select count(*) total from tourcard WHERE Sort LIKE ?',
+    sqllimit: 'select tourcard.Uid,face,Title,Price,Name,Addr,HeadPic from tourcard,`user` WHERE  tourcard.Uid=`user`.Uid AND Sort like ? ORDER BY Uptime desc LIMIT ?,?',
     getDetail: 'select *,year(NOW())-year(Birthday) Age from tourcard,`user` where tourcard.Uid=? and tourcard.Uid=user.Uid ',
     isSave: 'SELECT COUNT(*) num from save WHERE Uid=? AND Tid=?',
     saveNum: 'SELECT COUNT(*) num from save WHERE Tid=?',
@@ -43,5 +43,6 @@ var card = {
     getReply:'SELECT *,date_format(reply.Rtime,"%Y-%c-%d %H:%i") Time FROM reply,`user` WHERE `user`.Uid=reply.Uid AND reply.Rid=?',//新增评论
     getCommens:'SELECT *,date_format(message.Mtime,"%Y-%c-%d %H:%i") Time FROM message,`user`,tourcard WHERE `user`.Uid=message.Uid AND tourcard.Uid=message.Tid AND tourcard.Uid=? ORDER BY Mid DESC',//查找所有评论
     getReplies:'SELECT *,date_format(reply.Rtime,"%Y-%c-%d %H:%i") Time FROM reply,tourcard,`user`,message WHERE tourcard.Uid=? AND tourcard.Uid=message.Tid AND message.Mid=reply.Mid and message.Uid=`user`.Uid',//查找所有留言
+    getarticles:'SELECT * FROM articles',
 };
 module.exports = card;

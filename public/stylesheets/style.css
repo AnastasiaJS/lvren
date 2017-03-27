@@ -314,7 +314,7 @@
       border: solid 1px #fff; }
   .articles .article-main .article-list {
     width: 65%; }
-  .articles .article-main article {
+  .articles .article-main a {
     display: -webkit-flex;
     /* Safari */
     display: flex;
@@ -323,26 +323,26 @@
     margin: auto;
     border-bottom: solid 1px #ddd;
     min-width: 200px; }
-    .articles .article-main article .article-left {
+    .articles .article-main a .article-left {
       width: 20%; }
-      .articles .article-main article .article-left img {
+      .articles .article-main a .article-left img {
         height: 100px;
         width: 100px;
         position: relative;
         top: -50px;
-        margin-top: 50%;
+        margin-top: 70%;
         border-radius: 50%;
         object-fit: cover;
         vertical-align: middle; }
-    .articles .article-main article .article-right {
+    .articles .article-main a .article-right {
       padding: 1.5em;
       width: 65%;
       text-align: left; }
-      .articles .article-main article .article-right:hover {
+      .articles .article-main a .article-right:hover {
         cursor: pointer; }
-        .articles .article-main article .article-right:hover h1 {
+        .articles .article-main a .article-right:hover h1 {
           color: lightcoral; }
-      .articles .article-main article .article-right div {
+      .articles .article-main a .article-right div {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis; }

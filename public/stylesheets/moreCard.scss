@@ -45,7 +45,8 @@
         margin: 0.5em;
       }
       .place {
-        flex: 1;
+        float: right;
+        padding-right: 1.5rem;
         img {
           vertical-align: middle;
         }
@@ -57,12 +58,10 @@
 
   }
 }
-body{
-  margin-top: 6rem;
-}
+
 #more-cards {
   width: 960px;
-  margin: auto;
+  margin:4rem  auto;
   .main {
     width: 100%;
     margin: auto;

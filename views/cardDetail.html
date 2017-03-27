@@ -123,7 +123,7 @@
                         <div></div>
                         <input type="text" name="text">
                     </form>
-                    <a href="javascript:;" class="btn submit" id="btn-comment" onclick="comment('<%=card.Uid%>')" style="float: right;">评论</a>
+                    <a href="javascript:;" class="btn submit" id="btn-comment" onclick="comment('<%=card.Uid%>')" style="float: right;">给Ta留言</a>
                 </div>
                 <div id="commen">
                     <%for(let i=0;i< msgs.length;i++){%>
@@ -157,7 +157,7 @@
     </article>
     <aside>
         <div class="header">
-            <img src="<%=card.HeadPic%>" alt="">
+            <img src="<%=card.HeadPic%>" alt="" onclick="location.href='/ta?tid=<%=card.Uid%>'">
             <div class="name"><%= card.Name %></div>
             <p class="wow  pulse">
                 <cite>&ldquo;<%= card.Intro%>&rdquo;</cite>

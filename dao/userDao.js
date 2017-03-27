@@ -97,21 +97,30 @@ function isReg(uid, callback) {
     })
 };
 
-/*判断账户是否已注册===end*/
-function getCards(start, acount, res, callback) {
+
+function getCards(start, acount,sort, res, callback) {
+
 
     pool.getConnection(function (err, connection) {
-        connection.query($sql.sqltotal, function (err, total) {
+        connection.query($sql.sqltotal,[sort], function (err, total) {
             if (err) {
                 console.log("total错误：" + err.message);
             }
             else {
-                connection.query($sql.sqllimit, [start, acount], function (err, result) {
+                connection.query($sql.sqllimit, [sort,start, acount], function (err, result) {
                     if (err) {
                         console.log("sqllimit错误：" + err.message);
                     }
                     else {
-                        callback({totals: total[0], results: result});
+                        connection.query($sql.getarticles, [sort,start, acount], function (err, articles) {
+                            if (err) {
+                                console.log("getarticles：" + err);
+                            }
+                            else {
+                                callback({totals: total[0], results: result,sort,articles:articles});
+                            }
+                        })
+
                     }
                     connection.release();
                 });
@@ -632,6 +641,28 @@ function my(req, res, uid, callback) {
     })
 }
 
+function ta(req, res) {
+
+    let sqls=[$sql.getOrder0,$sql.getSetting,$sql.saveContent];
+    let tid=req.query.tid;
+    
+    mq.queries(sqls,[[tid,'%'],[tid],[tid]],function (err,results) {
+        if (err) {
+            //todo:错误处理
+            console.log('ta>>>>>>', err.message);
+            res.json({code:500})
+        } else {
+            console.log("results[0]>>",results[0])
+            res.render('Ta',{
+                code:200,
+                order0:results[0],
+                user:results[1][0],
+                save:results[2],
+            })
+        }
+    })
+}
+
 function getOrder(req, res, uid) {
     let type = req.query.otype, sql = $sql.getOrder0;
     if (req.query.order == 1) {
@@ -688,18 +719,6 @@ function order(req, res, uid) {
                 res.json({code: 200})
             }
         });
-    // pool.getConnection(function (err, connection) {
-    //     connection.query($sql.addOrder, [req.body.tid, uid, 0, req.body.appointment, req.body.price], function (err, result) {
-    //         if (err) {
-    //             console.log('addOrder>>>>>>>', err);
-    //             res.json({code: 500, msg: err});
-    //         }
-    //         else if (result.affectedRows > 0) {
-    //             res.json({code: 200})
-    //         }
-    //         connection.release();
-    //     })
-    // })
 }
 function changeState(req, res) {
     pool.getConnection(function (err, connection) {
@@ -770,6 +789,19 @@ function newsDetail(req, res) {
         }
     });
 }
+function article(req,res) {
+    pool.getConnection(function (err, connection) {
+        connection.query($sql.getarticles, function (err, result) {
+            if (err) {
+                res.render("error");
+            }
+            else {
+                res.render('article',{articles:result})
+            }
+            connection.release();
+        });
+    })
+}
 exports.getCards = getCards;
 /*more card分页*/
 exports.card_inner = card_inner;
@@ -800,6 +832,8 @@ exports.logout = logout;
 /*退出登录*/
 exports.my = my;
 /*获取我的个人主页*/
+exports.ta = ta;
+/*获取ta的个人主页*/
 exports.setting = setting;
 /*修改个人设置*/
 exports.getSetting = getSetting;
@@ -813,4 +847,6 @@ exports.changeState = changeState;
 exports.delOrder = delOrder;
 /*删除订单*/
 exports.newsDetail = newsDetail;
+/*获取消息详情*/
+exports.article = article;
 /*获取消息详情*/

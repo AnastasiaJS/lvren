@@ -52,6 +52,33 @@ function changeMy(e) {
             $("#tab1").addClass('active');
             break;
     }
+}//个人中心顶部tab切换=======
+function changeTa(e) {
+    let target = e.target;
+    for (let i = 1; i <= 3; i++) {
+        $("#tabT" + i).removeClass('active');
+        $("#Tuser").css('display', 'none');
+        $("#Torder").css('display', 'none');
+        $("#Tcollection").css('display', 'none');
+
+    }
+    switch (target.id) {
+        case 'tabT1':
+            $("#tabT1").addClass('active');
+            $("#Tuser").css('display', 'block');
+            break;
+        case 'tabT2':
+            $("#tabT2").addClass('active');
+            $("#Torder").css('display', 'block');
+            break;
+        case 'tabT3':
+            $("#tabT3").addClass('active');
+            $("#Tcollection").css('display', 'block');
+            break;
+        default:
+            $("#tabT1").addClass('active');
+            break;
+    }
 }
 
 function changeOrder(n) {

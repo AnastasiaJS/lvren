@@ -1,9 +1,6 @@
-body {
-  margin-top: 6rem; }
-
 #more-cards {
   width: 960px;
-  margin: auto; }
+  margin: 4rem  auto; }
   #more-cards .main {
     width: 100%;
     margin: auto; }
@@ -44,7 +41,8 @@ body {
         #more-cards .main .card .card-footer div {
           margin: 0.5em; }
         #more-cards .main .card .card-footer .place {
-          flex: 1; }
+          float: right;
+          padding-right: 1.5rem; }
           #more-cards .main .card .card-footer .place img {
             vertical-align: middle; }
         #more-cards .main .card .card-footer .price {
