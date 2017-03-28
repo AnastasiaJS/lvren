@@ -1,3 +1,6 @@
+#card-header{
+  width:100%;
+}
 #card {
   width: 960px;
   margin: 0.5em auto 12em;
@@ -16,18 +19,21 @@
       font-size: 32px;
     }
     .tip {
-      width: 85%;
+      width: 90%;
       display: flex;
       flex-flow: row wrap;
-      justify-content: space-between;
+      justify-content: space-around;
       align-items: center;
       line-height: 1em;
       margin: auto;
       .place{
         flex: 2;
       }
-      .rented, .remark {
+      .rented, .remark,.share {
         flex: 1;
+      }
+      .share{
+        cursor: pointer;
       }
       .save, .price, .rent {
         flex: 2;
@@ -37,11 +43,12 @@
         position: relative;
         i {
           background: url("/icon/local.png") no-repeat;
-          position: absolute;
-          left: 0;
-          vertical-align: middle;
-          width: 1.5em;
-          height: 1.5em;
+          //position: absolute;
+          //left: 0;
+          display: inline-block;
+          vertical-align: bottom;
+          width: 1.2em;
+          height: 1.2em;
         }
       }
       .price {

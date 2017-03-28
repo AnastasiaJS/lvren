@@ -228,3 +228,13 @@ function comment(tid) {
         }
     });
 }
+function shareCard(title,face,name) {
+    console.log(face)
+    window.sharetitle = `分享了${name}的“${title}”\n （来自旅人网）`;
+    window.shareUrl = face;
+    share();
+}
+function share(){
+    //d指的是window
+    (function(s,d,e){try{}catch(e){}var f='http://v.t.sina.com.cn/share/share.php?',u=d.location.href,p=['url=',e(u),'&title=',e(window.sharetitle),'&appkey=2924220432','&pic=',e(window.shareUrl)].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent);
+}

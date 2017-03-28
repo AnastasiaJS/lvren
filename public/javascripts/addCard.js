@@ -116,13 +116,15 @@ $("#add-frm").submit(function (e) {
         beforeSend: function () {
             layer.msg('上传中', {
                 icon: 16
-                ,shade: 0.01
+                ,shade: 0.01,
+                time: 10000
             });
             // 禁用按钮防止重复提交，发送前响应
             $("#btn-addCard").attr({ disabled: "disabled" });
 
         },
         success: function (data) {
+            layer.closeAll();
             if (200 === data.code) {
                 layer.confirm('发布成功!',{
                     btn:['去看看','留在个人主页']

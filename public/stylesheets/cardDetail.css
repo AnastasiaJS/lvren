@@ -1,3 +1,6 @@
+#card-header {
+  width: 100%; }
+
 #card {
   width: 960px;
   margin: 0.5em auto 12em;
@@ -15,28 +18,29 @@
     #card article h1 {
       font-size: 32px; }
     #card article .tip {
-      width: 85%;
+      width: 90%;
       display: flex;
       flex-flow: row wrap;
-      justify-content: space-between;
+      justify-content: space-around;
       align-items: center;
       line-height: 1em;
       margin: auto; }
       #card article .tip .place {
         flex: 2; }
-      #card article .tip .rented, #card article .tip .remark {
+      #card article .tip .rented, #card article .tip .remark, #card article .tip .share {
         flex: 1; }
+      #card article .tip .share {
+        cursor: pointer; }
       #card article .tip .save, #card article .tip .price, #card article .tip .rent {
         flex: 2; }
       #card article .tip .place {
         position: relative; }
         #card article .tip .place i {
           background: url("/icon/local.png") no-repeat;
-          position: absolute;
-          left: 0;
-          vertical-align: middle;
-          width: 1.5em;
-          height: 1.5em; }
+          display: inline-block;
+          vertical-align: bottom;
+          width: 1.2em;
+          height: 1.2em; }
       #card article .tip .price {
         color: lightcoral;
         font-weight: 600; }
