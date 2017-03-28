@@ -121,10 +121,10 @@ function openRegister() {
             <form action="javascript:;" id="frm-register">
                 <input type="text" placeholder="邮箱" name="uid"><br>
                 <input type="password" name="password" placeholder="密码(6-18位)"
-                       required><br>
+                       ><br>
                 <input type="password" name="password2" placeholder="确认密码" ><br>
                 <input type="text"  name="code" placeholder="验证码" style="width: 6rem;" >
-                <a class="btn delete_order" id="btn-code">获取验证码</a><br>
+                <button class="btn delete_order" style="border: none" id="btn-code">获取验证码</button><br>
             </form>
         </div>
     </div>`;
@@ -210,11 +210,8 @@ function openRegister() {
             openLogin();
         }
     });
-    // document.getElementById("btn-code").addEventListener('click',getCode($('#frm-register').get(0).uid.value))
-    // function getCode(uid) {
 
 
-    // }
 
     $('#btn-code').click(function () {
         let data=$('#frm-register').get(0);
@@ -234,8 +231,24 @@ function openRegister() {
             beforeSend: function () {
 
                 // 禁用按钮防止重复提交，发送前响应
-                // document.getElementById("btn-code").removeEventListener('click',getCode);
-                $("#btn-code").text('发送中');
+                $("#btn-code").attr("disabled","disabled");
+                $("#btn-code").css("cursor","not-allow");
+                let i=60;
+                let timer=setTimeout(function () {
+                    $("#btn-code").removeAttr("disabled");
+                },60000);
+                let inter=setInterval(function () {
+                    $("#btn-code").text(i+"秒后重新发送");
+                    i--;
+                    if(i<0){
+                        clearInterval(inter);
+                        clearTimeout(timer);
+                        i=null;
+                        $("#btn-code").text('获取验证码');
+                        $("#btn-code").css('cursor','pointer');
+                    }
+                },1000);
+                // $("#btn-code").text('发送中');
 
             },
             success: function (data) {
@@ -249,8 +262,6 @@ function openRegister() {
             },
             complete: function () {//完成响应
 
-                // document.getElementById("btn-code").addEventListener('click',getCode)
-                $("#btn-code").text('获取验证码');
             },
             error: function (data) {
                 console.log('error>>', data)
