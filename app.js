@@ -1,4 +1,5 @@
 var express = require('express');
+var webpack = require('webpack');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -19,6 +20,7 @@ app.all('*', function(req, res, next) {
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
   next();
 });
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));//放模板文件的目录
@@ -41,6 +43,7 @@ app.use(require('node-sass-middleware')({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ secret: 'Anastasia', key: 'qianchuan',cookie: {maxAge: 12000000 }}));//session有效时间20分钟
+
 
 
 app.use('/', index);

@@ -129,6 +129,8 @@ function openRegister() {
         </div>
     </div>`;
 
+    let pattPsw = /^[a-z0-9_-]{6,18}$/;
+    let pattEm = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
     layer.open({
         type: 1
         , title: false //不显示标题栏
@@ -143,8 +145,6 @@ function openRegister() {
         , yes: function () {
 
             let data = $('#frm-register').get(0);
-            let pattPsw = /^[a-z0-9_-]{6,18}$/;
-            let pattEm = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
             if (!data.uid.value) {
                 $('#reg-tip').html('<i></i>账号不能为空');
                 return false;
@@ -217,7 +217,15 @@ function openRegister() {
     // }
 
     $('#btn-code').click(function () {
-        let data=$('#frm-register').get(0)
+        let data=$('#frm-register').get(0);
+        if(data.uid.value==''){
+            $('#reg-tip').html('<i></i>请输入邮箱');
+            return false;
+        }
+        if (!pattEm.test(data.uid.value)) {
+            $('#reg-tip').html('<i></i>邮箱格式错误');
+            return false;
+        }
         $.ajax({
             url: '/getcode',
             type: 'POST',
