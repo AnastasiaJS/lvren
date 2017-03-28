@@ -141,6 +141,8 @@
 .gallery-top {
   height: 100%;
   width: 100%;
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
   .swiper-slide {
     position: relative;
     img {
@@ -157,8 +159,8 @@
       z-index: 200;
     }
     .text {
-      top: 10rem;
-      right: 5rem;
+      top: 20em;
+      right: 8em;
       z-index: 200;
       font-size: 1.5rem;
       font-weight: normal;
@@ -446,7 +448,21 @@
     }
   }
 }
+.question{
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  line-height: 3rem;
+  border: 1px solid #e5e5e5;
+  color: #999;
+  text-align: center;
+  background: #fff;
+  position: fixed;
+  bottom: 6rem;
+  left: 2rem;
+  cursor: pointer;
 
+}
 @media screen and (min-width: 1600px) {
   body {
     //width:960px;

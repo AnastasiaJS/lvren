@@ -14,6 +14,7 @@ var galleryTop = new Swiper('.gallery-top', {
     // 如果需要前进后退按钮
     nextButton: '.swiper-button-next',
     prevButton: '.swiper-button-prev',
+    effect: 'fade',
     onInit: function (swiper) { //Swiper2.x的初始化是onFirstInit
         swiperAnimateCache(swiper); //隐藏动画元素
         swiperAnimate(swiper); //初始化完成开始动画
