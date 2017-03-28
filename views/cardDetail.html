@@ -34,6 +34,7 @@
                 <div class="price">￥ <big><%=card.Price%></big> 元/次</div>
                 <div class="rented"><%=ordernum%>人租过</div>
                 <div class="remark"><%=msgs.length%>条留言</div>
+                <div class="share" onclick="shareCard('<%=card.Title%>','<%=card.Face%>','<%=card.Name%>')"><img src="/icon/share.png" style="vertical-align: middle" alt="分享到微博"></div>
                 <div class="save">
                     <button onclick="save('<%=card.Uid%>')">
                         <%
@@ -47,9 +48,11 @@
                 </div>
                 <div class="rent">
                     <button onclick="orderDiolog('<%=card.Face%>','<%=card.Title%>','<%=card.Addr%>','<%=card.Price%>','<%=card.Uid%>')">
+
                         租ta
                     </button>
                 </div>
+
             </div>
         </div>
         <div class="swiper-container">

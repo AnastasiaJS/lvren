@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>旅人网 各项须知</title>
+    <%- include ./layoutCss.html%>
+    <style>
+        #menu{
+            background: #fff;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2)
+        }
+        .icon {
+            /* 通过设置 font-size 来改变图标大小 */
+            font-size: 1em;
+            width: 2em; height: 2em;
+            /* 图标和文字相邻时，垂直对齐 */
+            vertical-align: -0.15em;
+            /* 通过设置 color 来改变 SVG 的颜色/fill */
+            fill: currentColor;
+            /* path 和 stroke 溢出 viewBox 部分在 IE 下会显示
+               normalize.css 中也包含这行 */
+            overflow: hidden;
+        }
+        .main{
+            width:960px;
+            background: #fff;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+            margin:4rem auto;
+            padding: 6rem;
+            color: #666;
+            line-height: 1.5rem;
+        }
+        h2{
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+        h3{
+            margin:6rem 0 0 0;
+        }
+        p{
+            height:1.5rem;
+            width:100%;
+        }
+    </style>
+</head>
+<body>
+<%- include ./nav.html%>
+    <div class="main">
+        <h2>租人须知（必看）</h2>
+        <dl>
+            <dt>
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-feiji"></use>
+                </svg>
+                见面须知</dt>
+            <dd>你在选“当地人”的同时，“当地人”也在选你哦（双向选择）
+
+                所以尽量完善自己的资料，上传你最有型的照片，一定要最有型！^_^
+
+                如果没有，建议去照相馆拍一张……（此条主要针对男性雇主）
+
+                这样成功见面的几率才高哦！</dd>
+            <dt>
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-xiaoqiche"></use>
+                </svg>防狼喷雾</dt>
+            <dd>注意！这是一剂防狼喷雾，包含几种成分：<br>
+
+                ①尽可能选择公开场合见面；<br>
+
+                ②私密场合尽可能避免单独见面；<br>
+
+                ③遇到骚扰请举报TA，并说明理由。<br>
+
+                ④如果你有特殊防身术，尽管开打！！！</dd>
+            <dt>
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-zihangche"></use>
+                </svg>关于租金</dt>
+            <dd>每一个人的时间都是有价值的，
+
+                价格不要太任性哦，如果互相看对眼可以考虑砍价。
+
+                见面前的租金会在旅人网平台暂时保管，
+
+                见面结束后经过雇主确认后才会到对方手上。</dd>
+        </dl>
+
+        <h3>我想对雇主的你说</h3>
+        <ul>
+            <li>Q：为什么想租TA，我也要填写资料？</li>
+            <li>A：“当地人”与雇主是一个相互选择的过程，填写更真诚的资料更容易成单哦~你提供的信息可供“当地人”初步了解你，大部分“当地人”有自己的工作，需要安排时间来提供项目体验。
+            </li>
+            <p></p>
+            <li>Q：“当地人”没有联系我怎么办？</li>
+            <li>A：“当地人”与雇主是一个相互选择的过程，填写更真诚的资料更容易成单哦~你提供的信息可供“当地人”初步了解你，大部分“当地人”有自己的工作，需要安排时间来提供项目体验。
+            </li>
+            <p></p>
+            <li>Q：为什么想租TA，我也要填写资料？</li>
+            <li>A：提交初步意向订单后，能看到“当地人”的联系方式，可以主动加微信联系哦~</li>
+            <p></p>
+            <li>Q：为什么对方不通过我的微信验证？</li>
+            <li>A：建议您在添加好友的备注写明“蚂蜂窝来租我”或者写上对方的接头暗号，再不行，就换一张帅气/美的头像！</li>
+            <p></p>
+            <li>Q：跟“当地人”协商好时间价格后，要做什么？</li>
+            <li>A：等“当地人”发起一个订单，支付它。如果“当地人”迟迟不发起订单，记得提醒TA</li>
+            <p></p>
+            <li>Q：想修改时间怎么办？</li>
+            <li>A：可以跟“当地人”协商好后，取消订单后重新拍一遍。如已支付完成无法取消，请拨打客服XXXXX</li>
+            <p></p>
+            <li>Q：付款后，临时有事，想取消订单怎么办？</li>
+            <li>A：作为一个靠谱的人尽量不要让以上情况发生！如实在有意外情况，尽可能早地跟“当地人”沟通，待对方同意后，拨打客服xxxxx取消订单。如果对方不同意，有可能租金不能退哦~</li>
+        </ul>
+
+    </div>
+<%-include js.html%>
+</body>
+</html>

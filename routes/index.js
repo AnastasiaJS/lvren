@@ -11,6 +11,9 @@ router.get('/', function (req, res, next) {
         res.render('index', {face: result.results,articles:result.articles})
     });
 });
+router.get('/question', function (req, res, next) {
+    res.render('question')
+});
 
 router.post('/login', function (req, res, next) {
     userDao.login(req, res)
