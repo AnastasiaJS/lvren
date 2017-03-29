@@ -627,7 +627,7 @@ function isLogin(req, res) {
                 }
                 else if (result) {
                     req.session.uid = result[0].Uid;
-                    res.json({code: 200, nickname: result[0].Uid})
+                    res.json({code: 200,user:result[0], nickname: result[0].Uid})
                 }
                 else {
                     res.json({code: 500})

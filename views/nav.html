@@ -27,7 +27,8 @@
         if (data.code == 200) {
             $("#not-login").css("display", "none");
             $("#logined").css("display", "block");
-            $("#nav-nickname").text(data.nickname);
+            $("#nav-nickname").text(data.user.Name);
+            $("#logined img").attr('src',data.user.HeadPic);
         } else {
             $("#logined").css("display", "none");
             $("#not-login").css("display", "block");
