@@ -133,7 +133,7 @@ function fliterOrder(n) {
                         $("#order-filter").html('');
                         $("#order-default").css("display", "block");
                     } else if (state == 0) {
-                        queren = `<span class="font_c" style="color:red">未付款</span>`
+                        queren = `<span class="font_c" style="color:red">待确认</span>`
                     } else if (state == 1) {
                         btn = `<a class="btn comment_order" id="fukuan${order[i].Oid}" onclick="alipay('${order[i].Oid}','${order[i].Appointment}','${order[i].Price}')">付款</a>`;
                         queren = ''
@@ -166,7 +166,7 @@ function fliterOrder(n) {
                     </dd>
                 </dl>
                 <div class="ord_c">
-                  
+                  ${queren}
                           
                 </div>
                 <div class="ord_r">

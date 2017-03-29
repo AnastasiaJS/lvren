@@ -211,7 +211,7 @@ function comment(req, res) {
             skip:function(i, arg, results) {//skip判断是否忽略当前SQL的执行,返回true忽略,false不忽略
                 /*arg为当前sql的参数*/
                 let skip=false;
-                console.log(results)
+                console.log('results[0]',results[0]);
                 switch (i){
                     case 1:{
                         skip=results[0].affectedRows?false:true;

@@ -163,7 +163,7 @@ function order(tid,price) {
             }
         },
         complete: function () {//完成响应
-            layer.closeAll();
+            // layer.closeAll();
             $("#btn-sendOrder").removeAttr("disabled");
         },
         error: function () {
