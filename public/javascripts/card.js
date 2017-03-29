@@ -221,6 +221,7 @@ function comment(tid) {
         },
         complete: function () {//完成响应
             layer.closeAll('loading');
+            $('#frm-commen input[name="text"]').val('');
             $("#btn-comment").removeAttr("disabled");
         },
         error: function () {

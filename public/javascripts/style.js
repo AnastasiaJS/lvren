@@ -3,13 +3,14 @@
 // window.onscroll = function () {
 //     let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
 //
-//
-//     if (scrollTop > 2 * 14) {
-//         $("header").css("background", "rgba(255,255,255,1)");
+//     if (scrollTop > 800) {
+//         $(".menu-list").css("background", "rgba(255,255,255,1)");
+//         $(".menu-list").css("dispaly", "block");
 //         scrollTop=null;
 //         return ;
 //     } else {
-//         $("header").css("background", "rgba(255,255,255,0)")
+//         $(".menu-list").css("background", "rgba(255,255,255,0)")
+//         $(".menu-list").css("dispaly", "none");
 //     }
 // };
 

@@ -70,7 +70,7 @@
 
     </div>
 
-    <div class="popular">
+    <div class="popular" id="popular">
         <div class="title">
             <div class="wow bounceInLeft title-big">最受欢迎旅人</div>
             <p class="wow bounce small-sentence">&ldquo;生命中的全部偶然，其实都是命中注定。&rdquo; <cite class="author">&mdash;
@@ -115,7 +115,7 @@
     </div>
 
     <!--分类-->
-    <div class="type">
+    <div class="type" id="sort">
         <div class="title">
             <div class="wow bounceInLeft title-big">主题精选</div>
             <p class="wow bounce small-sentence">&ldquo;不同的旅人不同的玩法，选一个你喜欢的。&rdquo; <cite class="author">
@@ -155,8 +155,7 @@
 
         </div>
     </div>
-
-    <div class="music">
+    <div class="music" id="music">
         <img class="music-bg" src="/images/skllr.jpg" alt="时空恋旅人">
         <audio id="aud" loop autoplay>
             <source src="/chengdu.mp3" type="audio/mpeg">
@@ -173,7 +172,7 @@
             <div id="ani6"></div>
         </div>
     </div>
-    <div class="articles">
+    <div class="articles" id="articles">
         <div class="title">
             <div class="wow bounceInLeft title-big">我的城市故事</div>
             <p class="wow bounce small-sentence"></cite>
@@ -213,6 +212,14 @@
     <a class="wow flipInX question" href="/question">
         须知
     </a>
+    <div class="menu-list" >
+        <ul>
+            <li><a href="#popular">最受欢迎旅人</a></li>
+            <li><a href="#sort">主题精选</a></li>
+            <li><a href="#music">音乐控制</a></li>
+            <li><a href="#articles">城市故事</a></li>
+        </ul>
+    </div>
 </div>
 <%-include js.html%>
 <script src="/javascripts/swiper.js"></script>
