@@ -99,33 +99,37 @@ function isReg(uid, callback) {
 
 
 function getCards(start, acount,sort, res, callback) {
-
-
     pool.getConnection(function (err, connection) {
-        connection.query($sql.sqltotal,[sort], function (err, total) {
-            if (err) {
-                console.log("total错误：" + err.message);
-            }
-            else {
-                connection.query($sql.sqllimit, [sort,start, acount], function (err, result) {
-                    if (err) {
-                        console.log("sqllimit错误：" + err.message);
-                    }
-                    else {
-                        connection.query($sql.getarticles, [sort,start, acount], function (err, articles) {
-                            if (err) {
-                                console.log("getarticles：" + err);
-                            }
-                            else {
-                                callback({totals: total[0], results: result,sort,articles:articles});
-                            }
-                        })
+        if(err){
+            console.log('getCards',err);
+            res.render('error')
+        }
+        else{
+            connection.query($sql.sqltotal,[sort], function (err, total) {
+                if (err) {
+                    console.log("total错误：" + err.message);
+                }
+                else {
+                    connection.query($sql.sqllimit, [sort,start, acount], function (err, result) {
+                        if (err) {
+                            console.log("sqllimit错误：" + err.message);
+                        }
+                        else {
+                            connection.query($sql.getarticles, [sort,start, acount], function (err, articles) {
+                                if (err) {
+                                    console.log("getarticles：" + err);
+                                }
+                                else {
+                                    callback({totals: total[0], results: result,sort,articles:articles});
+                                }
+                            })
 
-                    }
-                    connection.release();
-                });
-            }
-        });
+                        }
+                        connection.release();
+                    });
+                }
+            });
+        }
     })
 
 }
@@ -391,9 +395,10 @@ function setting(req, res, uid) {
     let body = req.body;
     console.log(body);
     let headPic;
+
     let promise = new Promise((resolve, reject)=> {
-        console.log("req.files.HeadPic>>>>>>", req.files.HeadPic)
-        if (req.files.HeadPic) {
+        let size=req.files.headPic.size;
+        if (size) {
             uploadImg(req.files.headPic, function (data) {
                 if (data.code == 200) {
                     headPic = data.url;
@@ -415,6 +420,7 @@ function setting(req, res, uid) {
                 headPic, body.intro, uid], function (err, result) {
                 if (err) {
                     console.log(err.message)
+                    res.render('error')
                 }
                 else {
                     res.json({code: 200})
@@ -429,22 +435,46 @@ function setting(req, res, uid) {
 
 }
 function getSetting(req, res, uid) {
+    // let sql=[$sql.getSetting];
+    // mq.queries(sql,[uid], function (err, result) {
+    //     if (err) {
+    //         console.log(err.message);
+    //         // res.render('error');
+    //     }
+    //     else {
+    //         if (result[0].HeadPic) {
+    //             req.session.HeadPic = result[0].HeadPic;
+    //             // console.log('req.session.HeadPic>>>>>>', req.session.HeadPic)
+    //         }
+    //         res.render('setting', {
+    //             user: result[0]
+    //         })
+    //     }
+    //     // connection.release();
+    // });
     pool.getConnection(function (err, connection) {
-        connection.query($sql.getSetting, [uid], function (err, result) {
-            if (err) {
-                console.log(err.message)
-            }
-            else {
-                if (result[0].HeadPic) {
-                    req.session.HeadPic = result[0].HeadPic;
-                    console.log('req.session.HeadPic>>>>>>', req.session.HeadPic)
+        if(err){
+            console.log('............',err);
+            res.render('error');
+        }else{
+            connection.query($sql.getSetting, [uid], function (err, result) {
+                if (err) {
+                    console.log('/////////',err);
+                    res.render('error');
                 }
-                res.render('setting', {
-                    user: result[0]
-                })
-            }
-            connection.release();
-        });
+                else {
+                    if (result[0].HeadPic) {
+                        req.session.HeadPic = result[0].HeadPic;
+                        console.log('req.session.HeadPic>>>>>>', req.session.HeadPic)
+                    }
+                    res.render('setting', {
+                        user: result[0]
+                    })
+                }
+                connection.release();
+            });
+        }
+
     });
 }
 
@@ -467,7 +497,7 @@ function login(req, res) {
                         console.log(JSON.stringify(result));
                         if (result.length > 0) {
                             req.session.uid = result[0].Uid;
-                            console.log('login ok')
+                            console.log('login ok');
                             res.json({
                                 code: 200,
                                 msg: "登录成功",
@@ -622,36 +652,39 @@ function my(req, res, uid, callback) {
     pool.getConnection(function (err, connection) {
         connection.query($sql.completeInfo,[uid],function (err,info) {
             if(!info[0].Name){
-                res.redirect('/users/setting')
+                res.redirect('/users/setting');
+                connection.release();
+            }else{
+                mq.queries(sqls,[[uid, '%'], [uid],[uid],[uid],[uid],[uid],[uid]],function (err,results) {
+                    if (err) {
+                        //todo:错误处理
+                        console.log('getOrder>>>>>>', err.message);
+                        res.render('error');
+                    } else {
+                        if(results[1].length>0){
+                            req.session.face = results[1][0].Face;
+                            req.session.photos = results[1][0].Photos;
+                            haveCard=true;
+                        }else{
+                            haveCard=false;
+                        }
+                    }
+                    console.log('results[5]>>>>>>',results[5])
+                    callback({
+                        card: results[1][0],
+                        haveCard: haveCard,
+                        order0: results[0],
+                        user:results[2][0],
+                        save:results[3],
+                        newsO:results[4],
+                        newsM:results[5],
+                        newsR:results[6],
+                    })
+                })
             }
-            connection.release();
         });
     });
-    mq.queries(sqls,[[uid, '%'], [uid],[uid],[uid],[uid],[uid],[uid]],function (err,results) {
-        if (err) {
-            //todo:错误处理
-            console.log('getOrder>>>>>>', err.message)
-        } else {
-            if(results[1].length>0){
-                req.session.face = results[1][0].Face;
-                req.session.photos = results[1][0].Photos;
-                haveCard=true;
-            }else{
-                haveCard=false;
-            }
-        }
-        console.log(results[5])
-        callback({
-            card: results[1][0], 
-            haveCard: haveCard,
-            order0: results[0],
-            user:results[2][0],
-            save:results[3],
-            newsO:results[4],
-            newsM:results[5],
-            newsR:results[6],
-        })
-    })
+
 }
 
 function ta(req, res) {
