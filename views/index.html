@@ -3,6 +3,7 @@
 <head>
     <title>lvren</title>
     <link rel='stylesheet' href='/stylesheets/style.css'/>
+
     <%- include layoutCss.html%>
     <style type="text/css">
         .icon {
@@ -85,7 +86,7 @@
             <% for(let i=0;i< face.length;i++){%>
             <div class="card" onclick="openCard('<%=face[i].Uid%>')">
                 <div class="header">
-                    <img src="http://p3.music.126.net/IAZKcW9XEAD-3Ce7xscrWA==/3264450024529041.jpg?param=200y200"
+                    <img src="<%=face[i].HeadPic%>"
                          alt="">
                     <span><%=face[i].Name%></span>
                 </div>
@@ -93,6 +94,7 @@
                 <h3>
                     <%=face[i].Title%>
                 </h3>
+
                 <div class="card-footer">
                     <div class="price">
                         <span style="font-size: 1.5em;color:#F08080"><%=face[i].Price%></span>元/次
@@ -101,6 +103,20 @@
                         <img src="/icon/local.png" alt="">
                         <span><%=face[i].Addr%></span>
                     </div>
+                </div>
+                <% let s='自然';
+                switch(face[i].Sort){
+                case 0:s='自然';break;
+                case 1:s='人文';break;
+                case 2:s='传统饮食';break;
+                case 3:s='都市';break;
+                case 4:s='田园风光';break;
+                case 5:s='文化与工艺';break;
+                }
+                %>
+                <div class="card-footer2" style="color: #999">
+                    <div><span ><%=face[i].Uptime%></span></div>
+                    <div style="text-align: center"><span >类别：<%=s%></span></div>
                 </div>
             </div>
             <%}%>

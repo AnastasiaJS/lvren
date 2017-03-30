@@ -29,7 +29,8 @@ body, html {
       border: solid 2px lightcoral; }
     .carousel .gallery-thumbs .swiper-slide {
       width: 100px;
-      height: 70px; }
+      min-height: 420px;
+      overflow: hidden; }
       .carousel .gallery-thumbs .swiper-slide img {
         width: 100%;
         height: 100%;
@@ -216,7 +217,7 @@ body, html {
       margin: 1em auto; }
     .popular .main .card .card-footer, .articles .main .card .card-footer {
       position: absolute;
-      bottom: 1em;
+      bottom: 3em;
       display: flex;
       align-items: center;
       width: 100%;
@@ -230,6 +231,16 @@ body, html {
           vertical-align: middle; }
       .popular .main .card .card-footer .price, .articles .main .card .card-footer .price {
         flex: 2; }
+    .popular .main .card .card-footer2, .articles .main .card .card-footer2 {
+      position: absolute;
+      bottom: 1em;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      justify-content: space-around;
+      text-align: left; }
+      .popular .main .card .card-footer2 div, .articles .main .card .card-footer2 div {
+        flex: 1; }
 
 .music {
   position: relative;
@@ -382,7 +393,14 @@ body, html {
     height: 100%; }
     .menu-list ul li {
       line-height: 2rem;
-      padding: 0 1rem; }
+      padding: 0; }
+      .menu-list ul li a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding: 0 1rem;
+        margin: 0;
+        box-sizing: border-box; }
 
 @media screen and (min-width: 1600px) {
   .carousel {

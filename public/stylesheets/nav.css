@@ -187,7 +187,7 @@ footer {
       display: inline-block;
       vertical-align: middle;
       margin-right: 0.2em;
-      background: url(/icon/tip.png) no-repeat white; }
+      background: url(/icon/tip.png) no-repeat #fff; }
   [id^='md-'] #frm-logo, #frm-reset #frm-logo, #frm-forget #frm-logo, #frm-register #frm-logo, #frm-login #frm-logo, #frm-commen #frm-logo {
     color: #9A0000;
     width: 5rem;
@@ -242,3 +242,8 @@ textarea {
   color: #fff;
   margin-bottom: 0.5rem;
   border: none; }
+
+img {
+  object-fit: cover; }
+
+/*# sourceMappingURL=nav.css.map */

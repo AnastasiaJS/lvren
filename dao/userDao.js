@@ -122,10 +122,10 @@ function getCards(start, acount,sort, res, callback) {
                                 else {
                                     callback({totals: total[0], results: result,sort,articles:articles});
                                 }
+                                connection.release();
                             })
 
                         }
-                        connection.release();
                     });
                 }
             });

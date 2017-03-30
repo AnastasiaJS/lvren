@@ -29,7 +29,6 @@
     /*首页导航滚动*/
     $('.menu-list').click(function (e) {
         let _this=e.target.href.split('#')[1];
-        console.log(_this)
             $('html,body').animate({
                 scrollTop:$('#'+_this).offset().top
             },600)

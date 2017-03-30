@@ -148,7 +148,7 @@ function fliterOrder(n) {
                     $("#order-filter").append(`<div class="order">
             <div class="ord_top">
                 <span class="time">${order[i].OrderTime}</span><span>订单号：${order[i].Oid}</span>
-                <span class="name">当地人：<a href="/rent/detail-9.html">${order[i].Name}</a></span>
+                <span class="name">当地人：<a href="/ta?tid=${order[i].Uid}">${order[i].Name}</a></span>
                 <span class="contact" title="联系Ta"onclick="connectTa('${order[i].Wechat}','${order[i].Anhao}')"><i></i>联系Ta</span>
             </div>
             <div class="ord_bottom">
@@ -159,7 +159,7 @@ function fliterOrder(n) {
                                 alt="" width="100%"></a>
                     </dt>
                     <dd>
-                        <h2><a href="/rent/detail-9.html">${order[i].Title}</a></h2>
+                        <h2><a href="/card?card=${order[i].Uid}">${order[i].Title}</a></h2>
                         <p class="address"><i></i>${order[i].Addr}</p>
                         <p class="time">预约时间：${order[i].Appointment}</p>
                         <p class="place">见面地点：待确认</p>
@@ -204,7 +204,7 @@ function fliterOrder(n) {
                         queren = `<span class="font_c" style="color: green">等待对方付款</span>`
                     } else if (order[i].State == '2') {
                         btn = '';
-                        queren = `<span class="font_c" style="color: green">在约定的时间地点和对方见面吧</span>>`
+                        queren = `<span class="font_c" style="color: green">在约定的时间地点和对方见面吧</span>`
                     } else if (order[i].State == '3') {
                         btn = `<a class="btn comment_order">评价</a>`;
                         queren = `<span class="font_c" style="color: green">已完成</span>`
@@ -215,11 +215,11 @@ function fliterOrder(n) {
                     }
                     $("#order-man").append(`<dl class="man" id="order${order[i].Oid}">
                 <dt>
-                    <a href="/card?card=${order[i].Uid}"><img src="${order[i].HeadPic}" >
+                    <a href="/ta?tid=${order[i].Uid}"><img src="${order[i].HeadPic}" >
                     </a>
                 </dt>
                 <dd>
-                    <h2><a href="/">Ta:${order[i].Name}</a></h2>
+                    <h2><a href="/ta?tid=${order[i].Uid}">Ta:${order[i].Name}</a></h2>
                     <p class="address"><i></i>旅游地点：${order[i].Addr}</p>
                     <p class="orderTime">下单时间：${order[i].OrderTime} </p>
                     ${appointment}

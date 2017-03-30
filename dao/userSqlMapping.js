@@ -8,7 +8,7 @@ var card = {
     resetPwd: "UPDATE `user` SET `Password`=? WHERE Uid=?",
     user: "select * from `user` where Uid=?",
     sqltotal: 'select count(*) total from tourcard WHERE Sort LIKE ?',
-    sqllimit: 'select tourcard.Uid,face,Title,Price,Name,Addr,HeadPic from tourcard,`user` WHERE  tourcard.Uid=`user`.Uid AND Sort like ? ORDER BY Uptime desc LIMIT ?,?',
+    sqllimit: 'select tourcard.Uid,date_format(Uptime,"%Y-%c-%d %H:%i") Uptime,Sort,face,Title,Price,Name,Addr,HeadPic from tourcard,`user` WHERE  tourcard.Uid=`user`.Uid AND Sort like ? ORDER BY Uptime desc LIMIT ?,?',
     getDetail: 'select *,year(NOW())-year(Birthday) Age from tourcard,`user` where tourcard.Uid=? and tourcard.Uid=user.Uid ',
     isSave: 'SELECT COUNT(*) num from save WHERE Uid=? AND Tid=?',
     saveNum: 'SELECT COUNT(*) num from save WHERE Tid=?',
