@@ -17,7 +17,13 @@
                 <dd>
                     <div class="dongtai_infor">
                         <div class="one">
+                            <%
+                            if(newsM[i].Flag){
+                            %>
+                            <span class="name" style="color: #999"> 用户消息(已读) - </span>
+                            <%}else{%>
                             <span class="name"> 用户消息 - </span>
+                            <%}%>
                             <span class="time_ly"><%=newsM[i].Ntime%></span>
                         </div>
                         <div class="two">
@@ -30,7 +36,7 @@
         <%}%>
     </div>
 
-    <div class="content reply-news">
+    <div class="content reply-news"  style="display: none;">
         <%
         for(let i=0;i< newsR.length;i++){
         %>
@@ -42,7 +48,13 @@
                 <dd>
                     <div class="dongtai_infor">
                         <div class="one">
+                            <%
+                            if(newsR[i].Flag){
+                            %>
+                            <span class="name" style="color: #999"> 用户消息(已读) - </span>
+                            <%}else{%>
                             <span class="name"> 用户消息 - </span>
+                            <%}%>
                             <span class="time_ly"><%=newsR[i].Ntime%></span>
                         </div>
                         <div class="two">
@@ -75,7 +87,13 @@
                 <dd>
                     <div class="dongtai_infor">
                         <div class="one">
+                            <%
+                            if(newsO[i].Flag){
+                            %>
+                            <span class="name" style="color: #999"> 用户消息(已读) - </span>
+                            <%}else{%>
                             <span class="name"> 用户消息 - </span>
+                            <%}%>
                             <span class="time_ly"><%=newsO[i].Ntime%></span>
                         </div>
                         <div class="two">

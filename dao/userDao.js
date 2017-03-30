@@ -483,8 +483,6 @@ function login(req, res) {
     var pwd = req.body.password;
     //直接对"123456"字符串加密
     var encode = pwdMd5.pwdMd5(pwd);
-    // let isReg=isReg(uid)
-    // console.log(isReg)
 
     isReg(uid, function (data) {
         if (data.code == 1) {
@@ -615,7 +613,6 @@ function register(req, res) {
         }
     })
 }
-
 function isLogin(req, res) {
     if (req.session.uid) {
         //若已登录返回用户相关信息
@@ -641,9 +638,9 @@ function isLogin(req, res) {
 }
 function logout(req, res) {
     req.session.uid = null;
+    req.session.url=null;
     res.redirect('/');
 }
-
 function my(req, res, uid, callback) {
 
     let sqls=[$sql.getOrder0,$sql.getDetail,$sql.getSetting,$sql.saveContent,$sql.getNewsListO,$sql.getNewsListM,$sql.getNewsListR]
@@ -654,12 +651,14 @@ function my(req, res, uid, callback) {
             if(!info[0].Name){
                 res.redirect('/users/setting');
                 connection.release();
+                return false;
             }else{
                 mq.queries(sqls,[[uid, '%'], [uid],[uid],[uid],[uid],[uid],[uid]],function (err,results) {
                     if (err) {
                         //todo:错误处理
                         console.log('getOrder>>>>>>', err.message);
                         res.render('error');
+                        return false;
                     } else {
                         if(results[1].length>0){
                             req.session.face = results[1][0].Face;
@@ -668,25 +667,24 @@ function my(req, res, uid, callback) {
                         }else{
                             haveCard=false;
                         }
+                        console.log('results[6]>>>>>>',results[6])
+                        callback({
+                            card: results[1][0],
+                            haveCard: haveCard,
+                            order0: results[0],
+                            user:results[2][0],
+                            save:results[3],
+                            newsO:results[4],
+                            newsM:results[5],
+                            newsR:results[6],
+                        })
                     }
-                    console.log('results[5]>>>>>>',results[5])
-                    callback({
-                        card: results[1][0],
-                        haveCard: haveCard,
-                        order0: results[0],
-                        user:results[2][0],
-                        save:results[3],
-                        newsO:results[4],
-                        newsM:results[5],
-                        newsR:results[6],
-                    })
                 })
             }
         });
     });
 
 }
-
 function ta(req, res) {
 
     let sqls=[$sql.getOrder0,$sql.getSetting,$sql.saveContent];
@@ -708,7 +706,6 @@ function ta(req, res) {
         }
     })
 }
-
 function getOrder(req, res, uid) {
     let type = req.query.otype, sql = $sql.getOrder0;
     if (req.query.order == 1) {
@@ -731,7 +728,6 @@ function getOrder(req, res, uid) {
         })
     })
 }
-
 function order(req, res, uid) {
     let sqls=[$sql.addOrder,$sql.addNews];
 
@@ -829,7 +825,7 @@ function newsDetail(req, res) {
         else {
             res.render('newsDetail',{
                 code: 200,
-                news:results[0][0],
+                news:results[0],
                 type:type  //0留言、1回复、2谁在租我、3订单确认
             })
         }
