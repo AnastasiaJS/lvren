@@ -19,7 +19,7 @@
             <li class="tap" id="filter-order0" onclick="fliterOrder('0')"><a title="待确认">待确认</a></li>
             <li class="tap" id="filter-order1" onclick="fliterOrder('1')"><a title="待付款">待付款</a></li>
             <li class="tap" id="filter-order2" onclick="fliterOrder('2')"><a title="待见面">待见面</a></li>
-            <li class="tap" id="filter-order3" onclick="fliterOrder('3')"><a title="待评价">待评价</a></li>
+            <li class="tap" id="filter-order3" onclick="fliterOrder('3')"><a title="待评价">已完成</a></li>
         </ul>
         <div id="order-filter"></div>
         <div id="order-man">
@@ -64,8 +64,14 @@
                     <%if(order0[i].State==1){%>
                     <a class="btn comment_order" id="fukuan<%=order0[i].Oid%>" onclick="alipay('<%=order0[i].Oid%>','<%=order0[i].Appointment%>','<%=order0[i].Price%>')">付款</a>
                     <%}%>
+                    <%if(order0[i].State==2){%>
+                    <button class="btn comment_order" id="btn-pingjia<%=order0[i]%>" onclick="openPingjia('<%=order0[i].Oid%>')">评价</button>
+                    <%}%>
                     <%if(order0[i].State==3){%>
-                    <a class="btn comment_order">评价</a>
+                    <button class="btn comment_order" id="btn-getping<%=order0[i]%>"
+                            onclick="getPingjia(
+                    '<%=order0[i].Oid%>'
+                     )">查看评价</button>
                     <%}%>
                     <a class="btn delete_order"id="del<%=order0[i].Oid%>" onclick="delOrder('<%=order0[i].Oid%>')">删除订单</a>
                 </div>

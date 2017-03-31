@@ -243,6 +243,9 @@ textarea {
   margin-bottom: 0.5rem;
   border: none; }
 
+button {
+  border: none; }
+
 img {
   object-fit: cover; }
 

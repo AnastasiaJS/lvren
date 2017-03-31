@@ -96,20 +96,6 @@ function changeOrder(n) {
         $("#order-filter").html('');
         $("#order-default").css("display", "none");
         $("#order-man").css("display", "block");
-        // if (n == 0) {
-        //     queren = `<span class="font_c" style="color:red">去联系Ta</span>>`
-        // } else if (n == 1) {
-        //     btn = ``;
-        //     queren = '<span class="font_c" style="color:red">未付款</span>>'
-        // } else if (n == 2) {
-        //     queren = `<span class="font_c" style="color: green">已付款</span>>`
-        // } else if (n == 3) {
-        //     btn = ``
-        //     queren = `<span class="font_c" style="color: green">已完成</span>>`
-        // }
-        // if (n == 4) {
-        //     queren = `<span class="font_c">已取消</span>>`
-        // }
         fliterOrder('-1')
     }
 }
@@ -121,7 +107,7 @@ function fliterOrder(n) {
     }
     $("#filter-order" + n).addClass('on');
     if (sessionStorage.order == 0) {
-/*我在租谁===========================*/
+        /*我在租谁===========================*/
         $.get(`/users/getOrder?order=${sessionStorage.order}&otype=${n}`, function (data) {
             if (200 === data.code) {
                 let order = data.order;
@@ -138,9 +124,10 @@ function fliterOrder(n) {
                         btn = `<a class="btn comment_order" id="fukuan${order[i].Oid}" onclick="alipay('${order[i].Oid}','${order[i].Appointment}','${order[i].Price}')">付款</a>`;
                         queren = ''
                     } else if (state == 2) {
+                        btn = `<a class="btn comment_order" id="pingjia${order[i].Oid}" )">评价</a>`;
                         queren = `<span class="font_c" style="color: green">已付款</span>`
                     } else if (state == 3) {
-                        btn = `<a class="btn comment_order">评价</a>`
+                        btn = `<button onclick="openPingjia(${order[i].Oid})" class="btn comment_order">查看评价</button>`
                         queren = `<span class="font_c" style="color: green">已完成</span>`
                     } else if (n == state) {
                         queren = `<span class="font_c">已取消</span>`
@@ -184,7 +171,7 @@ function fliterOrder(n) {
             }
         })
     }
-        /*我在租谁+++++++++++++++++++++++++++++++++++*/
+    /*谁在租我+++++++++++++++++++++++++++++++++++*/
     else {
         $("#order-filter").html('');
         $.get(`/users/getOrder?order=${sessionStorage.order}&otype=${sessionStorage.otype}`, function (data) {
@@ -194,8 +181,8 @@ function fliterOrder(n) {
                 $("#order-default").css("display", "none");
                 $("#order-man").html('');
                 for (var i = 0; i < order.length; i++) {
-                    appointment=`<p class="orderTime">预约时间：${order[i].Appointment} </p>`;
-                    price=`<div class="price">商议价格：<span class="money">￥ <b>${order[i].Price}</b></span></div>`
+                    appointment = `<p class="orderTime">预约时间：${order[i].Appointment} </p>`;
+                    price = `<div class="price">商议价格：<span class="money">￥ <b>${order[i].Price}</b></span></div>`
                     if (order[i].State == '0') {
                         btn = `<a class="btn comment_order" id="queren${order[i].Oid}" onclick="queren('${order[i].Oid}','${order[i].Price}','${order[i].Appointment}')">确认</a>`;
                         queren = "";
@@ -206,7 +193,7 @@ function fliterOrder(n) {
                         btn = '';
                         queren = `<span class="font_c" style="color: green">在约定的时间地点和对方见面吧</span>`
                     } else if (order[i].State == '3') {
-                        btn = `<a class="btn comment_order">评价</a>`;
+                        btn = `<a class="btn comment_order" onclick="getPingjia('${order[i].Oid}')">查看评价</a>`;
                         queren = `<span class="font_c" style="color: green">已完成</span>`
                     }
                     if (order[i].State == '4') {
@@ -244,76 +231,144 @@ function fliterOrder(n) {
 }
 /*删除订单*/
 function delOrder(oid) {
-    layer.confirm('确定删除订单？',function () {
-        $.get(`/users/delOrder?oid=${oid}`,function (data) {
-            if(data.code==200){
-                $(`#del${oid}`).attr('disabled',true);
-                $(`#fukuan${oid}`).attr('disabled',true);
-                $(`#queren${oid}`).attr('disabled',true);
-                $(`#del${oid}`).css('background','#eee').css('color','#999').css('cursor','not-allowed')
-                
+    layer.confirm('确定删除订单？', function () {
+        $.get(`/users/delOrder?oid=${oid}`, function (data) {
+            if (data.code == 200) {
+                $(`#del${oid}`).attr('disabled', true);
+                $(`#fukuan${oid}`).attr('disabled', true);
+                $(`#queren${oid}`).attr('disabled', true);
+                $(`#del${oid}`).css('background', '#eee').css('color', '#999').css('cursor', 'not-allowed')
+
                 $(`#del${oid}`).html('订单已删除');
                 layer.alert("订单删除成功", {icon: 1})
-            }else{
+            } else {
                 layer.alert("服务器连接失败，请稍后~", {icon: 5})
             }
         })
     })
 
 }
-/*联系ta*/
+/*评价订单*/
+function openPingjia(oid) {
+    let content = `<div class="div-pingjia">
+    <h2>评价Ta</h2>
+    <form action="javascsript:;" id="frm-pingjia">
+    <textarea name="pingjia" id="">
+</textarea>
+<button class="btn comment_order" id="btn-pingjia${oid}">完成</button>
+</form>
+</div>`;
+    layer.open({
+        type: 1,
+        title: false,
+        area: ['600px', '400px'], //宽高
+        content: content
+    });
+    $("#btn-pingjia" + oid).click(function () {
+        let formdata = new FormData($('#frm-pingjia')[0]);
+        formdata.append('oid', oid)
+        $.ajax({
+            url: '/users/pingjia',
+            type: 'POST',
+            data: formdata,
+            async: true,
+            cache: false,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                layer.load(1, {time: 5000});
+                // 禁用按钮防止重复提交，发送前响应
+                $("#btn-pingjia" + oid).attr({disabled: "disabled"});
+            },
+            success: function (data) {
+                layer.closeAll();
+                if (200 === data.code) {
+                    layer.alert('完成评价！');
+                    $("#btn-pingjia"+oid).text("查看评价");
+                } else {
+                    layer.alert("评价失败，请稍后")
+                }
+            },
+            complete: function () {//完成响应
+                $("#btn-pingjia" + oid).removeAttr("disabled");
+            },
+            error: function () {
+                layer.alert("与服务器通信发生错误!")
+            }
+        });
+    })
+}
+function getPingjia(oid) {
+    let title='你对Ta的评价：';
+    if (sessionStorage.order == "1") {
+        title='Ta对你的评价：'
+    }
+    layer.alert('',{
+        type: 1,
+        title:title,
+        skin: 'layui-layer-molv', //样式类名
+        area: ['600px', '200px'], //宽高
+        id:'div-pj'
+    });
+    $.get(`/users/pingjia?oid=${oid}`,function (data) {
+        if(data.code==200){
+            $('#div-pj').text(data.pingjia[0].Pingjia);
+        }
+    })
+}
 
- function connectTa(wechat,anhao) {
-     layer.open({
-         type: 1
-         ,title: '马上联系Ta' //不显示标题栏
-         // ,closeBtn: true
-         ,area: '300px;'
-         ,shade: 0.8
-         ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
-         ,resize: false
-         ,btn: ['好的','先休息一下']
-         ,btnAlign: 'c'
-         ,moveType: 1 //拖拽模式，0或者1
-         ,content: `<p style="text-align: center">对方微信：${wechat}</p><p style="text-align: center">微信暗号：${anhao}</p>
+/*联系ta*/
+function connectTa(wechat, anhao) {
+    layer.open({
+        type: 1
+        , title: '马上联系Ta' //不显示标题栏
+        // ,closeBtn: true
+        , area: '300px;'
+        , shade: 0.8
+        , id: 'LAY_layuipro' //设定一个id，防止重复弹出
+        , resize: false
+        , btn: ['好的', '先休息一下']
+        , btnAlign: 'c'
+        , moveType: 1 //拖拽模式，0或者1
+        , content: `<p style="text-align: center">对方微信：${wechat}</p><p style="text-align: center">微信暗号：${anhao}</p>
                     <p style="text-align: center;color:#f00">(双方沟通约定具体见面时间地点)</p>`
-         ,success: function(layero){
-             var btn = layero.find('.layui-layer-btn');
-             btn.find('.layui-layer-btn0').attr({
-                 href: 'https://wx.qq.com/'//微信网页端
-                 ,target: '_blank'
-             });
-         }
-     });
- }
+        , success: function (layero) {
+            var btn = layero.find('.layui-layer-btn');
+            btn.find('.layui-layer-btn0').attr({
+                href: 'https://wx.qq.com/'//微信网页端
+                , target: '_blank'
+            });
+        }
+    });
+}
 
 /*付款*/
-function alipay(oid,appointment,price) {
+function alipay(oid, appointment, price) {
     layer.msg('正跳转支付界面', {
         icon: 16
-        ,shade: 0.01
+        , shade: 0.01
     });
     setTimeout(function () {
-        $.get(`/users/changeState?oid=${oid}&state=2&appointment=${appointment}&price=${price}`,function(data){
-            if(data.code==200){
-                $(`#fukuan${oid}`).attr('disabled',true);
-                $(`#fukuan${oid}`).css('background','#eee').css('color','#999').css('cursor','not-allowed')
+        $.get(`/users/changeState?oid=${oid}&state=2&appointment=${appointment}&price=${price}`, function (data) {
+            if (data.code == 200) {
+                $(`#fukuan${oid}`).attr('disabled', true);
+                $(`#fukuan${oid}`).css('background', '#eee').css('color', '#999').css('cursor', 'not-allowed')
                 $(`#fukuan${oid}`).html('已付款');
                 layer.msg('付款成功，等待与对方见面', {icon: 1});
-            }else{
+            } else {
                 layer.alert('付款出错!', {icon: 5});
             }
         })
-    },3000)
+    }, 3000)
 
 }
 /*确认订单*/
-function queren(oid,price,appointment){
+function queren(oid, price, appointment) {
     layer.confirm('确认订单？', {
         skin: 'layui-layer-molv', //样式类名
-        btn: ['确认','重新选择预约时间'] //按钮
-        ,id: 'querenDiolog' //设定一个id，防止重复弹出
-        ,content: `<small style="color:#393D49;margin-bottom: 1em">提示:根据双方的沟通后的结果填写</small><br>
+        btn: ['确认', '重新选择预约时间'] //按钮
+        , id: 'querenDiolog' //设定一个id，防止重复弹出
+        , content: `<small style="color:#393D49;margin-bottom: 1em">提示:根据双方的沟通后的结果填写</small><br>
                     <label for="changePrice" style="display: inline-block">预约时间：</label>
                                     <input id="changeTime" class="input" onclick="laydate({
                                                 istime:true,
@@ -325,20 +380,20 @@ function queren(oid,price,appointment){
                                     name="appointment" value="${appointment}"/>
                                     <label for="changePrice" style="display: inline-block">商议价格：</label>
                                     <input type="number" id='changePrice' class="input"  value="${price}"/>`
-    }, function(){
-        let appointment=$('#changeTime').val(),price=$('#changePrice').val();
-        $.get(`/users/changeState?oid=${oid}&state=1&appointment=${appointment}&price=${price}`,function(data){
-            if(data.code==200){
-                $(`#queren${oid}`).attr('disabled',true);
-                $('#changeTime').css('cursor','not-allowed');
-                $(`#queren${oid}`).css('background','#eee').css('color','#999').css('cursor','not-allowed')
+    }, function () {
+        let appointment = $('#changeTime').val(), price = $('#changePrice').val();
+        $.get(`/users/changeState?oid=${oid}&state=1&appointment=${appointment}&price=${price}`, function (data) {
+            if (data.code == 200) {
+                $(`#queren${oid}`).attr('disabled', true);
+                $('#changeTime').css('cursor', 'not-allowed');
+                $(`#queren${oid}`).css('background', '#eee').css('color', '#999').css('cursor', 'not-allowed')
                 $(`#queren${oid}`).html('已确认');
                 layer.msg('已确认', {icon: 1});
-            }else{
+            } else {
                 layer.alert('修改出错!', {icon: 5});
             }
         })
-    }, function(){
+    }, function () {
         /*取消的callback*/
     });
 }
@@ -347,21 +402,21 @@ function collect(tid) {
     let _this = $(`#collect${tid} img`);
     if (_this.attr('src') == "/icon/collection2.png") {
 
-        $.get('/card/save?tid='+tid,function (data) {
-                if(data.code==200){
-                    _this.attr('src', '/icon/collection.png');
-                    $("#collect small").text('喜欢')
-                }else{
-                    layer.alert('与服务器连接出错！')
-                }
+        $.get('/card/save?tid=' + tid, function (data) {
+            if (data.code == 200) {
+                _this.attr('src', '/icon/collection.png');
+                $("#collect small").text('喜欢')
+            } else {
+                layer.alert('与服务器连接出错！')
+            }
         })
     } else {
-        let index=layer.confirm('确定取消收藏？',function (index) {
-            $.get('/card/cancelsave?tid='+tid,function (data) {
-                if(data.code==200){
+        let index = layer.confirm('确定取消收藏？', function (index) {
+            $.get('/card/cancelsave?tid=' + tid, function (data) {
+                if (data.code == 200) {
                     _this.attr('src', "/icon/collection2.png")
                     $("#collect small").text('不喜欢')
-                }else{
+                } else {
                     layer.alert('与服务器连接出错！')
                 }
             })
@@ -375,18 +430,18 @@ $("#msg .title a").click(function () {
     let siblings = $(this).siblings();
     $(siblings).removeClass('on');
     $(this).addClass('on');
-    if($(this).text()==='订单'){
-        $('#msg .inner-news').css('display','none');
-        $('#msg .reply-news').css('display','none');
-        $('#msg .user-news').css('display','block');
-    }else if($(this).text()==='回复'){
-        $('#msg .reply-news').css('display','block');
-        $('#msg .inner-news').css('display','none');
-        $('#msg .user-news').css('display','none');
-    }else {
-        $('#msg .reply-news').css('display','none');
-        $('#msg .inner-news').css('display','block');
-        $('#msg .user-news').css('display','none');
+    if ($(this).text() === '订单') {
+        $('#msg .inner-news').css('display', 'none');
+        $('#msg .reply-news').css('display', 'none');
+        $('#msg .user-news').css('display', 'block');
+    } else if ($(this).text() === '回复') {
+        $('#msg .reply-news').css('display', 'block');
+        $('#msg .inner-news').css('display', 'none');
+        $('#msg .user-news').css('display', 'none');
+    } else {
+        $('#msg .reply-news').css('display', 'none');
+        $('#msg .inner-news').css('display', 'block');
+        $('#msg .user-news').css('display', 'none');
     }
 });
 
@@ -428,11 +483,11 @@ function setting() {
         success: function (data) {
             if (200 === data.code) {
                 layer.confirm('保存成功!', {
-                    btn: ['个人主页','去首页'] //按钮
-                }, function(){
-                    location.href='/users'
-                },function () {
-                    location.href='/'
+                    btn: ['个人主页', '去首页'] //按钮
+                }, function () {
+                    location.href = '/users'
+                }, function () {
+                    location.href = '/'
                 });
             } else {
                 layer.alert("设置失败,网络速度不佳!")

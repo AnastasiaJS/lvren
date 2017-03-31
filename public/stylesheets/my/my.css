@@ -260,4 +260,16 @@
   color: #393D49;
   font-weight: 300; }
 
+.div-pingjia {
+  text-align: center; }
+
+#div-pj {
+  text-align: center;
+  line-height: 4rem; }
+
+#frm-pingjia {
+  width: 80%;
+  height: 200px;
+  margin: auto; }
+
 /*# sourceMappingURL=my.css.map */

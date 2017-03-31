@@ -20,10 +20,18 @@ var card = {
     updateCard:'UPDATE tourcard SET Title=?,About=?,Addr=?,Price=?,CanCut=?,Play=?,Other=?,AppointTime=?,AboutPrice=?,Face=?,Photos=?,Sort=? WHERE Uid=?',
     updateUser:'UPDATE `user` SET `Name`=?,Gender=?,Birthday=?,IDCard=?,Job=?,Tellphone=?,Wechat=?,Anhao=?,Zhifubao=?,HeadPic=?,Intro=? WHERE Uid=?',
     addOrder:'INSERT INTO `order`(Tid,Uid,State,Appointment,price) VALUES(?,?,?,?,?)',
-    getOrder0:'SELECT date_format(OrderTime,"%Y-%c-%d %H:%i") OrderTime,State,Oid,`order`.Price Price,Tid,Addr,Anhao,Wechat,`Name`,tourcard.Uid Uid,Face,Title,Addr,Appointment FROM `order`,tourcard,`user` WHERE `order`.Tid=tourcard.Uid AND tourcard.Uid=`user`.Uid AND `order`.Uid=? AND State LIKE ? ORDER BY Oid DESC',
-    getOrder1:'SELECT date_format(OrderTime,"%Y-%c-%d %H:%i") OrderTime,State,Oid,`order`.Price Price,Tid,Addr,Anhao,Wechat,`Name`,HeadPic,`user`.Uid,Appointment FROM `order`,`user`,tourcard WHERE `order`.Uid=`user`.Uid AND tourcard.Uid=`order`.Tid AND `order`.Tid=? AND State LIKE ? ORDER BY Oid DESC',
+    getOrder0:'SELECT date_format(OrderTime,"%Y-%c-%d %H:%i") OrderTime,State,Oid,`order`.Price Price,Tid,Addr,Anhao,Wechat,`Name`,tourcard.Uid Uid,Face,Title,Addr,Appointment FROM `order`,tourcard,`user` ' +
+    'WHERE `order`.Tid=tourcard.Uid AND tourcard.Uid=`user`.Uid AND `order`.Uid=? AND State LIKE ? ' +
+    'ORDER BY Oid DESC',//我在租谁
+    getOrder1:'SELECT date_format(OrderTime,"%Y-%c-%d %H:%i") OrderTime,State,Oid,`order`.Price Price,Tid,Addr,Anhao,Wechat,`Name`,HeadPic,`user`.Uid,Appointment ' +
+    'FROM `order`,`user`,tourcard ' +
+    'WHERE `order`.Uid=`user`.Uid AND tourcard.Uid=`order`.Tid AND `order`.Tid=? AND State LIKE ? ' +
+    'ORDER BY Oid DESC',//谁在租我
     changeState:'UPDATE `order` SET State=?,Appointment=?,Price=? WHERE Oid=?',
+    changeState2:'UPDATE `order` SET State=? WHERE Oid=?',
     deleteOrder:'DELETE FROM `order` WHERE Oid=?',
+    addPingjia:'INSERT INTO pingjia(Pid,Pingjia) VALUES(?,?)',
+    getPingjia:'SELECT *FROM pingjia,`order` WHERE pingjia.Pid=`order`.Oid AND `order`.Oid=?',
     addsave:'INSERT INTO `save`(Uid,Tid) VALUES(?,?)',
     delsave:'DELETE FROM `save` WHERE Uid=? AND Tid=?',
     completeInfo:'SELECT `Name` from `user` WHERE Uid=?',

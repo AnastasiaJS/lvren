@@ -66,6 +66,16 @@ router.post('/order', multipart(), function (req, res, next) {
     userDao.order(req, res, uid)
 
 });
+router.get('/pingjia',function (req, res, next) {
+    let uid = req.session.uid;
+    userDao.getpingjia(req, res, uid)
+
+});
+router.post('/pingjia', multipart(), function (req, res, next) {
+    let uid = req.session.uid;
+    userDao.pingjia(req, res, uid)
+
+});
 router.get('/newsDetail',function (req,res) {
     if(!req.session.uid){
         res.send('请先登录');

@@ -653,6 +653,7 @@ function my(req, res, uid, callback) {
                 connection.release();
                 return false;
             }else{
+                connection.release();
                 mq.queries(sqls,[[uid, '%'], [uid],[uid],[uid],[uid],[uid],[uid]],function (err,results) {
                     if (err) {
                         //todo:错误处理
@@ -667,7 +668,6 @@ function my(req, res, uid, callback) {
                         }else{
                             haveCard=false;
                         }
-                        console.log('results[6]>>>>>>',results[6])
                         callback({
                             card: results[1][0],
                             haveCard: haveCard,
@@ -759,6 +759,60 @@ function order(req, res, uid) {
             }
             else if (results[0].affectedRows > 0) {
                 res.json({code: 200})
+            }
+        });
+}
+function pingjia(req,res,uid) {
+    let sqls=[$sql.addPingjia,$sql.changeState2];
+
+    mq.queries(sqls,[
+            [req.body.oid,req.body.pingjia],
+            [3,req.body.oid]],
+        {
+            skip:function(i, arg, results) {//skip判断是否忽略当前SQL的执行,返回true忽略,false不忽略
+                /*arg为当前sql的参数*/
+                let skip=false;
+                switch (i){
+                    case 1:{
+                        skip=results[0].affectedRows?false:true;
+                        break;
+                    }
+                }
+                return skip;
+            }
+        }, function(err, results){
+            if (err) {
+                console.log('addPingjia>>>>>>>', err);
+                res.json({code: 500, msg: err});
+            }
+            else if (results[0].affectedRows > 0 && results[1].affectedRows>0) {
+                res.json({code: 200})
+            }
+        });
+}
+function getpingjia(req,res,uid) {
+    let sqls=[$sql.getPingjia];
+    mq.queries(sqls,[
+            [req.query.oid]],
+        {
+            skip:function(i, arg, results) {//skip判断是否忽略当前SQL的执行,返回true忽略,false不忽略
+                /*arg为当前sql的参数*/
+                let skip=false;
+                // switch (i){
+                //     case 1:{
+                //         skip=results[0].affectedRows?false:true;
+                //         break;
+                //     }
+                // }
+                return skip;
+            }
+        }, function(err, results){
+            if (err) {
+                console.log('getpingjia>>>>>>>', err);
+                res.json({code: 500, msg: err});
+            }
+            else {
+                res.json({code: 200,pingjia:results[0]})
             }
         });
 }
@@ -886,6 +940,10 @@ exports.order = order;
 /*用户下单*/
 exports.getOrder = getOrder;
 /*订单查询*/
+exports.pingjia = pingjia;
+/*评价*/
+exports.getpingjia = getpingjia;
+/*评价*/
 exports.changeState = changeState;
 /*改变订单状态*/
 exports.delOrder = delOrder;
