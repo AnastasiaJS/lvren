@@ -837,18 +837,44 @@ function getpingjia(req,res,uid) {
         });
 }
 function changeState(req, res) {
-    pool.getConnection(function (err, connection) {
-        connection.query($sql.changeState, [req.query.state, req.query.appointment, req.query.price, req.query.oid], function (err, result) {
+    let sqls=[$sql.changeState];
+
+    mq.queries(sqls,[
+            [req.query.state, req.query.appointment, req.query.price, req.query.oid],
+            ],
+        {
+            skip:function(i, arg, results) {//skip判断是否忽略当前SQL的执行,返回true忽略,false不忽略
+                /*arg为当前sql的参数*/
+                let skip=false;
+                // switch (i){
+                //     case 1:{
+                //         // skip=results[0].affectedRows?false:true;
+                //         if(results[0].affectedRows){/*如果第一条sql被执行，第一条的结果id作为第二条的参数*/
+                //             arg[1]='O'.concat(req.query.oid);
+                //             skip=false;
+                //         }else{
+                //             skip=true;
+                //         }
+                //         if(req.query.state==1){
+                //             arg[0]=3
+                //
+                //         }else if(req.query.state==2){
+                //             arg[0]=4
+                //         }
+                //         break;
+                //     }
+                // }
+                return skip;
+            }
+        }, function(err, results){
             if (err) {
                 console.log('changeState>>>>>>>', err);
                 res.json({code: 500, msg: err});
             }
-            else if (result.affectedRows > 0) {
+            else if (results[0].affectedRows > 0) {
                 res.json({code: 200})
             }
-            connection.release();
-        })
-    })
+        });
 }
 function delOrder(req, res,uid) {
     pool.getConnection(function (err, connection) {
@@ -858,9 +884,16 @@ function delOrder(req, res,uid) {
                 res.json({code: 500, msg: err});
             }
             else if (result.affectedRows > 0) {
-                res.json({code: 200})
+                connection.query($sql.deleteNews,['O'+req.query.oid],function (err,delO) {
+                    if(err){
+                        res.render('error')
+                    }else if(delO.affectedRows){
+                        res.json({code: 200})
+                    }
+                    connection.release();
+                });
+                // res.json({code:500})
             }
-            connection.release();
         })
     })
 }

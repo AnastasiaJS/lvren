@@ -30,17 +30,19 @@ var card = {
     changeState: 'UPDATE `order` SET State=?,Appointment=?,Price=? WHERE Oid=?',
     changeState2: 'UPDATE `order` SET State=? WHERE Oid=?',
     deleteOrder: 'DELETE FROM `order` WHERE Oid=?',
+    deleteNews: 'DELETE FROM `news` WHERE Nid=?',
     addPingjia: 'INSERT INTO pingjia(Pid,Pingjia) VALUES(?,?)',
     getPingjia: 'SELECT *FROM pingjia,`order` WHERE pingjia.Pid=`order`.Oid AND `order`.Oid=?',
     addsave: 'INSERT INTO `save`(Uid,Tid) VALUES(?,?)',
     delsave: 'DELETE FROM `save` WHERE Uid=? AND Tid=?',
     completeInfo: 'SELECT `Name` from `user` WHERE Uid=?',
     addNews: 'INSERT INTO news(Nid,Uid,Tid,Type) VALUES(?,?,?,?)',
+    setNewsQueren:'UPDATE news SET Flag=0,Type=? WHERE Nid=?',
     getNewsListO: 'SELECT *,date_format(Ntime,"%Y-%c-%d %H:%i") Ntime FROM news WHERE Tid=?  AND Type=2  ORDER BY Ntime DESC',
     getNewsListM: 'SELECT *,date_format(Ntime,"%Y-%c-%d %H:%i") Ntime FROM news WHERE Tid=?  AND Type=0  ORDER BY Ntime DESC',
     getNewsListR: 'SELECT *,date_format(Ntime,"%Y-%c-%d %H:%i") Ntime FROM news,message,(SELECT DISTINCT *,CONCAT("R",reply.Rid) id FROM reply) r WHERE news.Nid =r.id AND r.mid=message.Mid and message.Uid=? AND Type=1  ORDER BY Ntime DESC',
     saveContent: 'SELECT *,date_format(Uptime,"%Y-%c-%d %H:%i") Uptime FROM save,tourcard,`user` WHERE save.Tid=tourcard.Uid AND `user`.Uid=tourcard.Uid AND save.Uid=?',
-    getNewsOrder1: 'SELECT *,date_format(OrderTime,"%Y-%c-%d %H:%i") OrderTime FROM `order`,`user` WHERE `order`.Oid=? AND `user`.Uid=`order`.Tid',//租我的消息
+    getNewsOrder1: 'SELECT *,date_format(OrderTime,"%Y-%c-%d %H:%i") OrderTime FROM `order`,`user` WHERE `order`.Oid=? AND `user`.Uid=`order`.Uid',//租我的消息
     getNewsOrder2: 'SELECT *,date_format(OrderTime,"%Y-%c-%d %H:%i") OrderTime FROM `order`,news WHERE Nid=Oid AND `order`.Uid=?',//订单确认信息
     getNewsMsg: 'SELECT *,date_format(message.Mtime,"%Y-%c-%d %H:%i") Mtime FROM message,tourcard,`user` WHERE tourcard.Uid=message.Tid AND `user`.Uid=message.Uid AND message.Mid=?',
     getNewsRep: 'SELECT *,date_format(message.Mtime,"%Y-%c-%d %H:%i") Mtime,date_format(reply.Rtime,"%Y-%c-%d %H:%i") Rtime FROM reply,`user`,message WHERE reply.Mid=message.Mid and  message.Mid=? AND reply.Uid=`user`.Uid',
