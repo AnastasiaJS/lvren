@@ -36,7 +36,7 @@
     }
     .card-footer {
       position: absolute;
-      bottom: 1em;
+      bottom: 3em;
       display: flex;
       align-items: center;
       width: 100%;
@@ -116,5 +116,17 @@
         }
       }
     }
+  }
+}
+.card-footer2{
+  position: absolute;
+  bottom: 1em;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-around;
+  text-align: left;
+  div {
+    flex: 1;
   }
 }

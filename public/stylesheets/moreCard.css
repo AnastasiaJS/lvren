@@ -33,7 +33,7 @@
         margin: 1em auto; }
       #more-cards .main .card .card-footer {
         position: absolute;
-        bottom: 1em;
+        bottom: 3em;
         display: flex;
         align-items: center;
         width: 100%;
@@ -83,5 +83,16 @@
           border: dashed 1px #ddd; }
           #more-cards .pagination ul .page-normal .page-disable :hover {
             border: none; }
+
+.card-footer2 {
+  position: absolute;
+  bottom: 1em;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-around;
+  text-align: left; }
+  .card-footer2 div {
+    flex: 1; }
 
 /*# sourceMappingURL=moreCard.css.map */

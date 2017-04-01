@@ -59,6 +59,20 @@
 
                 </div>
             </div>
+            <% let s='自然';
+            switch(face[i].Sort){
+            case 0:s='自然';break;
+            case 1:s='人文';break;
+            case 2:s='传统饮食';break;
+            case 3:s='都市';break;
+            case 4:s='田园风光';break;
+            case 5:s='文化与工艺';break;
+            }
+            %>
+            <div class="card-footer2" style="color: #999">
+                <div><span ><%=face[i].Uptime%></span></div>
+                <div style="text-align: center"><span >类别：<%=s%></span></div>
+            </div>
         </div>
         <%}%>
 

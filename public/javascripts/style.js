@@ -84,7 +84,6 @@ function openLogin() {
                 success: function (data) {
                     if (data.code == 200) {
                         $("#log-tip").text(data.msg);
-                        console.log(data.url);
                         /*若登录前在某个card详情页则前往该页，否则到首页*/
                         if (data.url) {
                             location.href = data.url;

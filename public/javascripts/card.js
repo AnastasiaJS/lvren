@@ -229,10 +229,15 @@ function comment(tid) {
     });
 }
 function shareCard(title, face, name) {
-    console.log(face)
-    window.sharetitle = `分享了${name}的“${title}”\n （来自旅人网）`;
-    window.shareUrl = face;
-    share();
+    $.get('/isLogin',function (data) {
+        if(data.code==200){
+            window.sharetitle = `分享了${name}的“${title}”\n （来自旅人网）`;
+            window.shareUrl = face;
+            share();
+        }else{
+            layer.alert('请先登录')
+        }
+    })
 }
 function share() {
     //d指的是window

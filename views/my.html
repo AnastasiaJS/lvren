@@ -13,7 +13,7 @@
     <link rel='stylesheet' href="/stylesheets/my/collection.css"/>
     <link rel='stylesheet' href="/stylesheets/my/msg.css"/>
     <style>
-        #menu{
+        #menu {
             background: #fff;
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2)
         }
@@ -40,7 +40,17 @@
                 <li class="active" id="tab1">订单</li>
                 <li id="tab2">旅人卡</li>
                 <li id="tab3">喜欢</li>
-                <li id="tab4">消息</li>
+                <%
+                let m=newsM.filter((item)=>item.Flag==0)
+                let r=newsR.filter((item)=>item.Flag==0)
+                let o=newsO.filter((item)=>item.Flag==0)
+                let flagNum=m.length+r.length+o.length;
+                %>
+                <li id="tab4">消息
+                    <% if(flagNum){%>
+                    <small><%=flagNum%></small>
+                    <%}%>
+                </li>
             </ul>
         </div>
     </div>
@@ -50,7 +60,7 @@
         <%- include ./my/order.html%>
         <!--card模块-->
         <%
-            if(haveCard){
+        if(haveCard){
         %>
         <%- include ./my/card.html%>
         <%}else{%>
