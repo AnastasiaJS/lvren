@@ -180,6 +180,16 @@ header {
     border: solid 2px lightcoral;
     vertical-align: middle;
   }
+  #tip{
+    display: none;
+    width: 0.5em;
+    height: 0.5em;
+    background: red;
+    border-radius: 50%;
+    position: relative;
+    top: -0.8em;
+    left: -2.8em;
+  }
 }
 
 footer {

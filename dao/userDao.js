@@ -492,10 +492,10 @@ function login(req, res) {
                         res.render("error");
                     }
                     else {
-                        console.log(JSON.stringify(result));
+                        // console.log(JSON.stringify(result));
                         if (result.length > 0) {
                             req.session.uid = result[0].Uid;
-                            console.log('login ok');
+                            // console.log('login ok');
                             res.json({
                                 code: 200,
                                 msg: "登录成功",
@@ -614,27 +614,47 @@ function register(req, res) {
     })
 }
 function isLogin(req, res) {
-    if (req.session.uid) {
-        //若已登录返回用户相关信息
-        //todo:判断用户信息填写是否完善
-        pool.getConnection(function (err, connection) {
-            connection.query($sql.user, [req.session.uid], function (err, result) {
-                if (err) {
-                    res.render("error");
-                }
-                else if (result) {
-                    req.session.uid = result[0].Uid;
-                    res.json({code: 200,user:result[0], nickname: result[0].Uid})
-                }
-                else {
-                    res.json({code: 500})
-                }
-                connection.release();
-            });
-        })
-    } else {
-        res.json({code: 500})
-    }
+    let sqls=[$sql.user,$sql.getNewsNum1,$sql.getNewsNum2,$sql.getNewsNum3];
+    mq.queries(sqls,[
+        [req.session.uid],
+        [req.session.uid],
+        [req.session.uid],
+        [req.session.uid],
+    ],function (err,results) {
+        console.log(results)
+        if (err) {
+            res.render("error");
+        }
+        else if (results[0].length) {
+            console.log(results[0]);
+            req.session.uid = results[0][0].Uid;
+            res.json({code: 200,user:results[0][0],newsNum:results[1][0].num+results[2][0].num+results[3][0].num})
+        }
+        else {
+            res.json({code: 500})
+        }
+    });
+        // if (req.session.uid) {
+        //     //若已登录返回用户相关信息
+        //     //done:判断用户信息填写是否完善
+        //     pool.getConnection(function (err, connection) {
+        //         connection.query(, [req.session.uid], function (err, result) {
+        //             if (err) {
+        //                 res.render("error");
+        //             }
+        //             else if (result) {
+        //                 req.session.uid = result[0].Uid;
+        //                 res.json({code: 200,user:result[0], nickname: result[0].Uid})
+        //             }
+        //             else {
+        //                 res.json({code: 500})
+        //             }
+        //             connection.release();
+        //         });
+        //     })
+        // } else {
+        //     res.json({code: 500})
+        // }
 }
 function logout(req, res) {
     req.session.uid = null;

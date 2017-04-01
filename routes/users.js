@@ -5,7 +5,6 @@ var userDao = require('./../dao/userDao');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    //  tid=uid;
     let uid = req.session.uid;
     if(!uid){
         res.send('请先登录');
@@ -16,7 +15,6 @@ router.get('/', function (req, res, next) {
     })
 });
 router.get('/getOrder', function (req, res, next) {
-    //  tid=uid;
     let uid = req.session.uid;
     userDao.getOrder(req,res,uid,function (data) {
         res.render('my',data)

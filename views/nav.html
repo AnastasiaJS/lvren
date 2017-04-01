@@ -9,6 +9,7 @@
             <a href="/users" id="logined" style="display: none">
                 <img src="http://p3.music.126.net/IAZKcW9XEAD-3Ce7xscrWA==/3264450024529041.jpg?param=200y200" alt="">
                 <span id="nav-nickname"></span>
+                <div id="tip"></div>
             </a>
             <div class="dropdown-content">
                 <ul>
@@ -28,6 +29,9 @@
             $("#not-login").css("display", "none");
             $("#logined").css("display", "block");
             $("#nav-nickname").text(data.user.Name);
+            if(data.newsNum){
+                $("#tip").css("display", "inline-block");
+            }
             $("#logined img").attr('src',data.user.HeadPic);
         } else {
             $("#logined").css("display", "none");
