@@ -79,7 +79,6 @@ function openLogin() {
                     $('#log-tip').text('正在登录...');
                     // 禁用按钮防止重复提交，发送前响应
                     $("#btn-login").attr({disabled: "disabled"});
-
                 },
                 success: function (data) {
                     if (data.code == 200) {

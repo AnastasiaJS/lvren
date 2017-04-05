@@ -37,11 +37,8 @@ $("#facePic").change(function () {
 });
 $("#photos").change(function () {
     if (this.files.length < 4 || this.files.length > 6) {
-        toClick("#face-tip", function () {
-            $("#modal-tip").text("提示");
-            $("#face-tip-msg").text("请上传4~6张图片!");
-        })
-        return flag = false;
+        layer.alert("请上传4~6张图片!")
+        return  false;
     }
     else {
         //先清空所有photos
@@ -52,11 +49,8 @@ $("#photos").change(function () {
             var filepath = this.files[i];
             var ext = filepath.type.toUpperCase();
             if (ext != "IMAGE/BMP" && ext != "IMAGE/PNG" && ext != "IMAGE/GIF" && ext != "IMAGE/JPG" && ext != "IMAGE/JPEG") {
-                toClick("#face-tip", function () {
-                    $("#modal-tip").text("提示");
-                    $("#face-tip-msg").text("图片限于bmp,png,gif,jpeg,jpg格式!");
-                })
-                return flag = false;
+                layer.alert("图片限于bmp,png,gif,jpeg,jpg格式!")
+                return false;
             }
             var srcs = getObjectURL(this.files[i]);   //获取路径
             // $(`#li${i} img`).attr('src',srcs);
